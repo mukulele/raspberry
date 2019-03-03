@@ -7,4 +7,15 @@ apt-get -y install fhem
 wget -O fhemcl.sh https://raw.githubusercontent.com/heinz-otto/fhemcl/master/fhemcl.sh
 cat <<EOF | bash fhemcl.sh 8083
 attr initialUsbCheck disable 1
+attr WEB JavaScripts codemirror/fhem_codemirror.js
+attr WEB codemirrorParam { "theme":"blackboard", "lineNumbers":true }
+attr WEB plotfork 1
+attr WEB longpoll websocket
+attr global backup_before_update 1
+attr global commandref modular
+attr global title FHEM-Name
+attr global sendStatistics onUpdate
+attr global language de
 EOF
+#attr global latitude 51.xxxxxxxxxxxxx
+#attr global longitude 12.xxxxxxxxxxxxx
