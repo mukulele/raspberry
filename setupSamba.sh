@@ -11,8 +11,8 @@ cat <<EOF >> /etc/samba/smb.conf
 [SonosSpeak]
   comment = Audio-Files for SonosPlayer to Speak
   path = $spath
-  browsable =yes
-  guest ok yes
+  browsable = yes
+  guest ok = yes
   read only = no
 EOF
 
