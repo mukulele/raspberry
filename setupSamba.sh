@@ -1,5 +1,6 @@
 #!/bin/bash
 spath="/var/SonosSpeak"
+scomment="Audio-Files for SonosPlayer to Speak"
 apt-get install samba
 
 # Pfad erstellen
@@ -9,8 +10,8 @@ chmod 777 $spath
 # Share Definition in /etc/samba/smb.conf
 cat <<EOF >> /etc/samba/smb.conf
 [SonosSpeak]
-  comment = Audio-Files for SonosPlayer to Speak
-  path = $spath
+  comment = "$scomment"
+  path = "$spath"
   browsable = yes
   guest ok = yes
   read only = no
