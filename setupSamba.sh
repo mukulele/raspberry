@@ -1,7 +1,7 @@
 #!/bin/bash
 spath="/var/SonosSpeak"
 scomment="Audio-Files for SonosPlayer to Speak"
-apt-get install -Y samba
+apt-get -Y install samba
 
 # Pfad erstellen
 mkdir $spath
