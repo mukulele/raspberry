@@ -25,5 +25,9 @@ fi
 hostnamectl set-hostname $hname
 apt-get -y update
 apt-get -y upgrade
+
+# Password 
+# echo "linuxpassword" | passwd --stdin linuxuser
+
 # Reboot
 # reboot
