@@ -23,6 +23,7 @@ if [ -z $hname ]
 		fi
 fi
 hostnamectl set-hostname $hname
-
+apt-get -y update
+apt-get -y upgrade
 # Reboot
-reboot
+# reboot
