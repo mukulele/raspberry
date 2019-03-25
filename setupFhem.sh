@@ -3,8 +3,14 @@ wget -qO - http://debian.fhem.de/archive.key | apt-key add -
 echo "deb http://debian.fhem.de/nightly/ /" >> /etc/apt/sources.list
 apt-get update
 apt-get upgrade
-wget -O fhempack.txt https://raw.githubusercontent.com/heinz-otto/raspberry/master/fhempack.txt
-apt-get -y install $(cat fhempack.txt |tr -d "\r"|tr "\n" " ")
+# get additional Package Files
+wget -O fhemDeb.txt https://raw.githubusercontent.com/heinz-otto/raspberry/master/fhemDeb.txt
+wget -O fhemCpan.txt https://raw.githubusercontent.com/heinz-otto/raspberry/master/fhemCpan.txt
+# install debian packages
+apt-get -y install $(cat fhemDeb.txt |tr -d "\r"|tr "\n" " ")
+# install Cpan packages
+cpan install $(cat fhemCpan.txt |tr -d "\r"|tr "\n" " ")
+# Setup FHEM
 apt-get -y install fhem
 wget -O fhemcl.sh https://raw.githubusercontent.com/heinz-otto/fhemcl/master/fhemcl.sh
 cat <<EOF | bash fhemcl.sh 8083
