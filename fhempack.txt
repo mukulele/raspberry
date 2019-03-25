@@ -1,0 +1,14 @@
+avrdude
+libcrypt-cbc-perl
+libcrypt-ecb-perl
+libcrypt-rijndael-perl
+libdigest-md5-perl
+libimage-info-perl
+liblwp-useragent-determined-perl
+libmime-base64-perl
+libnet-telnet-perl
+libnet-upnp-perl
+libsoap-lite-perl
+libxml-parser-lite-perl
+libxml-parser-perl
+sendemail
