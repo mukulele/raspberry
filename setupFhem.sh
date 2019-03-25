@@ -3,6 +3,8 @@ wget -qO - http://debian.fhem.de/archive.key | apt-key add -
 echo "deb http://debian.fhem.de/nightly/ /" >> /etc/apt/sources.list
 apt-get update
 apt-get upgrade
+wget -O fhempack.txt https://raw.githubusercontent.com/heinz-otto/raspberry/master/fhempack.txt
+apt-get -y install $(cat fhempack.txt |tr -d "\r"|tr "\n" " ")
 apt-get -y install fhem
 wget -O fhemcl.sh https://raw.githubusercontent.com/heinz-otto/fhemcl/master/fhemcl.sh
 cat <<EOF | bash fhemcl.sh 8083
