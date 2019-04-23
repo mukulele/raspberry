@@ -3,7 +3,7 @@ exit # remove this line after configuration!
 # some basic setup for script names for files, folders, Server and user account
 fcred='smbcredentials'
 share='//Server1/Sicherung'
-mdir=/media/Sicherung
+mdir='/media/Sicherung'
 ############### Setup system part
 # create file with user account
 echo 'username=UserName' > /usr/.$fcred
