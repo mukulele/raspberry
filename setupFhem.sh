@@ -2,11 +2,11 @@
 #functions
 # getFile Filename RepositoryName
 function getFile {
-  if [ ! -e \$1 ]
+  if [ ! -e $1 ]
   then
-    echo "\$1 is missing"
-    wget https://raw.githubusercontent.com/heinz-otto/\$2/master/\$1
-    chmod +x \$1
+    echo "$1 is missing"
+    wget https://raw.githubusercontent.com/heinz-otto/$2/master/$1
+    chmod +x $1
   fi
 }  
 # von debian.fhem.de installieren - siehe aktuelle Anleitung dort https://debian.fhem.de/
