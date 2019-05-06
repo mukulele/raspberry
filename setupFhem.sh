@@ -1,6 +1,6 @@
 #!/bin/bash
 #functions
-# getFile Filename RepositoryName
+# getFile FileName RepositoryName
 function getFile {
   if [ ! -e $1 ]
   then
@@ -22,7 +22,7 @@ getFile fhemCpan.txt raspberry
 
 # install debian packages
 apt-get -y install $(cat fhemDeb.txt |tr -d "\r"|tr "\n" " ")
-# install Cpan packages
+# install cpan packages
 cpan install $(cat fhemCpan.txt |tr -d "\r"|tr "\n" " ")
 
 # Setup FHEM
