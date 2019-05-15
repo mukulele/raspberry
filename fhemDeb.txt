@@ -6,6 +6,7 @@ libdigest-md5-perl
 libimage-info-perl
 liblwp-useragent-determined-perl
 libmime-base64-perl
+libmp3-info-perl
 libnet-telnet-perl
 libnet-upnp-perl
 libsoap-lite-perl
