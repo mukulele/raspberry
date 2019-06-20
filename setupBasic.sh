@@ -5,12 +5,21 @@ hname=
 # Timezone
 timedatectl set-timezone Europe/Berlin
 
+# Set Country for WiFi
+iw reg set De
+# add first line for WiFi if not already there
+file= /etc/wpa_supplicant/wpa_supplicant.conf
+zn=$(sed -n '/country/=' $file) # ermittelt Zeilenummer mit country
+if [ -z $zn ]
+        then
+              sed -i '1 i\country=DE' $file
+fi
+
 # config the language to german
-sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen
-locale-gen
+localedef -f UTF-8 -i de_DE de_DE.UTF-8
 localectl set-locale LANG=de_DE.UTF-8 LANGUAGE=de_DE
-# add first line for wifi
-sed -i '1 i\country=DE' /etc/wpa_supplicant/wpa_supplicant.conf
+localectl set-keymap de
+setupcon
 
 # Hostname 
 if [ -z $hname ]
