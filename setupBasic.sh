@@ -8,7 +8,7 @@ timedatectl set-timezone Europe/Berlin
 # Set Country for WiFi
 iw reg set De
 # add first line for WiFi if not already there
-file= /etc/wpa_supplicant/wpa_supplicant.conf
+file="/etc/wpa_supplicant/wpa_supplicant.conf"
 zn=$(sed -n '/country/=' $file) # ermittelt Zeilenummer mit country
 if [ -z $zn ]
         then
