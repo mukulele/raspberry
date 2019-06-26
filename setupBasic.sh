@@ -32,6 +32,8 @@ if [ -z $hname ]
 		fi
 fi
 hostnamectl set-hostname $hname
+sed -i s/raspberrypi/$hname/ /etc/hosts
+
 apt-get -y update
 apt-get -y upgrade
 
