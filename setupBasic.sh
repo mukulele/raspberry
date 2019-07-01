@@ -23,7 +23,7 @@ fi
 localedef -f UTF-8 -i de_DE de_DE.UTF-8
 localectl set-locale LANG=de_DE.UTF-8 LANGUAGE=de_DE
 localectl set-keymap de
-# setupcon liefert derzeit eine Fehlermeldung https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=903393
+# setupcon liefert derzeit eine (einmalige?) Fehlermeldung https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=903393
 # das scheint aber ohne Auswirkung?
 setupcon
 
@@ -47,3 +47,4 @@ fi
 
 # Reboot
 # reboot
+echo "Ein reboot ist empfohlen!"
