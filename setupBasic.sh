@@ -24,15 +24,17 @@ setupcon
 # Hostname 
 if [ -z $hname ]
 	then
-		hname=$(hostname)
-		read -p "Hostname "$hname" ändern? Bitte den neuen Hostnamen eingeben:" hnameneu
+		read -p "Hostname "$(hostname)" ändern? Bitte den neuen Hostnamen eingeben, oder einfach enter:" hnameneu
 		if [ -n $hnameneu ]
 			then
 				hname=$hnameneu
 		fi
 fi
-hostnamectl set-hostname $hname
-sed -i s/raspberrypi/$hname/ /etc/hosts
+if [ -z $hname ]
+	then
+	hostnamectl set-hostname $hname
+        sed -i s/raspberrypi/$hname/ /etc/hosts
+fi
 
 apt-get -y update
 apt-get -y upgrade
