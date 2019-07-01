@@ -23,6 +23,7 @@ getFile fhemCpan.txt raspberry
 # install debian packages
 apt-get -y install $(cat fhemDeb.txt |tr -d "\r"|tr "\n" " ")
 # install cpan packages
+export PERL_MM_USE_DEFAULT=1
 cpan install $(cat fhemCpan.txt |tr -d "\r"|tr "\n" " ")
 
 # Setup FHEM
