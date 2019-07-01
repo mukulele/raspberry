@@ -2,6 +2,10 @@
 # Set the new hostname below for quiet setup or leave it blank to be asked
 hname=
 
+# first load the latest software
+apt-get -y update
+apt-get -y upgrade
+
 # Timezone
 timedatectl set-timezone Europe/Berlin
 
@@ -37,9 +41,6 @@ if [ -n $hname ]
 	hostnamectl set-hostname $hname
         sed -i s/raspberrypi/$hname/ /etc/hosts
 fi
-
-apt-get -y update
-apt-get -y upgrade
 
 # Password 
 # echo "linuxpassword" | passwd --stdin linuxuser
