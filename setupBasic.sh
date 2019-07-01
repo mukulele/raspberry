@@ -19,6 +19,8 @@ fi
 localedef -f UTF-8 -i de_DE de_DE.UTF-8
 localectl set-locale LANG=de_DE.UTF-8 LANGUAGE=de_DE
 localectl set-keymap de
+# setupcon liefert derzeit eine Fehlermeldung https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=903393
+# das scheint aber ohne Auswirkung?
 setupcon
 
 # Hostname 
@@ -30,7 +32,7 @@ if [ -z $hname ]
 				hname=$hnameneu
 		fi
 fi
-if [ -z $hname ]
+if [ -n $hname ]
 	then
 	hostnamectl set-hostname $hname
         sed -i s/raspberrypi/$hname/ /etc/hosts
