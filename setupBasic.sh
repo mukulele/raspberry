@@ -31,12 +31,12 @@ setupcon
 if [ -z $hname ]
 	then
 		read -p "Hostname "$(hostname)" ändern? Bitte den neuen Hostnamen eingeben, oder einfach enter:" hnameneu
-		if [ -n $hnameneu ]
+		if [[ $hnameneu != "" ]]
 			then
 				hname=$hnameneu
 		fi
 fi
-if [ -n $hname ]
+if [[ $hname != "" ]]
 	then
 	hostnamectl set-hostname $hname
         sed -i s/raspberrypi/$hname/ /etc/hosts
