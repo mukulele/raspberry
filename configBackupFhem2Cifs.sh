@@ -19,8 +19,8 @@ umount $mdir
 
 # write the main Script to the FHEM folder 
 cat <<EOF > /opt/fhem/backupFhem.sh
-qpath="/opt/fhem"
-dpath=$mdir
+qpath=\$1
+dpath=\$2
 LOG=backupFhem.log
 if [ -d "log" ];then LOG="log/\$LOG";fi
 # check if fhemcl exists
@@ -59,7 +59,7 @@ define BackupFhem dummy
 attr BackupFhem room backup
 define backupFhemlog FileLog ./log/backupFhem.log fakelog
 attr backupFhemlog room backup
-define backupCopy DOIF ([Server1] eq "present") ("bash backupFhem.sh")
+define backupCopy DOIF ([Server1] eq "present") ("bash backupFhem.sh . $mdir")
 attr backupCopy room backup
 attr backupCopy wait 120
 EOF
