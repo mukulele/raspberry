@@ -1,5 +1,6 @@
 # Please check the Definitions for FHEM at button lines: no variables will be used there!
 echo "Nothing done, remove or comment this line after configuration!"; exit
+echo "Please run this script with sudo!"
 # some basic setup for script names for files, folders, Server and user account
 fcred='smbcredentials'
 share='//Server1/Sicherung'
