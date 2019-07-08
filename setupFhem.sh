@@ -28,8 +28,11 @@ cpan install $(cat fhemCpan.txt |tr -d "\r"|tr "\n" " ")
 
 # Setup FHEM
 apt-get -y install fhem
+usermod -aG audio fhem   # for TTS
+
 # get the HTTP Client
 getFile fhemcl.sh fhemcl
+
 # setup a Basic Configuration
 cat <<EOF | bash fhemcl.sh 8083
 attr initialUsbCheck disable 1
