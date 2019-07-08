@@ -40,6 +40,7 @@ if [[ $hname != "" ]]
 	then
 	hostnamectl set-hostname $hname
         sed -i s/raspberrypi/$hname/ /etc/hosts
+	sed -i s/raspberrypi/$hname/ /etc/ssh/*.pub
 fi
 
 # Password 
