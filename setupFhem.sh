@@ -45,6 +45,7 @@ attr global commandref modular
 attr global title FHEM-Name
 attr global sendStatistics onUpdate
 attr global language de
+save
 EOF
 #attr global latitude 51.xxxxxxxxxxxxx
 #attr global longitude 12.xxxxxxxxxxxxx
