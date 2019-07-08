@@ -15,6 +15,7 @@ echo "$share $mdir cifs noauto,users,credentials=/usr/.$fcred 0 0" >> /etc/fstab
 # create folders, connection test
 mkdir $mdir
 mount $mdir
+# noch test einbauen!
 mkdir ${mdir}/fhem
 umount $mdir
 
