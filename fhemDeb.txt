@@ -3,6 +3,7 @@ libcrypt-cbc-perl
 libcrypt-ecb-perl
 libcrypt-rijndael-perl
 libdigest-md5-perl
+libdigest-sha-perl 
 libimage-info-perl
 liblwp-useragent-determined-perl
 libmime-base64-perl
@@ -10,8 +11,9 @@ libmp3-info-perl
 libnet-telnet-perl
 libnet-upnp-perl
 libsoap-lite-perl
+libsox-fmt-all
 libxml-parser-lite-perl
 libxml-parser-perl
+mp3wrap
 sendemail
 sox 
-libsox-fmt-all
