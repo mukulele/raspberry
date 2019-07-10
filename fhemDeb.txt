@@ -13,3 +13,5 @@ libsoap-lite-perl
 libxml-parser-lite-perl
 libxml-parser-perl
 sendemail
+sox 
+libsox-fmt-all
