@@ -20,11 +20,11 @@ apt-get upgrade
 getFile fhemDeb.txt raspberry
 getFile fhemCpan.txt raspberry
 
-# install debian packages
-apt-get -y install $(cat fhemDeb.txt |tr -d "\r"|tr "\n" " ")
-# install cpan packages
+# install debian packages, drop lines with comment #
+apt-get -y install $(cat fhemDeb.txt |grep -v '#'|tr -d "\r"|tr "\n" " ")
+# install cpan packages, drop lines with comment #
 export PERL_MM_USE_DEFAULT=1
-cpan install $(cat fhemCpan.txt |tr -d "\r"|tr "\n" " ")
+cpan install $(cat fhemCpan.txt |grep -v '#'|tr -d "\r"|tr "\n" " ")
 
 # Setup FHEM
 apt-get -y install fhem
