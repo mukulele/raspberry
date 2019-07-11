@@ -21,7 +21,9 @@ getFile fhemDeb.txt raspberry
 getFile fhemCpan.txt raspberry
 
 # install debian packages, drop lines with comment #
-apt-get -y install $(cat fhemDeb.txt |grep -v '#'|tr -d "\r"|tr "\n" " ")
+# This Version works not very stable in case of longer list
+#apt-get -y install $(cat fhemDeb.txt |grep -v '#'|tr -d "\r"|tr "\n" " ")
+cat fhemDeb.txt |grep -v '#'|sed 's/^\(.\)/apt-get -y install \1/'|bash -
 # install cpan packages, drop lines with comment #
 export PERL_MM_USE_DEFAULT=1
 cpan install $(cat fhemCpan.txt |grep -v '#'|tr -d "\r"|tr "\n" " ")
