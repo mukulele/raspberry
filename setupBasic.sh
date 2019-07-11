@@ -10,17 +10,22 @@ apt-get -y upgrade
 timedatectl set-timezone Europe/Berlin
 
 # Set Country for WiFi
-iw reg set DE
-# add first line for WiFi if not already there
-file="/etc/wpa_supplicant/wpa_supplicant.conf"
-zn=$(sed -n '/country/=' $file) # ermittelt Zeilenummer mit country
-if [ -z $zn ]
-        then
-              sed -i '1 i\country=DE' $file
+if [ -n "$(iw dev)" ] 
+    then 
+	iw reg set DE
+	# add first line for WiFi if not already there
+	file="/etc/wpa_supplicant/wpa_supplicant.conf"
+	zn=$(sed -n '/country/=' $file) # ermittelt Zeilenummer mit country
+	if [ -z $zn ]
+		then
+		      sed -i '1 i\country=DE' $file
+	fi
 fi
-
 # config the language to german
 localedef -f UTF-8 -i de_DE de_DE.UTF-8
+# alternativ
+#sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen
+#locale-gen
 localectl set-locale LANG=de_DE.UTF-8 LANGUAGE=de_DE
 localectl set-keymap de
 # setupcon liefert derzeit eine (einmalige?) Fehlermeldung https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=903393
