@@ -11,7 +11,10 @@ function getFile {
 }  
 # von debian.fhem.de installieren - siehe aktuelle Anleitung dort https://debian.fhem.de/
 wget -qO - http://debian.fhem.de/archive.key | apt-key add -
-echo "deb http://debian.fhem.de/nightly/ /" >> /etc/apt/sources.list
+# echo "deb http://debian.fhem.de/nightly/ /" >> /etc/apt/sources.list
+# temporäre? Workauround wegen Änderung der Anforderung in Buster nach dem 27.08.2019   
+echo "deb [trusted=yes] http://debian.fhem.de/nightly/ /" >> /etc/apt/sources.list
+
 apt-get update
 apt-get upgrade
 
