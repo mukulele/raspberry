@@ -12,4 +12,4 @@ Short description the Basic Script in sort of usage:
 
 Some extended Script for a ready System  
 * configBackup...   Implement a Backup Solution wich copies the lokal Backup to a SMB Server and is triggered from FHEM
-* setupNode         Simple install a defined Version of nodejs
+* setupNodejs         Simple install a defined Version of nodejs. Please look at https://nodejs.org/de/about/releases/
