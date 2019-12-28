@@ -7,6 +7,7 @@ systemctl mask serial-getty@ttyAMA0.service
 # Since buster the overlay ist renamed but the old name is still linked
 # I removed enable_uart=1 because this will be done by the overlay
 # The line core_freq=250 is needed otherwise BT is not working - see documentation for details.
+# https://www.raspberrypi.org/documentation/configuration/uart.md
 # https://www.raspberrypi.org/documentation/configuration/config-txt/overclocking.md
 cat <<EOF >> /boot/config.txt
 dtoverlay=miniuart-bt
