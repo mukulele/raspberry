@@ -15,5 +15,6 @@ libsox-fmt-all
 libxml-parser-lite-perl
 libxml-parser-perl
 mp3wrap
+perl-doc
 sendemail
 sox 
