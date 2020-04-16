@@ -39,6 +39,9 @@ usermod -aG audio fhem   # for TTS
 getFile fhemcl.sh fhemcl
 
 # setup a Basic Configuration
+# get the dns Server entry for use in the Basic configuration
+dat=($(cat /etc/resolv.conf|grep nameserver))
+
 cat <<EOF | bash fhemcl.sh 8083
 attr initialUsbCheck disable 1
 attr WEB JavaScripts codemirror/fhem_codemirror.js
@@ -50,6 +53,7 @@ attr global commandref modular
 attr global title FHEM-Name
 attr global sendStatistics onUpdate
 attr global language de
+attr global dnsServer ${dat[1]}
 save
 EOF
 #attr global latitude 51.xxxxxxxxxxxxx
