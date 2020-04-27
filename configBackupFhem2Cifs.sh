@@ -1,26 +1,35 @@
 # Please check the Definitions for FHEM at button lines: no variables will be used there!
-echo "Nothing done, remove or comment this line after configuration!"; exit
-echo "Please run this script with sudo!"
-# some basic setup for script names for files, folders, Server and user account
+echo "Nothing done, remove or comment this line after configuration!"
+echo "Please run this script with sudo!"; exit
+################################## Configuration needed !!!
+# some basic setup for script names for files, folders, Server, url to FHEM and user account
 fcred='smbcredentials'
 share='//Server1/Sicherung'
-mdir='/media/Sicherung'
+mdir='/mnt/Sicherung'
+url=8083
 ############### Setup system part
 # create file with user account
 echo 'username=UserName' > /usr/.$fcred
 echo 'password=Userpassword' >> /usr/.$fcred
+################################## Configuration End
+
 # add line to fstab 
 echo "$share $mdir cifs noauto,users,credentials=/usr/.$fcred 0 0" >> /etc/fstab
 
 # create folders, connection test
-mkdir $mdir
-mount $mdir
-# noch test einbauen!
-mkdir ${mdir}/fhem
-umount $mdir
+mkdir -p "$mdir"
+if mount "$mdir"
+then
+    mkdir ${mdir}/fhem
+    umount "$mdir"
+else
+    echo "Error mount $mdir"
+    echo "Setup canceled"; exit
+fi
 
 # write the main Script to the FHEM folder 
-cat <<'EOF' > /opt/fhem/backupFhem.sh
+echo "url=$url" > /opt/fhem/backupFhem.sh
+cat <<'EOF' >> /opt/fhem/backupFhem.sh
 qpath=$1
 dpath=$2
 LOG=backupFhem.log
@@ -36,15 +45,19 @@ then
     chmod +x $file
 fi
 # mount, sync 
-mount "$dpath"
-bash fhemcl.sh 8083 "set BackupFhem gestartet"
-if rsync -rut ${qpath}/backup ${qpath}/restoreDir ${dpath}/fhem/$(hostname)
+if mount "$dpath"
 then
-   bash fhemcl.sh 8083 "set BackupFhem gesichert"
+    bash fhemcl.sh $url "set BackupFhem gestartet"
+    if rsync -rut ${qpath}/backup ${qpath}/restoreDir ${dpath}/fhem/$(hostname)
+    then
+       bash fhemcl.sh $url "set BackupFhem gesichert"
+    else
+       bash fhemcl.sh $url "set BackupFhem RsyncError"
+    fi
+    umount "$dpath"
 else
-   bash fhemcl.sh 8083 "set BackupFhem ERROR"
+    bash fhemcl.sh $url "set BackupFhem MountError"
 fi
-umount "$dpath"
 } >> $LOG 2>&1
 EOF
 ############### Setup FHEM Part
@@ -56,7 +69,7 @@ then
     chmod +x $file
 fi
 #write definitions to FHEM
-cat <<EOF | bash fhemcl.sh 8083
+cat <<EOF | bash fhemcl.sh $url
 define BackupFhem dummy
 attr BackupFhem room backup
 define backupFhemlog FileLog ./log/backupFhem.log fakelog
