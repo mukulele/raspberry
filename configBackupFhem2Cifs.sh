@@ -20,32 +20,32 @@ mkdir ${mdir}/fhem
 umount $mdir
 
 # write the main Script to the FHEM folder 
-cat <<EOF > /opt/fhem/backupFhem.sh
-qpath=\$1
-dpath=\$2
+cat <<'EOF' > /opt/fhem/backupFhem.sh
+qpath=$1
+dpath=$2
 LOG=backupFhem.log
-if [ -d "log" ];then LOG="log/\$LOG";fi
+if [ -d "log" ];then LOG="log/$LOG";fi
 # check if fhemcl exists
 file=fhemcl.sh
 {
 date
-if [ ! -e \$file ]
+if [ ! -e $file ]
 then
-    echo "\$file is missing"
-    wget https://raw.githubusercontent.com/heinz-otto/fhemcl/master/\$file
-    chmod +x \$file
+    echo "$file is missing"
+    wget https://raw.githubusercontent.com/heinz-otto/fhemcl/master/$file
+    chmod +x $file
 fi
 # mount, sync 
-mount "\$dpath"
+mount "$dpath"
 bash fhemcl.sh 8083 "set BackupFhem gestartet"
-if rsync -rut \${qpath}/backup \${qpath}/restoreDir \${dpath}/fhem/\$(hostname)
+if rsync -rut ${qpath}/backup ${qpath}/restoreDir ${dpath}/fhem/$(hostname)
 then
    bash fhemcl.sh 8083 "set BackupFhem gesichert"
 else
    bash fhemcl.sh 8083 "set BackupFhem ERROR"
 fi
-umount "\$dpath"
-} >> \$LOG 2>&1
+umount "$dpath"
+} >> $LOG 2>&1
 EOF
 ############### Setup FHEM Part
 # test if HTTP client is available
