@@ -32,10 +32,11 @@ localectl set-keymap de
 # das scheint aber ohne Auswirkung?
 setupcon
 
-# Hostname 
+# Hostname
+oname=$(hostname)
 if [ -z $hname ]
 	then
-		read -p "Hostname "$(hostname)" ändern? Bitte den neuen Hostnamen eingeben, oder einfach enter:" hnameneu
+		read -p "Hostname "$oname" ändern? Bitte den neuen Hostnamen eingeben, oder einfach enter:" hnameneu
 		if [[ $hnameneu != "" ]]
 			then
 				hname=$hnameneu
@@ -44,8 +45,8 @@ fi
 if [[ $hname != "" ]]
 	then
 	hostnamectl set-hostname $hname
-        sed -i s/raspberrypi/$hname/ /etc/hosts
-	sed -i s/raspberrypi/$hname/ /etc/ssh/*.pub
+        sed -i s/$oname/$hname/ /etc/hosts
+	sed -i s/$oname/$hname/ /etc/ssh/*.pub
 fi
 
 # Password 
