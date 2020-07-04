@@ -45,7 +45,7 @@ dat=($(cat /etc/resolv.conf|grep nameserver))
 cat <<EOF | bash fhemcl.sh 8083
 attr initialUsbCheck disable 1
 attr WEB JavaScripts codemirror/fhem_codemirror.js
-attr WEB codemirrorParam { "theme":"blackboard", "lineNumbers":true }
+attr WEB codemirrorParam { "lineNumbers":true }
 attr WEB plotfork 1
 attr WEB longpoll websocket
 attr global backup_before_update 1
