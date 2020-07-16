@@ -32,7 +32,7 @@ export PERL_MM_USE_DEFAULT=1
 cpan install $(cat fhemCpan.txt |grep -v '#'|tr -d "\r"|tr "\n" " ")
 
 # Setup FHEM
-apt-get -y install fhem
+apt-get install fhem
 usermod -aG audio fhem   # for TTS
 
 # get the HTTP Client
