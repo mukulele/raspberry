@@ -3,8 +3,9 @@
 hname=
 
 # first load the latest software
-apt-get -y update
-apt-get -y upgrade
+apt -y update
+apt -y upgrade
+apt -y autoremove
 
 # Timezone
 timedatectl set-timezone Europe/Berlin
