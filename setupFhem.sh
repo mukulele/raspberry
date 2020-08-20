@@ -47,13 +47,16 @@ attr initialUsbCheck disable 1
 attr WEB JavaScripts codemirror/fhem_codemirror.js
 attr WEB codemirrorParam { "lineNumbers":true }
 attr WEB plotfork 1
+attr WEB plotEmbed 2
 attr WEB longpoll websocket
 attr global backup_before_update 1
 attr global commandref modular
 attr global title FHEM-Name
 attr global sendStatistics onUpdate
-attr global language de
+attr global language DE
 attr global dnsServer ${dat[1]}
+attr global restoreDirs 10
+
 save
 EOF
 #attr global latitude 51.xxxxxxxxxxxxx
