@@ -27,8 +27,9 @@ getFile fhemCpan.txt raspberry
 # This Version works not very stable in case of longer list
 #apt-get -y install $(cat fhemDeb.txt |grep -v '#'|tr -d "\r"|tr "\n" " ")
 cat fhemDeb.txt |grep -v '#'|sed 's/^\(.\)/apt-get -y install \1/'|bash -
-# install cpan packages, drop lines with comment #
+# Update cpan first, then install cpan packages, drop lines with comment #
 export PERL_MM_USE_DEFAULT=1
+cpan install CPAN
 cpan install $(cat fhemCpan.txt |grep -v '#'|tr -d "\r"|tr "\n" " ")
 
 # Setup FHEM
