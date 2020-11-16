@@ -2,6 +2,7 @@ avrdude
 libcrypt-cbc-perl
 libcrypt-ecb-perl
 libcrypt-rijndael-perl
+libcryptx-perl
 libdigest-md5-perl
 libdigest-sha-perl 
 libimage-info-perl
