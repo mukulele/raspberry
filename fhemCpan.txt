@@ -1,2 +1,2 @@
-#ersetzt durch deb Paket libcryptx-perl
+#ersetzt durch deb Paket libcryptx-perl https://forum.fhem.de/index.php/topic,115865.msg1101501.html#msg1101501
 #Crypt::Rijndael_PP 
