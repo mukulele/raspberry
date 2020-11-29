@@ -42,7 +42,11 @@ else
     exit 1
   fi
 fi
-echo der letzte Fehler war $?
+# inside WSL no init system is present, correct the error in dpkg/status
+if [ $? = 100 ] && uname -r|grep -e [Mm]icrosoft; then 
+   sed -i '/^Package: fhem/n;s/Status: install ok half-configured/Status: hold ok installed/' /var/lib/dpkg/status
+fi
+
 # e.g. in WSL the Service isn't started, start it
 cmd="perl fhem.pl fhem.cfg"
 if ! pidof $cmd; then
