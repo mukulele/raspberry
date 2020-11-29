@@ -10,10 +10,20 @@ function getFile {
   fi
 }  
 # von debian.fhem.de installieren - siehe aktuelle Anleitung dort https://debian.fhem.de/
-wget -qO - http://debian.fhem.de/archive.key | apt-key add -
-echo "deb http://debian.fhem.de/nightly/ /" >> /etc/apt/sources.list
 # temporärer Workaround wenn mal das Paket nicht signiert ausgeliefert wird   
 # echo "deb [trusted=yes] http://debian.fhem.de/nightly/ /" >> /etc/apt/sources.list
+if [[ "$(apt list fhem)" =~ "installed" ]];then
+    echo fhem ist bereits installiert
+else
+  if [ "$(wget -qO - http://debian.fhem.de/archive.key | apt-key add -)" = "OK" ];then
+    echo "deb http://debian.fhem.de/nightly/ /" >> /etc/apt/sources.list
+    apt-get update
+    apt-get install fhem
+  else
+    echo Es gab ein Problem mit dem debian.fhem.de/archive.key
+    exit 1
+  fi
+fi
 
 apt-get update
 apt-get upgrade
@@ -34,6 +44,17 @@ cpan install $(cat fhemCpan.txt |grep -v '#'|tr -d "\r"|tr "\n" " ")
 
 # Setup FHEM
 apt-get install fhem
+# e.g. in WSL the Service isn't started, start it
+cmd="perl fhem.pl fhem.cfg"
+if ! pidof $cmd; then
+  cd /opt/fhem
+  sudo -u fhem $cmd
+  echo $cmd is starting by workaround
+  cd ~
+else
+  echo $cmd always running
+fi
+##
 usermod -aG audio fhem   # for TTS
 
 # get the HTTP Client
