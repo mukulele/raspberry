@@ -45,20 +45,17 @@ fi
 # inside WSL no init system is present, correct the error in dpkg/status
 if [ $? = 100 ] && uname -r|grep -e [Mm]icrosoft; then 
    sed -i '/^Package: fhem/n;s/Status: install ok half-configured/Status: hold ok installed/' /var/lib/dpkg/status
-fi
-
-# e.g. in WSL the Service isn't started, start it
-# wait a moment or it's better to read the kernel version?
-# uname -r|grep -e [Mm]icrosoft
-sleep 2
-cmd="perl fhem.pl fhem.cfg"
-if ! pidof $cmd; then
-  cd /opt/fhem
-  sudo -u fhem $cmd
-  echo $cmd is starting by workaround
-  cd ~
-else
-  echo $cmd always running
+   # e.g. in WSL the Service isn't started, start it, wait a moment
+   sleep 2
+   cmd="perl fhem.pl fhem.cfg"
+   if ! pidof $cmd; then
+     cd /opt/fhem
+     sudo -u fhem $cmd
+     echo $cmd is starting by workaround
+     cd ~
+   else
+     echo $cmd always running
+   fi
 fi
 ##
 usermod -aG audio fhem   # for TTS
