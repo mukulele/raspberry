@@ -14,4 +14,6 @@ Some extended Script for a ready System
 * configBackup...   Implement a Backup Solution wich copies the lokal Backup to a SMB Server and is triggered from FHEM
 * setupNodejs         Simple install a defined Version of nodejs. Please look at https://nodejs.org/de/about/releases/
 # Download a bunch of Scripts 
+```
 wget https://raw.githubusercontent.com/heinz-otto/raspberry/master/setup{Basic.sh,UartPi3.sh,Samba.sh,Fhem.sh,BackupFhem2Cifs.sh,Nodejs.sh}
+```
