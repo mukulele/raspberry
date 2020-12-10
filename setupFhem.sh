@@ -48,6 +48,8 @@ if [ $? = 100 ] && uname -r|grep -e [Mm]icrosoft; then
 fi
 
 # e.g. in WSL the Service isn't started, start it
+# wait a moment or it's better to read the kernel version?
+# uname -r|grep -e [Mm]icrosoft
 sleep 2
 cmd="perl fhem.pl fhem.cfg"
 if ! pidof $cmd; then
