@@ -48,6 +48,7 @@ if [ $? = 100 ] && uname -r|grep -e [Mm]icrosoft; then
 fi
 
 # e.g. in WSL the Service isn't started, start it
+sleep 2
 cmd="perl fhem.pl fhem.cfg"
 if ! pidof $cmd; then
   cd /opt/fhem
