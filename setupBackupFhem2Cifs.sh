@@ -12,7 +12,7 @@ docker=0
 url=8083
 scriptName='backupFhem.sh'
 scriptName2='cronBackupFhem.sh'
-setupDir='/usr/local/bin' 
+setupDir='/usr/local/bin'
 cmdBackup="/bin/bash $setupDir/$scriptName $fhemDir $mdir"
 fcred='smbcredentials'
 ############### Setup system part
