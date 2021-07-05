@@ -3,6 +3,7 @@ libcrypt-cbc-perl
 libcrypt-ecb-perl
 libcrypt-rijndael-perl
 libcryptx-perl
+libcpanel-json-xs-perl
 libdigest-md5-perl
 libdigest-sha-perl 
 libimage-info-perl
@@ -13,8 +14,9 @@ libnet-telnet-perl
 libnet-upnp-perl
 libsoap-lite-perl
 libsox-fmt-all
-libxml-parser-lite-perl
 libxml-parser-perl
+libxml-parser-lite-perl
+libxml-xpath-perl
 mp3wrap
 perl-doc
 sendemail
