@@ -33,6 +33,8 @@ cpan install $(cat fhemCpan.txt |grep -v '#'|tr -d "\r"|tr "\n" " ")
 if [[ "$(apt list fhem)" =~ "installed" ]];then
     echo fhem ist bereits installiert
 else
+# debian Version abfragen
+# if [ "$(lsb_release -s -r | cut -d '.' -f 1)" -lt "10" ] ;then echo "Release kleiner 10";else echo "release passt"; fi
   if [ "$(wget -qO - http://debian.fhem.de/archive.key | apt-key add -)" = "OK" ];then
     echo "deb http://debian.fhem.de/nightly/ /" >> /etc/apt/sources.list
     apt-get update
