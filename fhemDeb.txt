@@ -16,6 +16,7 @@ libsoap-lite-perl
 libsox-fmt-all
 libxml-parser-perl
 libxml-parser-lite-perl
+libxml-simple-perl
 libxml-xpath-perl
 mp3wrap
 perl-doc
