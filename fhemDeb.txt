@@ -1,24 +1,35 @@
+### tools
 avrdude
-libcrypt-cbc-perl
-libcrypt-ecb-perl
-libcrypt-rijndael-perl
-libcryptx-perl
-libcpanel-json-xs-perl
-libdigest-md5-perl
-libdigest-sha-perl 
-libimage-info-perl
-liblwp-useragent-determined-perl
-libmime-base64-perl
-libmp3-info-perl
-libnet-telnet-perl
-libnet-upnp-perl
-libsoap-lite-perl
-libsox-fmt-all
-libxml-parser-perl
-libxml-parser-lite-perl
-libxml-simple-perl
-libxml-xpath-perl
 mp3wrap
 perl-doc
 sendemail
 sox 
+### libs required
+libcpanel-json-xs-perl
+libcrypt-rijndael-perl
+libfile-homedir-perl
+libhtml-treebuilder-xpath-perl
+libnet-telnet-perl
+libsoap-lite-perl
+libxml-simple-perl
+libxml-xpath-perl
+### RSS
+#libgd-perl
+#libgd-text-perl
+#libimage-librsvg-perl
+### for xiaomi
+#libcryptx-perl
+# for sonos
+#libdigest-sha-perl
+### may bee required?
+#libcrypt-cbc-perl
+#libcrypt-ecb-perl
+#libdigest-md5-perl
+#libimage-info-perl
+#liblwp-useragent-determined-perl
+#libmime-base64-perl
+#libmp3-info-perl
+#libnet-upnp-perl
+#libsox-fmt-all
+#libxml-parser-perl
+#libxml-parser-lite-perl
