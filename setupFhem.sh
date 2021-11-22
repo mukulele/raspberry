@@ -35,7 +35,8 @@ if [[ "$(apt list fhem)" =~ "installed" ]] ;then
 else
   # get debian version strings with dot sourcing
   . /etc/os-release
-  if [ $VERSION_ID -ge 10 ] ;then 
+  if [ $VERSION_ID -ge 10 ] ;then
+    apt install gpg
     if wget -qO - https://debian.fhem.de/archive.key | gpg --dearmor > /usr/share/keyrings/debianfhemde-archive-keyring.gpg ;then
       echo "deb [signed-by=/usr/share/keyrings/debianfhemde-archive-keyring.gpg] https://debian.fhem.de/nightly/ /" >> /etc/apt/sources.list
       key='ok'
