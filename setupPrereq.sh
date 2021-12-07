@@ -53,6 +53,7 @@ attr installer installerMode developer
 save
 EOF
 
+exit
 # Abfrage starten
 s=$(./fhemcl.sh 8083 "get installer checkPrereqs $ref"|grep -oE 'installPerl.*&fwcsrf'|grep -oE '\s[a-z,A-Z,:]+\s')
 echo $s|tr " " "\n"|sed 's/$/./;s/^/\//'|apt-file search -l -f -
