@@ -58,9 +58,9 @@ exit
 
 # Abfrage starten
 s=$(./fhemcl.sh 8083 "get installer checkPrereqs $ref"|grep -oE 'installPerl.*&fwcsrf'|grep -oE '\s[a-z,A-Z,:]+\s')
-echo $s|tr " " "\n"|sed 's/$/./;s/^/\//'|apt-file search -l -f -
 packages=$(echo $s|tr " " "\n"|sed 's/$/./;s/^/\//'|apt-file search -l -f -)
 
 # fehlende Pakete installieren
-echo "Setup this Packages $packages"
-# apt install $packages
+echo "es fehlen Packete"
+echo $packages
+echo 'apt install $packages'
