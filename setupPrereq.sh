@@ -13,8 +13,9 @@ function getFile {
   fi
 }
 # System aufrüsten
-sudo apt install apt-file libperl-prereqscanner-notquitelite-perl
-sudo apt-file update
+apt update
+apt install apt-file libperl-prereqscanner-notquitelite-perl
+apt-file update
 
 if [[ "$(apt list fhem)" =~ "installed" ]] ;then
     echo fhem ist bereits installiert
@@ -62,4 +63,4 @@ packages=$(echo $s|tr " " "\n"|sed 's/$/./;s/^/\//'|apt-file search -l -f -)
 
 # fehlende Pakete installieren
 echo "Setup this Packages $packages"
-# sudo apt install $packages
+# apt install $packages
