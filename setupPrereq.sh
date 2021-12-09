@@ -34,23 +34,20 @@ function setup-Fhem {
     echo Es gab ein Problem mit dem debian.fhem.de/archive.key
     exit 1
   fi
-
 }
-
 function analyze-config {
-# Abfrage starten
-s=$(./fhemcl.sh 8083 "get installer checkPrereqs $1"|grep -oE 'installPerl.*&fwcsrf'|grep -oE '\s[a-z,A-Z,:]+\s')
-packages=$(echo $s|tr " " "\n"|sed 's/$/./;s/^/\//'|apt-file search -l -f -)
-
-# fehlende Pakete installieren
-echo "es fehlen Pakete"
-echo $packages
-echo 'apt install $packages'
+  # Abfrage starten
+  s=$(./fhemcl.sh 8083 "get installer checkPrereqs $1"|grep -oE 'installPerl.*&fwcsrf'|grep -oE '\s[a-z,A-Z,:]+\s')
+  packages=$(echo $s|tr " " "\n"|sed 's/$/./;s/^/\//'|apt-file search -l -f -)
+  # Ausgabe
+  echo "es fehlen folgende Pakete"
+  echo $packages
+  echo 'apt install $packages'
 }
 # System aufrüsten
 PKG="libperl-prereqscanner-notquitelite-perl"
 if dpkg-query -l $PKG > /dev/null
- then
+  then
       echo "System schon aufgerüstet"
   else
       apt update
@@ -65,18 +62,18 @@ dpkg-query -l $PKG > /dev/null || setup-Fhem
 getFile fhemcl.sh fhemcl
 
 # Definition zum Testen erstellen
-if [[ "$(./fhemcl.sh 8083 "list installer installerMode")" =~ "developer" ]] ;then
+if [[ "$(./fhemcl.sh 8083 "list installer installerMode")" =~ "developer" ]]
+  then
     echo "Installermodul bereits eingerichtet"
-else
+  else
 cat <<EOF | ./fhemcl.sh 8083
 attr initialUsbCheck disable 1
 defmod installer Installer
 attr installer installerMode developer
 save
 EOF
-
 fi
-
+# Analyse starten
 if [[ $ref = "" ]]
   then
   read -p "Dateiname eingeben:"ref
