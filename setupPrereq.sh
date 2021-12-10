@@ -4,7 +4,7 @@ ref='/home/pi/fhem.cfg'
 
 #functions
 # getFile FileName RepositoryName
-function getFile {
+get-File() {
   if [ ! -e $1 ]
   then
     echo "$1 is missing"
@@ -12,7 +12,7 @@ function getFile {
     chmod +x $1
   fi
 }
-function setup-Fhem {
+setup-Fhem() {
 # get debian version strings with dot sourcing
 . /etc/os-release
   if [ $VERSION_ID -ge 10 ] ;then
@@ -35,7 +35,7 @@ function setup-Fhem {
     exit 1
   fi
 }
-function analyze-config {
+analyze-config() {
   # Abfrage starten
   s=$(./fhemcl.sh 8083 "get installer checkPrereqs $1"|grep -oE 'installPerl.*&fwcsrf'|grep -oE '\s[a-z,A-Z,:]+\s')
   packages=$(echo $s|tr " " "\n"|sed 's/$/./;s/^/\//'|apt-file search -l -f -)
@@ -59,7 +59,7 @@ PKG="fhem"
 dpkg-query -l $PKG > /dev/null || setup-Fhem
 
 # get the HTTP Client
-getFile fhemcl.sh fhemcl
+get-File fhemcl.sh fhemcl
 
 # Definition zum Testen erstellen
 if [[ "$(./fhemcl.sh 8083 "list installer installerMode")" =~ "developer" ]]
