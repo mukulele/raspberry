@@ -9,17 +9,17 @@ libcpanel-json-xs-perl
 libcrypt-rijndael-perl
 libfile-homedir-perl
 libhtml-treebuilder-xpath-perl
+libimage-librsvg-perl
 libnet-telnet-perl
 libsoap-lite-perl
 libxml-simple-perl
 libxml-xpath-perl
-### RSS
+### for RSS
 #libgd-perl
 #libgd-text-perl
-#libimage-librsvg-perl
 ### for xiaomi
 #libcryptx-perl
-# for sonos
+### for sonos
 #libdigest-sha-perl
 ### may bee required?
 #libcrypt-cbc-perl
