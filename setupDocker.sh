@@ -1,6 +1,8 @@
 #!/bin/bash
 # docker itselfs
-curl -sSL https://get.docker.com | sh
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+# add user to group
 sudo usermod -aG docker $(whoami)
 # docker-compose the actual version
 sudo apt-get install -y libffi-dev libssl-dev
