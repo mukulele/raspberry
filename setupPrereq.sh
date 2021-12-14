@@ -1,8 +1,12 @@
 #!/bin/bash
-# Wo liegt die zu prüfende Datei?
+# Dieses Script installiert FHEM falls es nochnicht vorhanden ist!
+# Im FHEM wird ein Installer Device im Developer Modus definiert
+# mit Hilfe meines bash FHEM Client wird eine Abfrage der "alten" fhem.cfg durchgeführt und alle benötigten Mopdule ausgegeben
+# ein copy & paste für dann zur Installation der fehlenden Perl Module
+# am Einfachsten liegt die alte fhem.cfg vor Start des Script im Pi HomdeDir
 ref='/home/pi/fhem.cfg'
 
-#functions
+# functions
 # getFile FileName RepositoryName
 get-File() {
   if [ ! -e $1 ]
@@ -44,6 +48,7 @@ analyze-config() {
   echo $packages
   echo 'apt install $packages'
 }
+# Hauptprogramm
 # System aufrüsten
 PKG="libperl-prereqscanner-notquitelite-perl"
 if dpkg-query -l $PKG > /dev/null
