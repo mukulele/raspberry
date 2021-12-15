@@ -1,6 +1,12 @@
 # https://svrooij.io/sonos2mqtt/getting-started.html#run-sonos2mqtt-in-docker
 services:
   sonos:
+    image: svrooij/sonos2mqtt
+    container_name: sonos
+    hostname: sonos
+    ports:
+    - 6329:6329/tcp
+    restart: unless-stopped
     environment:
 #      SONOS2MQTT_DEVICE: ${SONOS2MQTT_DEVICE}
       - SONOS2MQTT_DEVICE
@@ -10,7 +16,3 @@ services:
 #      SONOS_LISTENER_HOST: ${SONOS_LISTENER_HOST}
 #      SONOS_TTS_ENDPOINT: https://github-tts-blue-book.svrooij.io/api/generate
       - TZ=Europe/Berlin
-    image: svrooij/sonos2mqtt
-    ports:
-    - 6329:6329/tcp
-    restart: unless-stopped
