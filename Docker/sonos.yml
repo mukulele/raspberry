@@ -1,3 +1,4 @@
+# https://svrooij.io/sonos2mqtt/getting-started.html#run-sonos2mqtt-in-docker
 services:
   sonos:
     environment:
