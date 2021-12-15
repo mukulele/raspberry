@@ -1,0 +1,13 @@
+# basic version of experimental on github 
+services:
+  fhem:
+    image: ghcr.io/fhem/fhem-experimental:dev
+    restart: always
+    ports:
+      - "8083:8083"
+      - "1883:1883"
+    environment:
+      - TZ=Europe/Berlin
+#      - HOST_HOSTNAME=${HOST_HOSTNAME} # $(hostname)
+    volumes:
+      - "./fhem/:/opt/fhem/"
