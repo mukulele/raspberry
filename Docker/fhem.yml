@@ -1,4 +1,5 @@
-# basic version of experimental on github 
+# basic version of experimental on github
+# https://github.com/fhem/fhem-docker/pkgs/container/fhem-experimental
 services:
   fhem:
     image: ghcr.io/fhem/fhem-experimental:dev
