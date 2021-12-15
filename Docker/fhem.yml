@@ -3,6 +3,8 @@
 services:
   fhem:
     image: ghcr.io/fhem/fhem-experimental:dev
+    container_name: fhem
+    hostname: fhem
     restart: always
     ports:
       - "8083:8083"
