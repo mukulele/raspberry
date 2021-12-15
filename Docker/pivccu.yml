@@ -3,7 +3,7 @@ services:
   raspberrymatic:
     image: ghcr.io/jens-maus/raspberrymatic:latest
     container_name: ccu
-    hostname: homematic-raspi
+    hostname: ccu
     privileged: true
     restart: unless-stopped
     stop_grace_period: 30s
