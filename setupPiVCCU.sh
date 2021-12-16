@@ -1,22 +1,31 @@
 #!/bin/sh
 # Setup Components of piVCCU for raspberrymatic Docker Container 
 # https://github.com/jens-maus/RaspberryMatic/wiki/Installation-Docker-OCI
+# This Script have to execute in root context
+# https://www.linuxjournal.com/content/automatically-re-start-script-root-0
+# The inclusion of "bash" in the sudo command is to avoid problems if the script does not have its execute bit set. 
+# The "exit $?" causes the shell to exit with the status from the script instance that sudo runs.
 
-sudo apt install wget ca-certificates gpg
+if [[ $UID -ne 0 ]]; then
+    echo 'Script will be restartet with sudo'
+    sudo -p 'Restarting as root, password: ' bash $0 "$@"
+    exit $?
+fi
+# add sources list for pivccu repository
+apt install wget ca-certificates gpg
+wget -qO - https://www.pivccu.de/piVCCU/public.key | gpg --dearmor > /usr/share/keyrings/pivccude-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/pivccude-keyring.gpg] https://www.pivccu.de/piVCCU stable main" >/etc/apt/sources.list.d/pivccu.list
+# install pivccu modules
+apt update
+apt install build-essential bison flex libssl-dev
+apt install pivccu-modules-dkms
+apt install pivccu-modules-raspberrypi
+# activate kernel driver for pivccu
+echo eq3_char_loop >/etc/modules-load.d/eq3_char_loop.conf
+service pivccu-dkms start
+modprobe eq3_char_loop
 
-sudo sh -c 'wget -qO - https://www.pivccu.de/piVCCU/public.key | gpg --dearmor > /usr/share/keyrings/pivccude-keyring.gpg'
-sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/pivccude-keyring.gpg] https://www.pivccu.de/piVCCU stable main" >/etc/apt/sources.list.d/pivccu.list'
-
-sudo apt update
-sudo apt install build-essential bison flex libssl-dev
-sudo apt install pivccu-modules-dkms
-sudo apt install pivccu-modules-raspberrypi
-
-sudo sh -c 'echo eq3_char_loop >/etc/modules-load.d/eq3_char_loop.conf'
-sudo service pivccu-dkms start
-sudo modprobe eq3_char_loop
-
-echo "Neustart erforderlich"
+echo "reboot is needed"
 echo "sudo reboot"
 
 exit
