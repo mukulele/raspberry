@@ -8,8 +8,9 @@ services:
     - 6329:6329/tcp
     restart: unless-stopped
     environment:
+      - TZ
       - SONOS2MQTT_DEVICE
       - SONOS2MQTT_MQTT
+#      - SONOS2MQTT_DISTINCT
       - SONOS_LISTENER_HOST
-#      SONOS_TTS_ENDPOINT: https://github-tts-blue-book.svrooij.io/api/generate
-      - TZ
+#      - SONOS_TTS_ENDPOINT
