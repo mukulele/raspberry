@@ -10,7 +10,6 @@ services:
       - "8083:8083"
       - "1883:1883"
     environment:
-      - TZ=Europe/Berlin
-#      - HOST_HOSTNAME=${HOST_HOSTNAME} # $(hostname)
+      - TZ
     volumes:
       - "./fhem/:/opt/fhem/"
