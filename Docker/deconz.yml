@@ -9,7 +9,7 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - /opt/deconz:/opt/deCONZ
+      - ./deconz:/opt/deCONZ
     devices:
 #      - /dev/ttyUSB0
       - /dev/serial/by-id/${CONBEE}:/dev/ttyACM0
