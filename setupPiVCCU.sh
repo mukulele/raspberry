@@ -25,7 +25,7 @@ echo eq3_char_loop >/etc/modules-load.d/eq3_char_loop.conf
 service pivccu-dkms start
 modprobe eq3_char_loop
 
-echo "reboot is needed"
+echo "Important! reboot is needed. copy & paste the following line"
 echo "sudo reboot"
 
 exit
