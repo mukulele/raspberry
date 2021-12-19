@@ -13,7 +13,7 @@ COMPOSE_VER="2.2.2"
 COMPOSE_ARCH="aarch64"
 # For 32-bit OS use:
 COMPOSE_ARCH="armv7"
-PLUGIN_PATH="~/.docker/cli-plugins/"
+PLUGIN_PATH="~/.docker/cli-plugins/" # for all users /usr/local/lib/docker/cli-plugins
 DOWNLOAD_PATH="https://github.com/docker/compose/releases/download/v${COMPOSE_VER}/docker-compose-linux-${COMPOSE_ARCH}"
 mkdir -p ${PLUGIN_PATH}
 curl -SL ${DOWNLOAD_PATH} -o ${PLUGIN_PATH}docker-compose
