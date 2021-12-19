@@ -5,7 +5,7 @@ sudo sh get-docker.sh
 # add user to group
 sudo usermod -aG docker $(whoami)
 ##
-# docker compose v2 plugin setup 
+# docker compose v2 plugin setup https://docs.docker.com/compose/cli-command/#install-on-linux
 # Replace with the latest version from https://github.com/docker/compose/releases/latest
 # uname -m could be an option: ARCH=$(uname -m);echo ${ARCH:0:5}
 COMPOSE_VER="2.2.2"
