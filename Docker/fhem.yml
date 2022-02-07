@@ -11,5 +11,7 @@ services:
       - "1883:1883"
     environment:
       - TZ
+      - LC_ALL
+      - LANG
     volumes:
       - "./fhem/:/opt/fhem/"
