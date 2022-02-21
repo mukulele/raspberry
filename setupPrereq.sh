@@ -44,7 +44,7 @@ analyze-config() {
   s=$(./fhemcl.sh 8083 "get installer checkPrereqs $1"|grep -oE 'installPerl.*&fwcsrf'|grep -oE '\s[a-z,A-Z,:]+\s')
   packages=$(echo $s|tr " " "\n"|sed 's/$/./;s/^/\//'|apt-file search -l -f -)
   # Ausgabe
-  if [ -z $packages ] ;then
+  if [ -z "$packages" ] ;then
     echo 'kein fehlendes debian Paket ermittelt' 
   else
     echo "es fehlen folgende Pakete"
@@ -84,12 +84,12 @@ save
 EOF
 fi
 # Analyse starten
-if [ -z $ref ]
+if [ -z "$ref" ]
   then
   read -p "Dateiname eingeben:"ref
 fi
 
-if [ -s $ref ]
+if [ -s "$ref" ]
 then
   printf "\nAnalyse mit Datei $ref wird gestartet\n"
   analyze-config $ref
