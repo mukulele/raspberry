@@ -44,9 +44,13 @@ analyze-config() {
   s=$(./fhemcl.sh 8083 "get installer checkPrereqs $1"|grep -oE 'installPerl.*&fwcsrf'|grep -oE '\s[a-z,A-Z,:]+\s')
   packages=$(echo $s|tr " " "\n"|sed 's/$/./;s/^/\//'|apt-file search -l -f -)
   # Ausgabe
-  echo "es fehlen folgende Pakete"
-  echo $packages
-  echo "apt install $packages"
+  if [ $packages = '' ] ;then
+    echo 'kein fehlendes debian Paket ermittelt' 
+  else
+    echo "es fehlen folgende Pakete"
+    echo $packages
+    echo "apt install $packages"
+  fi
 }
 # Hauptprogramm
 # System aufrüsten
