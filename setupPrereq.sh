@@ -46,7 +46,7 @@ analyze-config() {
   # Ausgabe
   echo "es fehlen folgende Pakete"
   echo $packages
-  echo 'apt install $packages'
+  echo "apt install $packages"
 }
 # Hauptprogramm
 # System aufrüsten
@@ -86,6 +86,6 @@ fi
 
 if [ -s $ref ]
 then
-  echo "Analyse mit Datei $ref wird gestartet"
+  printf "\nAnalyse mit Datei $ref wird gestartet\n"
   analyze-config $ref
 fi
