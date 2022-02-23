@@ -11,7 +11,7 @@ else
 fi
 # docker compose v2 plugin setup https://docs.docker.com/compose/cli-command/#install-on-linux
 # Replace with the latest version from https://github.com/docker/compose/releases/latest
-COMPOSE_VER="2.2.2"
+COMPOSE_VER="2.2.3"
 # it is not really tested
 COMPOSE_ARCH=$(uname -m)
 if [[ ${COMPOSE_ARCH:0:3} == "arm" ]]
