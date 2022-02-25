@@ -5,7 +5,7 @@ if docker-compose version
 then
   sudo rm /usr/local/bin/docker-compose > /dev/null 2>&1 && echo "/usr/local/bin/docker-compose entfernt"
   sudo pip3 uninstall -y docker-compose > /dev/null 2>&1 && echo "docker-compose mit pip3 deinstalliert"
-  sudo apt purge docker-compose && sudo apt autoremove ; echo "docker-compose mit apt deinstalliert"
+  sudo apt purge docker-compose && sudo apt autoremove && echo "docker-compose mit apt deinstalliert"
 else
   echo "docker-compose nicht gefunden"
 fi
