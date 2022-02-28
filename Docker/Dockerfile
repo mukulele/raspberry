@@ -35,7 +35,8 @@ RUN apk add --no-cache --update \
     perl-net-telnet \
     perl-dbi \
     perl-dbd-mysql \
-    busybox-extras
+    busybox-extras \
+    subversion
 
 ## Cleaning up APK
 RUN \
