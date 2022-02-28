@@ -50,12 +50,6 @@ RUN \
     cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime && \
     echo "Europe/Brussels" > /etc/timezone
 
-## Installing fonts for Kindle status screen 
-
-COPY ./fonts/meteocons/ /usr/share/fonts/truetype/
-
-RUN chmod -R a+r /usr/share/fonts/*
-
 RUN fc-cache -f -v
 
 # Installing backup script for local backup
