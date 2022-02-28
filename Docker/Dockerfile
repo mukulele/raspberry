@@ -50,8 +50,6 @@ RUN \
     cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime && \
     echo "Europe/Brussels" > /etc/timezone
 
-RUN fc-cache -f -v
-
 # Installing backup script for local backup
 
 #COPY ./core/backup.sh /opt/fhem/backup.sh
