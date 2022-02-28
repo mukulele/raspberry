@@ -56,7 +56,7 @@ RUN \
 #COPY ./core/backup.sh /opt/fhem/backup.sh
 
 #RUN chmod +x /opt/fhem/backup.sh
-RUN chmod +x /opt/fhem/start-fhem.sh
+# RUN chmod +x /opt/fhem/start-fhem.sh
 RUN adduser fhem -h /opt/fhem -D
 RUN addgroup fhem dialout
 RUN chown -R fhem: /opt/fhem
