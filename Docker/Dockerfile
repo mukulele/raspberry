@@ -49,7 +49,7 @@ RUN \
 ## Setting timezone
 RUN \
     cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime && \
-    echo "Europe/Brussels" > /etc/timezone
+    echo "Europe/Berlin" > /etc/timezone
 
 # Installing backup script for local backup
 
