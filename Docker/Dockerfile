@@ -56,6 +56,10 @@ RUN \
 #COPY ./core/backup.sh /opt/fhem/backup.sh
 
 #RUN chmod +x /opt/fhem/backup.sh
+RUN chmod +x /opt/fhem/start-fhem.sh.sh
+RUN adduser fhem -h /opt/fhem -D
+RUN addgroup fhem dialout
+RUN chown -R fhem: /opt/fhem
 
 ## Starting container
 
@@ -63,4 +67,4 @@ WORKDIR "/opt/fhem"
 
 EXPOSE 8083 7072
 
-#ENTRYPOINT ["/opt/fhem/start-fhem.sh"]
+ENTRYPOINT ["/opt/fhem/start-fhem.sh"]
