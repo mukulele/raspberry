@@ -42,7 +42,7 @@ setup-Fhem() {
 analyze-config() {
   # Abfrage starten
   s=$(./fhemcl.sh 8083 "get installer checkPrereqs $1"|grep -oE 'installPerl.*&fwcsrf'|grep -oE '\s[a-z,A-Z,:]+\s')
-  packages=$(echo $s|tr " " "\n"|sed 's/$/./;s/^/\//'|apt-file search -l -f -)
+  packages=$(echo $s|tr " " "\n"|sed '/^JSON$/d;s/$/./;s/^/\//'|apt-file search -l -f -)
   # Ausgabe
   if [ -z "$packages" ] ;then
     echo 'kein fehlendes debian Paket ermittelt' 
