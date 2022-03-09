@@ -43,6 +43,8 @@ analyze-config() {
   # Abfrage starten
   s=$(./fhemcl.sh 8083 "get installer checkPrereqs $1"|grep -oE 'installPerl.*&fwcsrf'|grep -oE '\s[a-z,A-Z,:]+\s')
   packages=$(echo $s|tr " " "\n"|sed '/^JSON$/d;s/$/./;s/^/\//'|apt-file search -l -f -)
+  # auf einem docker container - nur als Notiz
+  # packages=$(echo $s|tr ' ' "\n"|sed '/^JSON/d;s/$/./;s/^/\//'|docker exec -i <containername> apt-file search -l -f -)
   # Ausgabe
   if [ -z "$packages" ] ;then
     echo 'kein fehlendes debian Paket ermittelt' 
