@@ -1,11 +1,11 @@
 #!/bin/sh
 # build docker and fhem image from scratch
-if docker version 2>/dev/null ; then
+if ! docker version &>/dev/null ; then
    wget https://raw.githubusercontent.com/heinz-otto/raspberry/master/Docker/setupDocker.sh
    bash setupDocker.sh
 fi
 sudo -su $(id -un) <<HERE
-if docker-compose version 2>/dev/null ; then
+if ! docker-compose version &>/dev/null ; then
    wget https://raw.githubusercontent.com/heinz-otto/raspberry/master/Docker/setupDockerComposeV2.sh
    bash setupDockerComposeV2.sh
 fi
