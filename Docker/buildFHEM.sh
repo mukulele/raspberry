@@ -5,7 +5,7 @@ if ! docker version &>/dev/null ; then
    bash setupDocker.sh
 fi
 sudo -su $(id -un) <<HERE
-if ! docker-compose version &>/dev/null ; then
+if ! docker compose version &>/dev/null ; then
    wget https://raw.githubusercontent.com/heinz-otto/raspberry/master/Docker/setupDockerComposeV2.sh
    bash setupDockerComposeV2.sh
 fi
