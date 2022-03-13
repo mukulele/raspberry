@@ -10,4 +10,4 @@ HERE
 # for group membership new login
 echo "open now a new shell for docker groupmembership"
 echo "after exit you need to re login"
-sudo -su $(id -un)
+# sudo -su $(id -un)
