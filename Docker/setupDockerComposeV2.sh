@@ -1,14 +1,14 @@
 #!/bin/sh
 # install docker compose v2 plugin
 # first test and try to remove docker-compose v1
-if docker-compose version ; then
+if docker-compose version 2>/dev/null ; then
     sudo rm /usr/local/bin/docker-compose > /dev/null 2>&1 && echo "/usr/local/bin/docker-compose removed"
     sudo pip3 uninstall -y docker-compose > /dev/null 2>&1 && echo "docker-compose pip3 uninstalled"
     sudo apt purge docker-compose && sudo apt autoremove && echo "docker-compose apt purged"
 else
     echo "docker-compose v1 not found"
 fi
-if docker-compose version ; then
+if docker-compose version 2>/dev/null ; then
     echo "removing docker-compose not succesfull"
     echo "remove it manually"
 else
