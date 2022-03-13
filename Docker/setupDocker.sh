@@ -1,9 +1,9 @@
 #!/bin/bash
-# run as user
-# docker itselfs
-sudo apt update && sudo apt install curl
+# docker setup needs curl an should run as sudo
+sudo su <<HERE
+apt -y update && apt -y install curl
 curl -fsSL https://get.docker.com -o get-docker.sh
-sudo sh get-docker.sh
+sh get-docker.sh
 # add user to group
-sudo usermod -aG docker $(whoami)
-##
+usermod -aG docker $(whoami)
+HERE
