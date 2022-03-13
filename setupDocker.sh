@@ -1,5 +1,7 @@
 #!/bin/bash
+# run as user
 # docker itselfs
+sudo apt update && sudo apt install curl
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 # add user to group
@@ -8,13 +10,16 @@ sudo usermod -aG docker $(whoami)
 # docker compose v2 plugin setup https://docs.docker.com/compose/cli-command/#install-on-linux
 # Replace with the latest version from https://github.com/docker/compose/releases/latest
 # uname -m could be an option: ARCH=$(uname -m);echo ${ARCH:0:5}
-COMPOSE_VER="2.2.3"
+# COMPOSE_VER="v2.2.3"
+COMPOSE_VER=$(wget -qO - https://github.com/docker/compose/releases/latest|grep '<title>'|awk '{print $2}')
 # For 64-bit OS use:
-COMPOSE_ARCH="aarch64"
+# COMPOSE_ARCH="aarch64"
 # For 32-bit OS use:
-COMPOSE_ARCH="armv7"
+# COMPOSE_ARCH="armv7"
+ARCH=$(uname -m);[ "${ARCH:0:3}" = "arm" ] && ARCH=${ARCH:0:5}
+COMPOSE_ARCH=${ARCH}
 PLUGIN_PATH="$HOME/.docker/cli-plugins/" # for all users /usr/local/lib/docker/cli-plugins # '~' instead of $HOME will not work at this point
-DOWNLOAD_PATH="https://github.com/docker/compose/releases/download/v${COMPOSE_VER}/docker-compose-linux-${COMPOSE_ARCH}"
+DOWNLOAD_PATH="https://github.com/docker/compose/releases/download/${COMPOSE_VER}/docker-compose-linux-${COMPOSE_ARCH}"
 mkdir -p ${PLUGIN_PATH}
 curl -SL ${DOWNLOAD_PATH} -o ${PLUGIN_PATH}docker-compose
 chmod +x ${PLUGIN_PATH}docker-compose
