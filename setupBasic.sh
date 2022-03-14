@@ -1,7 +1,7 @@
 #!/bin/bash
 # Set the new hostname below for quiet setup or leave it blank to be asked
 hname=
-
+PACKAGE_LANG='en_US.UTF-8 de_DE.UTF-8'
 # first load the latest software
 apt -y update
 apt -y full-upgrade
@@ -22,11 +22,15 @@ if [ -n "$(iw dev)" ]
 	fi
 fi
 # config the language to german
-localedef -f UTF-8 -i de_DE de_DE.UTF-8
+# localedef -f UTF-8 -i de_DE de_DE.UTF-8
+# localectl set-locale LANG=de_DE.UTF-8 LANGUAGE=de_DE
 # alternativ
-#sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen
-#locale-gen
-localectl set-locale LANG=de_DE.UTF-8 LANGUAGE=de_DE
+for lang in ${PACKAGE_LANG}; do sed -i -e "s/# $lang/$lang/" /etc/locale.gen; done
+locale-gen
+export LANG=de_DE.UTF-8 
+export LANGUAGE=de:en
+export LC_ALL=de_DE.UTF-8
+# keyboard settings todo unsicher ?
 localectl set-keymap de
 # setupcon liefert derzeit eine (einmalige?) Fehlermeldung https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=903393
 # das scheint aber ohne Auswirkung?
