@@ -1,4 +1,9 @@
 # Download a bunch of Scripts 
+Setup Docker
+```
+wget https://raw.githubusercontent.com/heinz-otto/raspberry/master/Docker/setup{Docker.sh,DockerComposeV2.sh}
+```
+Some exaples for docker-compose.yml
 ```
 wget https://raw.githubusercontent.com/heinz-otto/raspberry/master/Docker/{pivccu.yml,fhem.yml,sonos.yml,deconz.yml,.env,patchEnv.sh}
 ```
