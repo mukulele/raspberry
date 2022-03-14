@@ -1,6 +1,6 @@
 #!/bin/sh
 # build docker and fhem image from scratch
-if ! docker version &>/dev/null ; then
+if ! docker -v &>/dev/null ; then
    wget https://raw.githubusercontent.com/heinz-otto/raspberry/master/Docker/setupDocker.sh
    bash setupDocker.sh
 fi
