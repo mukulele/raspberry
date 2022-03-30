@@ -27,9 +27,9 @@ wget https://raw.githubusercontent.com/heinz-otto/raspberry/master/setup{Basic.s
 ```
 For Docker
 ```
-wget https://raw.githubusercontent.com/heinz-otto/raspberry/master/setup{Basic.sh,UartPi3.sh,Docker.sh,PiVCCU.sh}
+wget https://raw.githubusercontent.com/heinz-otto/raspberry/master/setup{Basic.sh,Uart.sh,Docker.sh,PiVCCU.sh}
 ```
 For system migration and testing
 ```
-wget https://raw.githubusercontent.com/heinz-otto/raspberry/master/setup{Basic.sh,UartPi3.sh,Prereq.sh}
+wget https://raw.githubusercontent.com/heinz-otto/raspberry/master/setup{Basic.sh,Uart.sh,Prereq.sh}
 ```
