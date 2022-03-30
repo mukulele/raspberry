@@ -11,13 +11,16 @@ apt -y full-upgrade
 timedatectl set-timezone $TZ
 
 # config the default language, raspi-config is this doing in a similar way
-for lang in ${PACKAGE_LANG[*]}; do sed -i -e "s/# $lang/$lang/" /etc/locale.gen; done # locale-gen
-dpkg-reconfigure -f noninteractive locales
-update-locale ${PACKAGE_LANG[-1]} LANGUAGE=${PACKAGE_LANG[-1]:0:2}:${PACKAGE_LANG[0]:0:2}        # schreibt nur die datei /etc/default/locale neu?
-localectl set-locale ${PACKAGE_LANG[-1]} LANGUAGE=${PACKAGE_LANG[-1]:0:2}:${PACKAGE_LANG[0]:0:2} # wird localectl gebraucht?
+for lang in ${PACKAGE_LANG[*]}; do sed -i -e "s/# $lang/$lang/" /etc/locale.gen; done 
+dpkg-reconfigure -f noninteractive locales     # ? locale-gen
+#####
+# localectl set-locale LANG=${PACKAGE_LANG[-1]} LANGUAGE=${PACKAGE_LANG[-1]:0:2}:${PACKAGE_LANG[0]:0:2}
+# update-locale         
+#####
+update-locale LANG=${PACKAGE_LANG[-1]} LANGUAGE=${PACKAGE_LANG[-1]:0:2}:${PACKAGE_LANG[0]:0:2}
 
 # keyboard settings
-localectl set-keymap de
+localectl set-keymap ${PACKAGE_LANG[-1]:0:2}
 # Code from raspi-config 
 setupcon -k --force <> /dev/tty1 >&0 2>&1
 
