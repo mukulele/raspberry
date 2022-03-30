@@ -1,48 +1,31 @@
 #!/bin/bash
 # Set the new hostname below for quiet setup or leave it blank to be asked
 hname=
-PACKAGE_LANG='en_US.UTF-8 de_DE.UTF-8'
+PACKAGE_LANG=(en_US.UTF-8 de_DE.UTF-8) # the first is fallback in LANGUAGE, the last is set to default
+TZ='Europe/Berlin'
 # first load the latest software
 apt -y update
 apt -y full-upgrade
 
 # Timezone
-timedatectl set-timezone Europe/Berlin
+timedatectl set-timezone $TZ
 
-# Set Country for WiFi
-if [ -n "$(iw dev)" ] 
-    then 
-	iw reg set DE
-	# add first line for WiFi if not already there
-	file="/etc/wpa_supplicant/wpa_supplicant.conf"
-	zn=$(sed -n '/country/=' $file) # ermittelt Zeilenummer mit country
-	if [ -z $zn ]
-		then
-		      sed -i '1 i\country=DE' $file
-	fi
-fi
-# config the language to german
-# localedef -f UTF-8 -i de_DE de_DE.UTF-8
-# localectl set-locale LANG=de_DE.UTF-8 LANGUAGE=de_DE
-# alternativ
-for lang in ${PACKAGE_LANG}; do sed -i -e "s/# $lang/$lang/" /etc/locale.gen; done
-locale-gen
-export LANG=de_DE.UTF-8 
-export LANGUAGE=de:en
-export LC_ALL=de_DE.UTF-8
-# keyboard settings todo unsicher ?
+# config the default language, raspi-config is this doing in a similar way
+for lang in ${PACKAGE_LANG[*]}; do sed -i -e "s/# $lang/$lang/" /etc/locale.gen; done # locale-gen
+dpkg-reconfigure -f noninteractive locales
+update-locale ${PACKAGE_LANG[-1]} LANGUAGE=${PACKAGE_LANG[-1]:0:2}:${PACKAGE_LANG[0]:0:2}        # schreibt nur die datei /etc/default/locale neu?
+localectl set-locale ${PACKAGE_LANG[-1]} LANGUAGE=${PACKAGE_LANG[-1]:0:2}:${PACKAGE_LANG[0]:0:2} # wird localectl gebraucht?
+
+# keyboard settings
 localectl set-keymap de
-# setupcon liefert derzeit eine (einmalige?) Fehlermeldung https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=903393
-# das scheint aber ohne Auswirkung?
-setupcon
+# Code from raspi-config 
+setupcon -k --force <> /dev/tty1 >&0 2>&1
 
 # Hostname
 oname=$(hostname)
-if [ -z $hname ]
-	then
+if [ -z $hname ] ; then
 		read -p "Hostname "$oname" ändern? Bitte den neuen Hostnamen eingeben, oder einfach enter:" hnameneu
-		if [[ $hnameneu != "" ]]
-			then
+		if [[ $hnameneu != "" ]] ; then
 				hname=$hnameneu
 		fi
 fi
