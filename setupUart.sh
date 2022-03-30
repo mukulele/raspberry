@@ -11,6 +11,7 @@ for cmd in stop disable mask ; do
 done
 # aktivate UART 
 echo 'enable_uart=1' >> /boot/config.txt
+echo "after reboot: serial UART/AMA0 is working for additional modules"
 
 # switch miniUart to BT Interface for Pi Model 3, 4, Zero W and Zero WH
 model=($(tr -d '\0' < /sys/firmware/devicetree/base/model))
@@ -19,4 +20,5 @@ if (( ${model[2]} >= 3 )) || ( [[ ${model[2]} == "Zero" ]] && [[ ${model[3]:0:1}
 dtoverlay=miniuart-bt
 core_freq=250
 EOF
+echo 'and BT Module and Wifi will still working'
 fi
