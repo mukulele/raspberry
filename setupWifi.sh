@@ -12,3 +12,5 @@ if [ -n "$(iw dev)" ]
 		      sed -i '1 i\country=DE' $file
 	fi
 fi
+
+rfkill unblock wifi
