@@ -23,7 +23,7 @@ Some extended Script for a ready System
 # Download a bunch of Scripts 
 For FHEM directly
 ```
-wget https://raw.githubusercontent.com/heinz-otto/raspberry/master/setup{Basic.sh,UartPi3.sh,Samba.sh,Fhem.sh,BackupFhem2Cifs.sh,Nodejs.sh}
+wget https://raw.githubusercontent.com/heinz-otto/raspberry/master/setup{Basic.sh,Uart.sh,Samba.sh,Fhem.sh,BackupFhem2Cifs.sh,Nodejs.sh}
 ```
 For Docker
 ```
