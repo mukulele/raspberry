@@ -1,5 +1,7 @@
 #!/bin/sh
 # install docker compose v2 plugin
+is_user_root () { [ "$(id -u)" -eq 0 ]; }
+is_user_root && echo "run script as normal user" && exit 1
 # first test and try to remove docker-compose v1
 if docker-compose version 2>/dev/null ; then
     sudo rm /usr/local/bin/docker-compose > /dev/null 2>&1 && echo "/usr/local/bin/docker-compose removed"
