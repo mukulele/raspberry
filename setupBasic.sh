@@ -1,10 +1,10 @@
 #!/bin/bash
-# run this Script as root
-is_user_root () { [ "$(id -u)" -eq 0 ]; }
-if ! is_user_root ; then
-   exec sudo bash "$0" "$@"
+# run this Script as root https://www.linuxjournal.com/content/automatically-re-start-script-root-0
+if [[ $UID -ne 0 ]]; then
+   sudo -p 'Restarting as root, password: ' bash $0 "$@"
+   exit $?
 fi
-
+### Start Script
 # Set the new hostname below for quiet setup or leave it blank to be asked
 hname=
 PACKAGE_LANG=(en_US.UTF-8 de_DE.UTF-8) # the first is fallback in LANGUAGE, the last is set to default
