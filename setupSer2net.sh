@@ -1,4 +1,9 @@
 #!/bin/bash
+# run this Script as root https://www.linuxjournal.com/content/automatically-re-start-script-root-0
+if [[ $UID -ne 0 ]]; then
+   sudo -p 'Restarting as root, password: ' bash $0 "$@"
+   exit $?
+fi
 apt -y update
 apt -y install ser2net
 version=($(ser2net -v))
