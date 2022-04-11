@@ -1,5 +1,8 @@
 #!/bin/bash
-# run as user
+# the user should not root
+is_user_root () { [ "$(id -u)" -eq 0 ]; }
+is_user_root && echo "run script as normal user" && exit 1
+#
 # docker itselfs
 wget https://raw.githubusercontent.com/heinz-otto/raspberry/master/Docker/setup{Docker.sh,DockerComposeV2.sh}
 bash setupDocker.sh
