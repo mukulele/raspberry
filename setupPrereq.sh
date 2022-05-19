@@ -6,6 +6,11 @@
 # am Einfachsten liegt die alte fhem.cfg vor Start des Script im Pi HomdeDir
 ref='/home/pi/fhem.cfg'
 
+# run this Script as root https://www.linuxjournal.com/content/automatically-re-start-script-root-0
+if [[ $UID -ne 0 ]]; then
+   sudo -p 'Restarting as root, password: ' bash $0 "$@"
+   exit $?
+fi
 # functions
 # getFile FileName RepositoryName
 get-File() {
