@@ -1,7 +1,7 @@
 #!/bin/bash
-# Dieses Script installiert FHEM falls es nochnicht vorhanden ist!
+# Dieses Script installiert FHEM falls es noch nicht vorhanden ist!
 # Im FHEM wird ein Installer Device im Developer Modus definiert
-# mit Hilfe meines bash FHEM Client wird eine Abfrage der "alten" fhem.cfg durchgeführt und alle benötigten Mopdule ausgegeben
+# mit Hilfe meines bash FHEM Client wird eine Abfrage der "alten" fhem.cfg durchgeführt und alle benötigten Module ausgegeben
 # ein copy & paste für dann zur Installation der fehlenden Perl Module
 # am Einfachsten liegt die alte fhem.cfg vor Start des Script im Pi HomdeDir
 ref='/home/pi/fhem.cfg'
