@@ -51,14 +51,19 @@ analyze-config() {
   # auf einem docker container - nur als Notiz
   # packages=$(echo $s|tr ' ' "\n"|sed '/^JSON/d;s/$/./;s/^/\//'|docker exec -i <containername> apt-file search -l -f -)
   # Ausgabe
+  if [ -z "$s" ] ;then
+    echo 'es fehlen keine Perl Module' 
+  else
+    echo "es fehlen diese Perl Module"
+    echo $s
+  fi
   if [ -z "$packages" ] ;then
     echo 'kein fehlendes debian Paket ermittelt' 
   else
-    echo "es fehlen folgende Pakete"
+    echo "mit folgenden debian Paketen könnten die oben genannten Perl Module installiert werden"
     echo $packages
-    echo "apt install $packages"
-    echo "vor erneuten Test: sudo systemctl restart fhem"
   fi
+    echo "Nach einer Installation und vor erneuten Test: sudo systemctl restart fhem"
 }
 # Hauptprogramm
 # System aufrüsten
