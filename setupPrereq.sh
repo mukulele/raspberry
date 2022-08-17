@@ -3,14 +3,17 @@
 # Im FHEM wird ein Installer Device im Developer Modus definiert
 # mit Hilfe meines bash FHEM Client wird eine Abfrage der "alten" fhem.cfg durchgeführt und alle benötigten Module ausgegeben
 # ein copy & paste für dann zur Installation der fehlenden Perl Module
-# am Einfachsten liegt die alte fhem.cfg vor Start des Script im Pi HomdeDir
-ref='/home/pi/fhem.cfg'
+# am Einfachsten liegt die alte fhem.cfg vor Start des Script im aktuellen Verzeichnis
 
 # run this Script as root https://www.linuxjournal.com/content/automatically-re-start-script-root-0
 if [[ $UID -ne 0 ]]; then
    sudo -p 'Restarting as root, password: ' bash $0 "$@"
    exit $?
 fi
+# Script Pfad setzen
+ref=$1
+[ -z "$ref" ] && ref=$(realpath ./fhem.cfg)
+
 # functions
 # getFile FileName RepositoryName
 get-File() {
@@ -100,7 +103,7 @@ if [ -z "$ref" ]
   then
   read -p "Dateiname eingeben:"ref
 fi
-
+# Test if File exist and ist not empty
 if [ -s "$ref" ]
 then
   printf "\nAnalyse mit Datei $ref wird gestartet\n"
