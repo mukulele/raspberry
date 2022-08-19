@@ -49,22 +49,22 @@ setup-Fhem() {
 }
 analyze-config() {
   # Abfrage starten
-  s=$(./fhemcl.sh 8083 "get installer checkPrereqs $1"|grep -oE 'installPerl.*&fwcsrf'|grep -oE '\s[a-z,A-Z,:]+\s')
-  packages=$(echo $s|tr " " "\n"|sed '/^JSON$/d;s/$/./;s/^/\//'|apt-file search -l -f -)
+  PerlModul=$(./fhemcl.sh 8083 "get installer checkPrereqs $1"|grep -oE 'installPerl.*&fwcsrf'|grep -oE '\s[a-z,A-Z,:]+\s')
+  DebianPaket=$(echo $PerlModul|tr " " "\n"|sed '/^JSON$/d;s/$/./;s/^/\//'|apt-file search -l -f -)
   # auf einem docker container - nur als Notiz
-  # packages=$(echo $s|tr ' ' "\n"|sed '/^JSON/d;s/$/./;s/^/\//'|docker exec -i <containername> apt-file search -l -f -)
+  # DebianPaket=$(echo $PerlModul|tr ' ' "\n"|sed '/^JSON/d;s/$/./;s/^/\//'|docker exec -i <containername> apt-file search -l -f -)
   # Ausgabe
-  if [ -z "$s" ] ;then
+  if [ -z "$PerlModul" ] ;then
     echo 'es fehlen keine Perl Module' 
   else
     echo "es fehlen diese Perl Module"
-    echo $s
+    echo $PerlModul
   fi
-  if [ -z "$packages" ] ;then
+  if [ -z "$DebianPaket" ] ;then
     echo 'kein fehlendes debian Paket ermittelt' 
   else
     echo "mit folgenden debian Paketen könnten die oben genannten Perl Module installiert werden"
-    echo $packages
+    echo $DebianPaket
   fi
     echo "Nach einer Installation und vor erneuten Test: sudo systemctl restart fhem"
 }
@@ -108,4 +108,6 @@ if [ -s "$ref" ]
 then
   printf "\nAnalyse mit Datei $ref wird gestartet\n"
   analyze-config $ref
+  echo $PerlModul > PerlModul
+  echo $DebianPaket > DebianPaket
 fi
