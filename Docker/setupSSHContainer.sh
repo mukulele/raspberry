@@ -12,3 +12,4 @@ if ! ls ~/.ssh/id_rsa.pub >/dev/null; then
     echo "rsa key already in place"
 fi
 sort -u ~/.ssh/known_hosts -o ~/.ssh/known_hosts
+cat ~/.ssh/id_rsa.pub
