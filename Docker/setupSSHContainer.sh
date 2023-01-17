@@ -10,7 +10,7 @@ done
 if ! ls ~/.ssh/id_${key_version}.pub >/dev/null; then
     ssh-keygen -f ~/.ssh/id_${key_version} -P "" -t ${key_version}
   else
-    echo "publickey of type ${key_version} already in place"
+    echo "public key of type ${key_version} already in place"
 fi
 #sort -u ~/.ssh/known_hosts -o ~/.ssh/known_hosts
 cat ~/.ssh/id_${key_version}.pub
