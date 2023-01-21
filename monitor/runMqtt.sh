@@ -7,9 +7,8 @@ DIRECTORY=$(cd `dirname $0` && pwd)
 if conf=$(ls ${DIRECTORY}/$(basename $0 .sh).conf 2>/dev/null) ; then 
   #echo "config $conf vorhanden"
   source ${conf}
-else 
-  #echo "nehme inside"
 fi
+
 if ! cmd=$(which mosquitto_pub) ; then 
   echo 'ERROR install mosquitto-clients first'
   exit 1
@@ -18,6 +17,7 @@ fi
 if ! ls ${DIRECTORY}/*.var >/dev/null; then 
   wget -qN https://raw.githubusercontent.com/heinz-otto/raspberry/master/monitor/{day,hour,second}.var
 fi
+
 if [ $# -eq 0 ] ; then mask=*; else mask=$1 ; fi
 files="$(ls ${mask}.var)"
 for file in ${files} ; do
