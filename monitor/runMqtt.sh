@@ -19,7 +19,7 @@ if ! ls ${DIRECTORY}/*.var >/dev/null; then
 fi
 
 if [ $# -eq 0 ] ; then mask=*; else mask=$1 ; fi
-files="$(ls ${mask}.var)"
+files="$(ls ${DIRECTORY}/${mask}.var)"
 for file in ${files} ; do
   source ${file}
   for varname in $(cat ${file}|grep -vE '^#'|awk -F'=' '{print $1}') ;do
