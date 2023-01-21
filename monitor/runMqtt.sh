@@ -1,6 +1,7 @@
 #!/bin/bash
 MQTT_SVR="192.168.56.187"
 TOPIC="monitor/system"
+if conf=$(ls $(basename $0 .sh).conf) ; then echo "config $conf vorhanden" ; fi
 if ! cmd=$(which mosquitto_pub) ; then 
   echo 'ERROR install mosquitto-clients first'
   exit 1
