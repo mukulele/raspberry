@@ -1,0 +1,4 @@
+sdcard_root_total=$(($(df /|grep /dev/root|awk '{print $2}')/1024))
+sdcard_boot_total=$(($(df /boot|grep /dev/|awk '{print $2}')/1024))
+sdcard_root_used=$(($(df /|grep /dev/root|awk '{print $3}')/1024))
+sdcard_boot_used=$(($(df /boot|grep /dev/|awk '{print $3}')/1024))
