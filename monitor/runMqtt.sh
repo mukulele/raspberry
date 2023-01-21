@@ -8,16 +8,16 @@ if conf=$(ls ${DIRECTORY}/$(basename $0 .sh).conf 2>/dev/null) ; then
   #echo "config $conf vorhanden"
   source ${conf}
 fi
-
+# check prerequisits and set cmd
 if ! cmd=$(which mosquitto_pub) ; then 
   echo 'ERROR install mosquitto-clients first'
   exit 1
 fi
-
+# check var units
 if ! ls ${DIRECTORY}/*.var >/dev/null; then 
   wget -qN https://raw.githubusercontent.com/heinz-otto/raspberry/master/monitor/{day,hour,second}.var
 fi
-
+# start daily, hourly, secondly 
 if [ $# -eq 0 ] ; then mask=*; else mask=$1 ; fi
 files="$(ls ${DIRECTORY}/${mask}.var)"
 for file in ${files} ; do
