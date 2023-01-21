@@ -33,5 +33,5 @@ else
     $cmd -i $(hostname) -h ${MQTT_SVR} -t ${TOPIC}/${varname} -m "${!varname}" ${ACCOUNT}
   done
 done
-
+fi
 fi
