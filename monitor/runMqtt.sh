@@ -12,7 +12,6 @@ fi
 for file in $(ls ${DIRECTORY}/*.var) ; do
   source ${file}
   for varname in $(cat ${file}|grep -vE '^#'|awk -F'=' '{print $1}') ;do
-    echo "$cmd -i $(hostname) -h ${MQTT_SVR} -t ${TOPIC}/${varname} -m ${!varname} -q 1"
+    $cmd -i $(hostname) -h ${MQTT_SVR} -t ${TOPIC}/${varname} -m "${!varname}" -q 1
   done
 done
-
