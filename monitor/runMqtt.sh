@@ -18,20 +18,11 @@ fi
 if ! ls ${DIRECTORY}/*.var; then 
   wget -qN https://raw.githubusercontent.com/heinz-otto/raspberry/master/monitor/{day,hour,second}.var
 fi
-if [ $# -eq 0 ] ; then
+if [ $# -eq 0 ] ; then mask=*; else mask=$1 ; fi
+files="$(ls ${mask}.var)"
 for file in $(ls ${DIRECTORY}/*.var) ; do
   source ${file}
   for varname in $(cat ${file}|grep -vE '^#'|awk -F'=' '{print $1}') ;do
     $cmd -i $(hostname) -h ${MQTT_SVR} -t ${TOPIC}/${varname} -m "${!varname}" ${ACCOUNT}
   done
 done
-else
- if [ "$1" == "second" ] ; then
- for file in second.var ; do
-  source ${file}
-  for varname in $(cat ${file}|grep -vE '^#'|awk -F'=' '{print $1}') ;do
-    $cmd -i $(hostname) -h ${MQTT_SVR} -t ${TOPIC}/${varname} -m "${!varname}" ${ACCOUNT}
-  done
-done
-fi
-fi
