@@ -6,7 +6,7 @@ DIRECTORY=$(cd `dirname $0` && pwd)
 if ! ls ${DIRECTORY}/*.var; then echo wget ... ; fi
 for file in $(ls ${DIRECTORY}/*.var) ; do
   source ${file}
-  for varname in $(cat ${file}|awk -F'=' '{print $1}') ;do
+  for varname in $(cat ${file}|grep -vE '^#'|awk -F'=' '{print $1}') ;do
     echo "$cmd -i $(hostname) -h ${MQTT_SVR} -t ${TOPIC}/${varname} -m ${!varname} -q 1"
   done
 done
