@@ -20,7 +20,7 @@ if ! ls ${DIRECTORY}/*.var; then
 fi
 if [ $# -eq 0 ] ; then mask=*; else mask=$1 ; fi
 files="$(ls ${mask}.var)"
-for file in $(ls ${DIRECTORY}/*.var) ; do
+for file in ${files} ; do
   source ${file}
   for varname in $(cat ${file}|grep -vE '^#'|awk -F'=' '{print $1}') ;do
     $cmd -i $(hostname) -h ${MQTT_SVR} -t ${TOPIC}/${varname} -m "${!varname}" ${ACCOUNT}
