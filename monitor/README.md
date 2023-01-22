@@ -16,9 +16,17 @@ The MQTT Server configuration is done by a file runMqtt.conf or inside on top of
 ```
 ### var files
 The content is executed by source file statement. And analyzed line by line with cut at the '='
+# e.g. eval expression # lines starting with comment will be ignored
+Be aware of the spaces at start of the line for the function!
 ```
-var1=value1 # e.g. eval expression 
-# lines starting with comment will be ignored
+# function 
+ countFiles () {
+   ls | wc -l
+ }
+# variables
+var1=value1
+var2=$(countFiles)
+var3=$(date)
 ```
 ### setup Script
 installing mosquitto_clients (only mosquitto_pub is used)
