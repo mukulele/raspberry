@@ -15,7 +15,8 @@ if ! cmd=$(which mosquitto_pub) ; then
   exit 1
 fi
 if [ "${MQTT_SVR}" == "" ] ; then
-   echo "MQTT_SVR is empty, please create a valid ${DIRECTORY}/$(basename $0 .sh).conf first"
+   echo "MQTT_SVR is empty, set MQTT_SVR first" 
+   echo "or create a valid ${DIRECTORY}/$(basename $0 .sh).conf first"
    exit 1
 fi
 
