@@ -16,10 +16,11 @@ The MQTT Server configuration is done by a file runMqtt.conf or inside on top of
 ```
 ### var files
 The content is executed by source file statement. And analyzed line by line with cut at the '='
-# e.g. eval expression # lines starting with comment will be ignored
+It's possible to do anything inside the file, but the var=value had to be at start of the line and all lines without var assigments have to start with white spaces or hash (#)!
+
 Be aware of the spaces at start of the line for the function!
 ```
-# function 
+# functions
  countFiles () {
    ls | wc -l
  }
