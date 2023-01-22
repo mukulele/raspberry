@@ -17,7 +17,7 @@ wget -qO setupMonitor.sh https://raw.githubusercontent.com/heinz-otto/raspberry/
 sudo bash setupMonitor.sh
 ```
 After the setup, the script will run immediately, but will don't send any data.
-Create now an working config and the next loop will send data to your running MQTT-Broker. Edit the top of the script or create an extra file:
+Create now a working config and the next loop will send data to your running MQTT-Broker. Edit the top of the script or create an extra file:
 ```
 cat >runMqtt.conf <<EOF
 MQTT_SVR="servername|IP"
