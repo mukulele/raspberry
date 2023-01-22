@@ -27,7 +27,7 @@ for i in "hour=*-*-* *:00:00" "day=*-*-* 00:00:00" "second=*:*:0/10"; do
    FREQ=${i%=*}       # split bevor '='
    VAL=${i#*=}        # split after '='
    # write timer unit file
-   cat >/etc/systemd/system/${NAME}-${FREQ}@.timer <<-EOT
+   cat >/etc/systemd/system/${NAME}-${FREQ}@.timer <<-EOF
    [Unit]
    Description=${NAME}-${FREQ} timer
    [Timer]
@@ -36,7 +36,8 @@ for i in "hour=*-*-* *:00:00" "day=*-*-* 00:00:00" "second=*:*:0/10"; do
    Persistent=true
    [Install]
    WantedBy=timers.target
-   EOT
+   EOF
+   
    # enable Timer
    systemctl enable --now ${NAME}-${FREQ}@${FREQ}.timer
 done
