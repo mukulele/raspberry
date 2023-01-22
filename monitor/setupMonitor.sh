@@ -26,7 +26,7 @@ EOF
 for i in "hour=*-*-* *:00:00" "day=*-*-* 00:00:00" "second=*:*:0/10"; do  
    FREQ=${i%=*}       # split bevor '='
    VAL=${i#*=}        # split after '='
-   # write timer unit file
+   # write timer unit file, beware of tabs in front of the following lines
 	cat >/etc/systemd/system/${NAME}-${FREQ}@.timer <<-EOF
 	[Unit]
 	Description=${NAME}-${FREQ} timer
