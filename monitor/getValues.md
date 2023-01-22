@@ -36,9 +36,12 @@ Inside subdirectories below /proc/
 ```
 firmware=$( cat /proc/version |grep -oE '#[0-9]+')
 ```
-cat /proc/cpuinfo is a formatted multiline table, ':' delimited
+cat /proc/cpuinfo is a formatted multiline table, ':' delimited. With the delimiter ": " we remove the leading space.
+Hardware returns a single word. Model returns a multiword value. 
+
+Pay attention to the outer quotation marks.
 ```
-Processor="$(cat /proc/cpuinfo|awk -F": '$0 ~ /Hardware/ {print $2}')"
+Processor=$(cat /proc/cpuinfo|awk -F": " '$0 ~ /Hardware/ {print $2}')
 Model="$(cat /proc/cpuinfo|awk -F": " '$0 ~ /Model/ {print $2}')"
 ```
 cat /proc/meminfo is a formatted multiline table, ':' and space delimited
