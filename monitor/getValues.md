@@ -1,3 +1,4 @@
+Working in progress ...
 ## Get Values with vcgencmd
 official [Documentation](https://www.raspberrypi.com/documentation/computers/os.html#vcgencmd)
 ```
@@ -60,7 +61,7 @@ uname is controlled by argument and returns a single line. uname --help
 ```
 kernel_version="$( uname -msr )"
 ```
-Information from filesystem will get be the df command
+Information from filesystem will get by the df command
 ```
 sdcard_root_total=$(($(df /|grep /dev/root|awk '{print $2}')/1024))
 sdcard_boot_total=$(($(df /boot|grep /dev/|awk '{print $2}')/1024))
