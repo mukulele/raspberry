@@ -1,5 +1,5 @@
 #!/bin/bash
-#MQTT_SVR="192.168.56.187"
+#MQTT_SVR="servername|IPAdresse[ -p 1883]"
 MQTT_TOPIC="monitor/system"
 #MQTT_ACCOUNT="-u user -P password"
 MQTT_CID=${HOSTNAME}
