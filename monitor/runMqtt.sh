@@ -21,7 +21,8 @@ if [ "${MQTT_SVR}" == "" ] ; then
 fi
 
 # check var units
-if ! ls ${DIRECTORY}/*.var >/dev/null; then 
+if ! ls ${DIRECTORY}/*.var >/dev/null 2>&1 ; then 
+  echo 'collector files not found locally - download the templates'
   wget -qN https://raw.githubusercontent.com/heinz-otto/raspberry/master/monitor/{day,hour,second}.var
 fi
 # start for all or a given filename, if $1 is empty substitute with *  
