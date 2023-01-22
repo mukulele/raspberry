@@ -26,8 +26,9 @@ if ! ls ${DIRECTORY}/*.var >/dev/null; then
 fi
 # start for all or a given filename, if $1 is empty substitute with *  
 for file in $(ls ${DIRECTORY:-.}/${1:-*}.var) ; do
+  # file is executed, inside the loop all lines with white spaces or comments will be ignored 
   source ${file}
-  for varname in $(cat ${file}|grep -vE '^#'|awk -F'=' '{print $1}') ;do
+  for varname in $(cat ${file}|grep -vE '^#|^\s'|awk -F'=' '{print $1}') ;do
     $cmd -i ${MQTT_CID} -h ${MQTT_SVR} ${MQTT_ACCOUNT} -t ${MQTT_TOPIC}/${varname} -m "${!varname}" ${MQTT_ACCOUNT}
   done
 done
