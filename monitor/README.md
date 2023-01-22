@@ -8,10 +8,10 @@ There are 3 parts of code on this repository:
 ## 1. Setup Script
 The setupMonitor script will do this steps:
 1. install mosquitto-clients if mosquitto_pub is'nt in place.
-2. download the main script and makes it's executable.
-3. configure systemd to do the frequently job:
+2. download the main script and make it's executable.
+3. configure systemd to doing the frequently job:
    - one inactive service unit, called by the timer
-   - tree timer units: running per day, per hour and every 10 seconds
+   - tree active timer units: running per day, per hour and every 10 seconds
    - enables the timer
 
 Except the last step, it's easy to do with a few lines manually, look to the section main script.
