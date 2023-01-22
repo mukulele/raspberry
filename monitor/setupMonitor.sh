@@ -12,13 +12,14 @@ wget -qO ${SCRIPT_DIR}/${SCRIPT_NAME} https://raw.githubusercontent.com/heinz-ot
 chmod +x ${SCRIPT_DIR}/${SCRIPT_NAME}
 
 ##### create service and timer units
+# service unit is called from timer units with parameter
 export NAME=monitor-runMqtt
 cat >/etc/systemd/system/${NAME}@.service <<EOF
 [Unit]
 Description=${NAME}
 [Service]
 Type=oneshot
-ExecStart=${SCRIPT_DIR}/runMqtt.sh %i
+ExecStart=${SCRIPT_DIR}/${SCRIPT_NAME} %i
 EOF
 
 for i in "hour=*-*-* *:00:00" "day=*-*-* 00:00:00" "second=*:*:0/10"; do  
