@@ -24,19 +24,19 @@ EOF
 
 # timer per hour, per day and per 10 seconds
 for i in "hour=*-*-* *:00:00" "day=*-*-* 00:00:00" "second=*:*:0/10"; do  
-FREQ=${i%=*}       # split bevor '='
-VAL=${i#*=}        # split after '='
-# write unit
-cat >/etc/systemd/system/${NAME}-${FREQ}@.timer <<EOF
-[Unit]
-Description=${NAME}-${FREQ} timer
-[Timer]
-Unit=${NAME}@%i.service
-OnCalendar=${VAL}
-Persistent=true
-[Install]
-WantedBy=timers.target
-EOF
-# enable Timer
-systemctl enable --now ${NAME}-${FREQ}@${FREQ}.timer
+   FREQ=${i%=*}       # split bevor '='
+   VAL=${i#*=}        # split after '='
+   # write timer unit file
+   cat >/etc/systemd/system/${NAME}-${FREQ}@.timer <<- EOT
+   [Unit]
+   Description=${NAME}-${FREQ} timer
+   [Timer]
+   Unit=${NAME}@%i.service
+   OnCalendar=${VAL}
+   Persistent=true
+   [Install]
+   WantedBy=timers.target
+   EOT
+   # enable Timer
+   systemctl enable --now ${NAME}-${FREQ}@${FREQ}.timer
 done
