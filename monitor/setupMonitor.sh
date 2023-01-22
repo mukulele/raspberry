@@ -5,7 +5,9 @@ if [[ $UID -ne 0 ]]; then
    exit $?
 fi
 ### Start Script
-apt update && apt install mosquitto-clients
+if ! which mosquitto_pub ; then 
+  apt update && apt install mosquitto-clients
+fi
 export SCRIPT_DIR=$(pwd)
 export SCRIPT_NAME=runMqtt.sh
 wget -qO ${SCRIPT_DIR}/${SCRIPT_NAME} https://raw.githubusercontent.com/heinz-otto/raspberry/master/monitor/${SCRIPT_NAME}
