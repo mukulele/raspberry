@@ -6,11 +6,15 @@ There will be one inactive systemd service unit is called by 3 systemd timers wi
 
 There are 3 parts of code on this repository: 
 ## 1. Setup Script
-installing mosquitto_clients (only mosquitto_pub is used)
-catching the script from github and makes it executable
-Create a inactive service units called bei systemd timer
-Create 3 timer units: running per day, per hour and every 10 seconds
-enables the timer
+The setupMonitor script will do this steps:
+1. install mosquitto-clients if mosquitto_pub is'nt in place.
+2. download the main script and makes it's executable.
+3. configure systemd to do the frequently job:
+   - one inactive service unit, called by the timer
+   - tree timer units: running per day, per hour and every 10 seconds
+   - enables the timer
+
+Except the last step, it's easy to do with a few lines manually, look to the section main script.
 
 ```
 wget -qO setupMonitor.sh https://raw.githubusercontent.com/heinz-otto/raspberry/master/monitor/setupMonitor.sh
