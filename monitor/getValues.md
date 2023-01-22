@@ -74,3 +74,10 @@ net_received=$( cat /sys/class/net/eth0/statistics/rx_bytes)
 net_send=$( cat /sys/class/net/eth0/statistics/tx_bytes)
 ```
 thousands of values will be available in the /sys/devices/ tree
+
+
+After the apt update -y command, the number of availlable packages
+```
+packages=$(($(apt list --upgradeable 2>/dev/null|wc -l )-1))
+```
+
