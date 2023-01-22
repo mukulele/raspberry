@@ -30,8 +30,8 @@ If you don't want to wait up to midnight for all data, you could execute the scr
 ```
 ./runMqtt.sh         # will send all data from all var files
 ```
-### customize your setup
-Initially the script loads 3 files from github. Customize this at any time. 
+### Customize your collectors 
+Initially the script loads 3 collector files from github. Customize this at any time. 
 ```
 nano second.var
 ```
@@ -51,7 +51,7 @@ sudo systemctl stop monitor-runMqtt-day@day.timer
 sudo systemctl start monitor-runMqtt-day@day.timer
 ```
 ## 2. main script 
-The MQTT Server configuration is done by a file runMqtt.conf or inside on top of the script. The intial config is empty, in this case the script will exit witout any action.
+The receiver (MQTT Server) configuration is done by a file runMqtt.conf or inside on top of the script. The intial config is empty, in this case the script will exit witout any action.
 
 ```
 wget -qO runMqtt.sh https://raw.githubusercontent.com/heinz-otto/raspberry/master/monitor/runMqtt.sh
@@ -59,9 +59,9 @@ chmod +x runMqtt.sh
 ./runMqtt.sh         # will send all from all var files
 ./runMqtt.sh second  # will proceed only the file second.var
 ```
-## 3. var files
-The content is executed by source file statement. And analyzed line by line with cut at the '='
-It's possible to do anything inside the file, but the var=value had to be at start of the line and all lines without var assigments have to start with white spaces or hash (#)!
+## 3. Collector (var) files
+The content is executed by a source file statement inside the main script. The content is analyzed line by line with doing a cut at the '='.
+It's possible to do anything inside the file, but the var=value had to be at start of the line and all lines without var assigments have to start with on or more white spaces or hash (#)!
 
 Be aware of the spaces at start of the line for the function!
 ```
@@ -74,4 +74,3 @@ var1=value1
 var2=$(countFiles)
 var3=$(date)
 ```
-
