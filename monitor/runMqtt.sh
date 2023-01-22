@@ -1,5 +1,5 @@
 #!/bin/bash
-MQTT_SVR="192.168.56.187"
+#MQTT_SVR="192.168.56.187"
 TOPIC="monitor/system"
 #ACCOUNT="-u user -P password"
 
@@ -13,6 +13,11 @@ if ! cmd=$(which mosquitto_pub) ; then
   echo 'ERROR install mosquitto-clients first'
   exit 1
 fi
+if [ "${MQTT_SVR}" == "" ] ; then
+   echo "MQTT_SVR is empty, please create a valid ${DIRECTORY}/$(basename $0 .sh).conf first"
+   exit 1
+fi
+
 # check var units
 if ! ls ${DIRECTORY}/*.var >/dev/null; then 
   wget -qN https://raw.githubusercontent.com/heinz-otto/raspberry/master/monitor/{day,hour,second}.var
