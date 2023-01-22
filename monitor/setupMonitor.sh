@@ -22,6 +22,7 @@ Type=oneshot
 ExecStart=${SCRIPT_DIR}/${SCRIPT_NAME} %i
 EOF
 
+# timer per hour, per day and per 10 seconds
 for i in "hour=*-*-* *:00:00" "day=*-*-* 00:00:00" "second=*:*:0/10"; do  
 FREQ=${i%=*}       # split bevor '='
 VAL=${i#*=}        # split after '='
