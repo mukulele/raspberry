@@ -9,7 +9,9 @@ Health=$(vcgencmd get_throttled | cut -f2 -d=)
 CoreVolt=$(vcgencmd measure_volts | cut -f2 -d=)
 ```
 ## Translate Values to human readable
-For more complex operation functions will be easier to use.
+For more complex operation: functions will be easier to use than onliners.
+
+Bit masks are difficult for humans to read. Translate bit mask to text:
 ```
   throttled () {
     code=$1
