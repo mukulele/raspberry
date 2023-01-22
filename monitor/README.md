@@ -72,6 +72,8 @@ chmod +x runMqtt.sh
 The content is executed by a source file statement inside the main script. Also, the content is analyzed line by line with doing a cut at the '='.
 It's possible to do anything inside the file, but the 'var=value' statement must to be at start of the line and all lines without var assigments have to start with one or more white space or hash (#)!
 
+More details in this [document](getValues.md)
+
 Example:
 * Be aware of the spaces at start of the line for the function!
 ```
