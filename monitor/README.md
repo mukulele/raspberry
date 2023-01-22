@@ -24,7 +24,7 @@ After the setup, the script will run immediately, but will don't send any data.
 Create now a working config and the next loop will send data to your running MQTT-Broker. Edit the top of the script or create an extra file:
 ```
 cat >runMqtt.conf <<EOF
-MQTT_SVR="servername|IP"
+MQTT_SVR="servername|IP[ -p 1883]"
 MQTT_TOPIC="monitor/system"
 #MQTT_ACCOUNT="-u user -P password"
 MQTT_CID=${HOSTNAME}
