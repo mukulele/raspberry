@@ -70,10 +70,12 @@ chmod +x runMqtt.sh
 ./runMqtt.sh second  # will proceed only the file second.var
 ```
 If you want doing only a small test bevor going live: create an valid conf file (see above) and a harmless collector:
-```cat >seond.var <<EOF
+```
+cat >second.var <<EOF
 MESSAGE="from the runMqtt script"
 EOF
 ```
+Remove this file, if you want to downloading the collector templates automatically during the first run.
 ## 3. Collector (var) files
 The content is executed by a source file statement inside the main script. Also, the content is analyzed line by line with doing a cut at the '='.
 It's possible to do anything inside the file, but the 'var=value' statement must to be at start of the line and all lines without var assigments have to start with one or more white space or hash (#)!
