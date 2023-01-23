@@ -3,7 +3,7 @@
 The main idea was to collect some performance data from raspberry Pi and push this data to a mqtt broker enabled Dashboard like FHEM or HA etc. But you can use it to push every data from system level to a mqtt broker. My guideline was 'keep it simple'. The script himself don't need special rights, maybe the collectors need it.
 
 The script could be run everywhere and performs two nested loops:
-1. one loop over files, that could contain definitions of functions and variables. This files will be executed.
+1. one loop over all collector files in the directory or the given filename, that contain definitions of functions and variables. This files will be executed.
 2. second loop over the lines inside the files, 
    - cut the names of the variables and 
    - build topics with the names and send the content as message to the mqtt broker.
@@ -77,6 +77,8 @@ EOF
 ```
 Remove this file, if you want to downloading the collector templates automatically during the first run.
 ## 3. Collector (var) files
+All files in the script directory with the extension var will be executed by default. The main script accept one argument as filename without extension to execute only this file.
+
 The content is executed by a source file statement inside the main script. Also, the content is analyzed line by line with doing a cut at the '='.
 It's possible to do anything inside the file, but the 'var=value' statement must to be at start of the line and all lines without var assigments have to start with one or more white space or hash (#)!
 
