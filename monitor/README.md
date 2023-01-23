@@ -44,7 +44,7 @@ If you don't want to wait up to midnight for all data, you could execute the scr
 ### Customize your collectors 
 Initially the script loads 3 collector files from github. Customize this at any time. 
 ```
-nano second.var
+nano day.var
 ```
 
 ### Control the monitor
@@ -71,7 +71,7 @@ chmod +x runMqtt.sh
 ```
 If you want doing only a small test bevor going live: create an valid conf file (see above) and a harmless collector:
 ```
-cat >second.var <<'EOF'
+cat >day.var <<'EOF'
 MESSAGE="$(date) msg from the runMqtt script"
 EOF
 ```
