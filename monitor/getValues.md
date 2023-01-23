@@ -47,12 +47,14 @@ Processor=$(cat /proc/cpuinfo|awk -F": " '$0 ~ /Hardware/ {print $2}')
 Model="$(cat /proc/cpuinfo|awk -F": " '$0 ~ /Model/ {print $2}')"
 ```
 cat /proc/meminfo is a formatted multiline table, ':' and space delimited
+
+Different possibilities for filter and calculation
 ```
-memory_total=$(($(cat /proc/meminfo|grep MemTotal |awk '{print $2}')/1024))
-memory_free=$(($(cat /proc/meminfo|grep MemFree |awk '{print $2}')/1024))
-memory_available=$(($(cat /proc/meminfo|grep MemAvailable |awk '{print $2}')/1024))
-swap_total=$(($(cat /proc/meminfo|grep SwapTotal |awk '{print $2}')/1024))
-swap_used=$(($(cat /proc/meminfo|grep SwapFree |awk '{print $2}')/1024))
+MemTotal=$(cat /proc/meminfo|awk '$0 ~ /MemTotal/ {printf ("%0.0f",$2/1024);}')
+MemFree=$(cat /proc/meminfo|awk '$0 ~ /MemFree/ {printf ("%0.0f",$2/1024);}')
+MemAvailable=$(($(cat /proc/meminfo|grep MemAvailable |awk '{print $2}')/1024))
+SwapTotal=$(($(cat /proc/meminfo|grep SwapTotal |awk '{print $2}')/1024))
+SwapFree=$(($(cat /proc/meminfo|grep SwapFree |awk '{print $2}')/1024))
 ```
 loadavg returns multivalue line [loadavg](https://linuxwiki.de/proc/loadavg) The command uptime gives also this same values
 ```
