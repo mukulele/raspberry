@@ -1,14 +1,15 @@
 # Monitor to MQTT
 ## Concept
-The main idea was to collect some performance data from raspberry Pi and push this data to a mqtt broker enabled Dashboard like FHEM or HA etc. But you can use it to push every data from system level to a mqtt broker. My guideline was 'keep it simple'.
+The main idea was to collect some performance data from raspberry Pi and push this data to a mqtt broker enabled Dashboard like FHEM or HA etc. But you can use it to push every data from system level to a mqtt broker. My guideline was 'keep it simple'. The script himself don't need special rights, maybe the collectors need it.
 
 The script could be run everywhere and performs two nested loops:
 1. one loop over files, that could contain definitions of functions and variables. This files will be executed.
 2. second loop over the lines inside the files, 
    - cut the names of the variables and 
    - build topics with the names and send the content as message to the mqtt broker.
+3. Easy configuration by a small set of text files located in the same directory. 
 
-Periodically starting the Script is done by systemd timers. Easy configuration by a small set of text files.
+Periodically starting the Script could be done by systemd timers, crontab or anything else. 
 
 There are 3 parts of code on this repository: 
 ## 1. Setup Script
@@ -20,7 +21,7 @@ The setupMonitor script will do this steps:
    - tree active timer units: running per day, per hour and every 10 seconds
    - enables the timer
 
-Except the last step, it's easy doing with a few lines manually, look to the section main script.
+Except the last step, it's also easy doing with a few lines manually, look to the section [main script](README.md#2-main-script).
 
 ```
 wget -qO setupMonitor.sh https://raw.githubusercontent.com/heinz-otto/raspberry/master/monitor/setupMonitor.sh
