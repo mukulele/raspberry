@@ -30,7 +30,7 @@ sudo bash setupMonitor.sh
 After the setup, the script will run immediately, but will don't send any data.
 Create now a working configuration file and the next loop will send data to your running MQTT-Broker. Edit the top of the script or create an extra file:
 ```
-cat >runMqtt.conf <<EOF
+cat >runMqtt.conf <<'EOF'
 MQTT_SVR="servername|IP[ -p 1883]"
 MQTT_TOPIC="monitor/system"
 #MQTT_ACCOUNT="-u user -P password"
@@ -71,8 +71,8 @@ chmod +x runMqtt.sh
 ```
 If you want doing only a small test bevor going live: create an valid conf file (see above) and a harmless collector:
 ```
-cat >second.var <<EOF
-MESSAGE="from the runMqtt script"
+cat >second.var <<'EOF'
+MESSAGE="$(date) msg from the runMqtt script"
 EOF
 ```
 Remove this file, if you want to downloading the collector templates automatically during the first run.
