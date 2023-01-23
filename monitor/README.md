@@ -48,7 +48,7 @@ nano day.var
 ```
 
 ### Control the monitor
-Is all installed, looking after setup: Is all installed?
+Post installation: Is all installed?
 ```
 systemctl list-units --all monitor*
 ```
