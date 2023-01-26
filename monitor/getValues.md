@@ -28,6 +28,28 @@ Bit masks are difficult for humans to read. Translate bit mask to text:
   }
 Health=throttled $(vcgencmd get_throttled | cut -f2 -d=)
 ```
+Same task - different solution
+```
+  throttled () {
+    code=$1
+    ISSUES_BITMAP=( \
+      0x1,"Under-voltage detected" \
+      0x2,"Arm frequency capped" \
+      0x4,"Currently throttled"
+      0x8,"Soft temperature limit active" \
+      0x10000,"Under-voltage has occurred" \
+      0x20000,"Arm frequency capping has occurred" \
+      0x40000,"Throttling has occurred" \
+      0x80000,"Soft temperature limit has occurred" )
+    ARRAY=()
+    for i in "${ISSUES_BITMAP[@]}" ; do
+        if (( ($code & ${i%,*}) != 0 )) ; then 
+	        ARRAY+=(${i#*,})
+        fi
+    done
+    if [ "$code" == "0x0" ] ; then echo 'ok' ; else echo ${ARRAY[@]} ; fi
+  }
+```
 ## Get information from system files
  /etc/os-release is multilined and '=' delimited
 ```
@@ -87,4 +109,7 @@ After the apt update -y command, the number of availlable packages
 ```
 packages=$(($(apt list --upgradeable 2>/dev/null|wc -l )-1))
 ```
-
+## simpel speedtest for the collector expressions
+```
+time for i in {1..100} ; do health=$( throttled $(vcgencmd get_throttled | cut -f2 -d=) ) ;done
+```
