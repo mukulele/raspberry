@@ -1,7 +1,7 @@
 distribution="$( cat /etc/os-release| awk -F"=" '$0 ~ /PRETTY_NAME/ {print $2}')"
 kernel_version="$( uname -msr )"
 firmware=$( cat /proc/version |grep -oE '#[0-9]+')
-processor=$(cat /proc/cpuinfo|grep Hardware|awk '{print $3}')
+CPUModel=$(lscpu|grep "Model name"|awk -F ':' '{print $2}'|sed 's/^ *//')
 uptime=$( cat /proc/uptime|awk '{print $1}')
 max_proc=$(nproc)
 MemTotal=$(cat /proc/meminfo|awk '$0 ~ /MemTotal/ {printf ("%0.0f",$2/1024);}')
