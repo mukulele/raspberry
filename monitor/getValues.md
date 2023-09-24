@@ -70,6 +70,11 @@ Model="$(cat /proc/cpuinfo|awk -F": " '$0 ~ /Model/ {print $2}')"
 ```
 cat /proc/meminfo is a formatted multiline table, ':' and space delimited
 
+Get Information about temperature 
+```
+paste <(cat /sys/class/thermal/thermal_zone*/type) <(cat /sys/class/thermal/thermal_zone*/temp) | column -s $'\t' -t | sed 's/\(.\)..$/.\1°C/'
+```
+
 Different possibilities for filter and calculation
 ```
 MemTotal=$(cat /proc/meminfo|awk '$0 ~ /MemTotal/ {printf ("%0.0f",$2/1024);}')
