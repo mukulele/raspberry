@@ -13,7 +13,7 @@ dtoverlay=mcp2515-can1,oscillator=16000000,interrupt=25
 dtoverlay=mcp2515-can1,oscillator=16000000,interrupt=25
 EOF
 # write startup script
-mkdir $PWD/setup
+mkdir -p $PWD/setup
 cat <<EOF >> /$PWD/setup/startCan.sh
 # bitrate 250000 VE.Can NMEA2000
 # bitrate 500000 CANbus BMS
