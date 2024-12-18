@@ -6,9 +6,9 @@ if [[ $UID -ne 0 ]]; then
 fi
 
 # deactivate ModemManager
-for cmd in stop disable ; do 
-    systemctl $cmd ModemManager.service
-done
+# for cmd in stop disable ; do 
+#    systemctl $cmd ModemManager.service
+# done
 
 echo 'ACTION=="add", SUBSYSTEM=="net", ATTR{qmi/raw_ip}=="*", ATTR{qmi/raw_ip}="Y"' >>  /etc/udev/rules.d/99-rawip.rules
 udevadm control --reload-rules
@@ -16,14 +16,23 @@ udevadm trigger
 lsub -t
 
 # NetworkManager
-# connection for 1nce
-nmcli connection add type gsm ifname '*' con-name 'test' apn 'iot.1nce.net' \
-connection.autoconnect no \
+# connection for 1nce IOT SIM:
+# apn 'iot.1nce.net'
+# ipv4.addresses "10.238.250.1"
+nmcli connection add type gsm ifname '*' con-name 'wwan' apn 'iot.1nce.net' \
+connection.id 'wwan' \
+connection.autoconnect yes \
 connection.autoconnect-retries 10 \
-connection.lldp 0 \
+connection.metered yes \
+connection.wait-device-timeout 1000 \
+connection.wait-activation-delay 1000 \
+ipv4.method manual \
+ipv4.addresses "10.238.250.1/30" \
 ipv4.dns "8.8.8.8 8.8.4.4"\
-ipv4.route-data "10.60.2.239/32 10.60.10.132/32 10.60.8.222/32"\
+ipv4.route-data "10.60.0.0/16"\
 ipv6.method disabled \
 gsm.mtu 1200 
+
+
 
 
