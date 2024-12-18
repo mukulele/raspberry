@@ -8,8 +8,10 @@ mkdir -p /$PWD/setup
 mkdir -p /$PWD/tracks
 
 # gpsdlogger startup script
-echo 'gpxlogger --interval 5 --minmove 20 --output "/$PWD/tracks/$(date '+%F %H:%M:%S').gpx" --reconnect" >> /$PWD/setuo/gpsdlogger_start.sh
-chmod 755 /$PWD/setup/gpxlogger_start.sh
+cat <<'EOF' >> /$PWD/setuo/gpsdlogger_start.sh
+gpxlogger --interval 5 --minmove 20 --output "/$PWD/tracks/$(date '+%F %H:%M:%S').gpx" --reconnect 
+EOF
+chmod +x /$PWD/setup/gpxlogger_start.sh
 apt-get -y install gpsd  gpsd-clients gpsd-tools
 
 # gpsd default config

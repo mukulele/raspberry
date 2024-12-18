@@ -1,17 +1,17 @@
 #!/bin/bash
-# setup basic Wifi dor country DE
-# Set Country for WiFi
-# detect wireless adapter: if [ -n "$(find /sys/class/net -follow -maxdepth 2 -name wireless 2>/dev/null| cut -d / -f 5)" ] ; then echo Wifi ; fi
-if [ -n "$(iw dev)" ] 
-    then 
-	iw reg set DE
-	# add first line for WiFi if not already there
-	file="/etc/wpa_supplicant/wpa_supplicant.conf"
-	zn=$(sed -n '/country/=' $file) # ermittelt Zeilennummer mit country
-	if [ -z $zn ]
-		then
-		      sed -i '1 i\country=DE' $file
-	fi
-    rfkill unblock wifi 2>/dev/null
+# run this Script as root https://www.linuxjournal.com/content/automatically-re-start-script-root-0
+if [[ $UID -ne 0 ]]; then
+   sudo -p 'Restarting as root, password: ' bash $0 "$@"
+   exit $?
 fi
+# NetworkManager connection
+# no internet connection only local accesss
+nmcli device wifi hotspot con-name hotspot ssid raspberry_ap band bg password clipperiv
+
+# NetworkManager dispatcher
+# the script currently enables the connection when eth is down and vice versa
+cp /$PWD/setup/70-wifi-wired-exclusive.sh /etc/NetworkManager/dispatcher.d/70-wifi-wired-exclusive.sh
+chown root /etc/NetworkManager/dispatcher.d/70-wifi-wired-exclusive.sh
+chmod +x /etc/NetworkManager/dispatcher.d/70-wifi-wired-exclusive.sh
+systemctl restart NetworkManager
 

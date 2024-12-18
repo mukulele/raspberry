@@ -26,5 +26,20 @@ apt-get install sysstat
 
 apt autoremove
 
+# Network Manager
+sed -i '1 i\country=DE'
+
+#watchdog
+#echo "Enabling watchdog?"
+#read -p "Continue (y/n)?" CONT
+#if [ "$CONT" = "y" ]; then
+#modprobe bcm2835_wdt
+#apt-get install watchdog
+# cp /$PWD/setup/watchdog.conf etc/init.d/watchdog @todo
+#/etc/init.d/watchdog start
+#else
+#  echo "skipped";
+#fi
+
 #Reboot
 echo "Reboot to apply changes\nrun ssh pi@${host}.local"
