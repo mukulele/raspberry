@@ -27,7 +27,21 @@ apt-get install sysstat
 apt autoremove
 
 # Network Manager
-sed -i '1 i\country=DE'
+rm /etc/NetworkManager/NetworkManager.conf
+cat <<EOF >> /etc/NetworkManager/NetworkManager.conf
+[main]
+plugins=ifupdown,keyfile
+
+[ifupdown]
+managed=true
+
+[device]
+wifi.scan-rand-mac-address=no
+
+[logging]
+level=TRACE
+domains=ALL
+EOF
 
 #watchdog
 #echo "Enabling watchdog?"
