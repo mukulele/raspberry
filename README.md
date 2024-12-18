@@ -11,14 +11,18 @@ Short description the Basic Script in sort of usage:
 * Uart    is not used
 * Samba   is not used
 * Davfs   is not used
-* Docker  will setup Docker and docker-compose
+* Docker  is not configured
 * PiVCCU  is not used
 * Ser2net is not used
-* CAN     will setup the CANbus hardware
+* Can     will setup the CANbus hardware
+* Wifi    hotspot for local ccess when internet connectivity is down
+* Simcom  IOT Sim7000 for 1nce
+* Gpsd    noname usb device with gpxlogger and NMEA stream on port 2947
 
 Some extended Script for a ready System  
-* configBackup...   Implement a Backup Solution wich copies the lokal Backup to a SMB Server and is triggered from FHEM
-* setupNodejs         Simple install a defined Version of nodejs. Please look at https://nodejs.org/de/about/releases/
+* configBackup...   not used
+* setupNodejs       not used
+* signalk           @todo
 # Download a bunch of Scripts 
 For Docker
 ```
