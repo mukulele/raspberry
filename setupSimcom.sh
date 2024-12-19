@@ -9,11 +9,15 @@ fi
 # for cmd in stop disable ; do 
 #    systemctl $cmd ModemManager.service
 # done
-
+mkdir -p /$PWD/setup
+echo 'ACTION=="add", SUBSYSTEM=="net", ATTR{qmi/raw_ip}=="*", ATTR{qmi/raw_ip}="Y"' >>  /$PWD/setup/rules.d/99-rawip.rules
 echo 'ACTION=="add", SUBSYSTEM=="net", ATTR{qmi/raw_ip}=="*", ATTR{qmi/raw_ip}="Y"' >>  /etc/udev/rules.d/99-rawip.rules
 udevadm control --reload-rules
 udevadm trigger
-lsub -t
+echo "---------------------------"
+lsusb | grep SIM
+lsub -t | grep wwan
+echo "---------------------------"
 
 # NetworkManager: connection for 1nce IOT SIM:
 # apn 'iot.1nce.net'
