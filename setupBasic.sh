@@ -65,4 +65,4 @@ chown root /etc/NetworkManager/NetworkManager.conf
 
 #Reboot
 echo " "
-echo "Reboot to apply change, then connect: ssh ${whoami}@${hostname}.local"
+echo "Reboot to apply change"
