@@ -15,7 +15,7 @@ Short description the Basic Script in sort of usage:
 * PiVCCU  is not used
 * Ser2net is not used
 * Can     will setup the CANbus hardware
-* Wifi    hotspot for local ccess when internet connectivity is down
+* Wifi    hotspot for local access when internet connectivity is down
 * Simcom  IOT Sim7000 for 1nce
 * Gpsd    noname usb device with gpxlogger and NMEA stream on port 2947
 
