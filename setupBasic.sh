@@ -11,17 +11,16 @@ fi
 apt -y update
 apt -y full-upgrade
 
-mkkdir -p /$PWD/setup
-# @todo
-# wget all relevant filtes into /$pWD/setup
-
 # Midnight Commander
 apt-get -y install mc
+
+mkkdir -p /$PWD/setup
+cd /$PWD/setup
 
 # log2ram
 wget https://github.com/azlux/log2ram/archive/master.tar.gz -O log2ram.tar.gz
 tar xf log2ram.tar.gz
-cd /$PWD/log2ram-master
+cd /$PWD/setup/log2ram-master
 ./install.sh
 rm -y log2ram.tar.g
 
@@ -63,4 +62,4 @@ EOF
 #fi
 
 #Reboot
-echo "Reboot to apply change, then connect: ssh pi@rpi.local" #@todo replace rpi with$hostname
+echo "Reboot to apply change, then connect: ssh $whoami@$hostname.local"

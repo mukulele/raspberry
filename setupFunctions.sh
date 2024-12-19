@@ -5,7 +5,7 @@ get-File() {
   if [ ! -e $1 ]
   then
     echo "$1 is missing"
-    wget https://raw.githubusercontent.com/heinz-otto/$2/master/$1
+    wget https://raw.githubusercontent.com/mukulele/$2/master/$1
     chmod +x $1
   fi
 }

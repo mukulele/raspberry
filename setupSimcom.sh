@@ -37,7 +37,9 @@ nmcli -p connection up 'wwan' --wait 10
 # Network Manager: dispatcher
 # the script currently configures the firewall
 # routing and ip address of dev wwan is managed with nmcli above
-cp /$PWD/setup/80-wwan-online-offline.sh /etc/NetworkManager/dispatcher.d/80-wwan-online-offline.sh
+cd /$PWD/setup/
+wget https://raw.githubusercontent.com/mukulele/master/80-wwan-online-offline.sh
+cp ./80-wwan-online-offline.sh /etc/NetworkManager/dispatcher.d/80-wwan-online-offline.sh
 chown root /etc/NetworkManager/dispatcher.d/80-wwan-online-offline.sh
 chmod +x /etc/NetworkManager/dispatcher.d/80-wwan-online-offline.sh
 systemctl restart NetworkManager
