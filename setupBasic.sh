@@ -22,7 +22,7 @@ wget https://github.com/azlux/log2ram/archive/master.tar.gz -O log2ram.tar.gz
 tar xf log2ram.tar.gz
 cd $PWD/setup/log2ram-master
 ./install.sh
-rm -y log2ram.tar.gz
+rm $PWD/log2ram.tar.gz
 
 echo "# journalctl nach 30 Tagen löschen"
 journalctl --rotate --vacuum-time=30d
@@ -48,6 +48,7 @@ wifi.scan-rand-mac-address=no
 level=TRACE
 domains=ALL
 EOF
+cp /etc/NetworkManager/NetworkManager.conf $PWD/setup/NetworkManager.conf
 
 #watchdog
 #echo "Enabling watchdog?"
