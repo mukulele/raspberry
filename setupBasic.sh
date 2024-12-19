@@ -11,28 +11,28 @@ fi
 apt -y update
 apt -y full-upgrade
 
-# Midnight Commander
+echo "# Midnight Commander"
 apt-get -y install mc
 
-mkkdir -p /$PWD/setup
-cd /$PWD/setup
+mkdir -p $PWD/setup
+cd $PWD/setup
 
-# log2ram
+echo "# log2ram"
 wget https://github.com/azlux/log2ram/archive/master.tar.gz -O log2ram.tar.gz
 tar xf log2ram.tar.gz
-cd /$PWD/setup/log2ram-master
+cd $PWD/setup/log2ram-master
 ./install.sh
-rm -y log2ram.tar.g
+rm -y log2ram.tar.gz
 
-# journalctl nach 30 Tagen löschen
+echo "# journalctl nach 30 Tagen löschen"
 journalctl --rotate --vacuum-time=30d
 
-# RPI Monitor
+echo "# RPI Monitor"
 apt-get -y install sysstat
 
 apt autoremove
 
-# Network Manager
+echo "# Network Manager"
 rm /etc/NetworkManager/NetworkManager.conf
 cat <<EOF >> /etc/NetworkManager/NetworkManager.conf
 [main]
@@ -62,4 +62,5 @@ EOF
 #fi
 
 #Reboot
-echo "Reboot to apply change, then connect: ssh $whoami@$hostname.local"
+echo " "
+echo "Reboot to apply change, then connect: ssh ${whoami}@${hostname}.local"
