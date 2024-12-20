@@ -4,14 +4,14 @@ if [[ $UID -ne 0 ]]; then
    sudo -p 'Restarting as root, password: ' bash $0 "$@"
    exit $?
 fi
-mkdir -p /$PWD/setup
-mkdir -p /$PWD/tracks
+mkdir -p /setup
+mkdir -p /tracks
 
 # gpsdlogger startup script
-cat <<'EOF' >> /$PWD/setuo/gpsdlogger_start.sh
-gpxlogger --interval 5 --minmove 20 --output "/$PWD/tracks/$(date '+%F %H:%M:%S').gpx" --reconnect 
+cat <<'EOF' >> /setup/gpsdlogger_start.sh
+gpxlogger --interval 5 --minmove 20 --output "/home/pi/tracks/$(date '+%F %H:%M:%S').gpx" --reconnect 
 EOF
-chmod +x /$PWD/setup/gpxlogger_start.sh
+chmod +x /setup/gpxlogger_start.sh
 apt-get -y install gpsd  gpsd-clients gpsd-tools
 
 # gpsd default config
@@ -80,7 +80,7 @@ Description=GPS (Global Positioning System) Daemon
 Requires=gpsd.service
 
 [Service]
-ExecStart=/$PWD/setup/gpxlogger_start.sh
+ExecStart=/home/pi/setup/gpxlogger_start.sh
 Restart=always
 RuntimeMaxSec=1d
 RestartSec=10

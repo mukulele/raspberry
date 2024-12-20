@@ -14,8 +14,8 @@ dtoverlay=mcp2515-can1,oscillator=16000000,interrupt=25
 EOF
 # @TODOchmod +x
 # write startup script
-mkdir -p /$PWD/setup
-cat <<EOF >> /$PWD/setup/startCan.sh
+mkdir -p /setup
+cat <<EOF >> /setup/startCan.sh
 # bitrate 250000 VE.Can NMEA2000
 # bitrate 500000 CANbus BMS
 ifconfig can0 txqueuelen 65536
@@ -24,6 +24,6 @@ ip link set can1 up type can bitrate 500000
 sudo ifconfig can0 txqueuelen 65536
 sudo ifconfig can1 txqueuelen 65536
 EOF
-chmod +x /$PWD/setup/start_can.sh
-sed -i '/fi/a/$PWD/setup/start_can.sh' /etc/rc.local
+chmod +x /setup/start_can.sh
+sed -i '/fi/a/setup/start_can.sh' /etc/rc.local
 
