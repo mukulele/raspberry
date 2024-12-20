@@ -5,18 +5,14 @@ if [[ $UID -ne 0 ]]; then
    exit $?
 fi
 
-# deactivate ModemManager
-# for cmd in stop disable ; do 
-#    systemctl $cmd ModemManager.service
-# done
-mkdir -p /$PWD/setup
-wget
-cp /etc/udev/rules.d/99-rawip.rules
+mkdir -p /conf
+wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/99-rawip.rules -P /conf
+install -m 644 /conf/99-rawip.rules /etc/udev/rules.d/99-rawip.rules --backup
 udevadm control --reload-rules
 udevadm trigger
 echo "---------------------------"
 lsusb | grep SIM
-lsub -t | grep wwan
+lsusb -t | grep wwan
 echo "---------------------------"
 
 # NetworkManager: connection for 1nce IOT SIM:
@@ -41,11 +37,8 @@ nmcli -p connection up 'wwan' --wait 10
 # Network Manager: dispatcher
 # the script currently configures the firewall
 # routing and ip address of dev wwan is managed with nmcli above
-cd /$PWD/setup/
-wget https://raw.githubusercontent.com/mukulele/master/80-wwan-online-offline.sh
-cp ./80-wwan-online-offline.sh /etc/NetworkManager/dispatcher.d/80-wwan-online-offline.sh
-chown root /etc/NetworkManager/dispatcher.d/80-wwan-online-offline.sh
-chmod +x /etc/NetworkManager/dispatcher.d/80-wwan-online-offline.sh
+wget https://raw.githubusercontent.com/mukulele/master/80-wwan-online-offline.sh -P /conf
+install -m 755 /conf/80-wwan-online-offline.sh /etc/NetworkManager/dispatcher.d/80-wwan-online-offline.sh
 systemctl restart NetworkManager
 
 

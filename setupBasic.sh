@@ -16,12 +16,6 @@ mkdir -p /conf
 echo "# Midnight Commander"
 apt-get -y install mc
 
-echo "# log2ram"
-wget -q -o https://github.com/azlux/log2ram/archive/master.tar.gz | tar -xvzf - -P /conf
-cd /conf/log2ram-master
-./install.sh
-
-
 echo "# journalctl nach 30 Tagen löschen"
 journalctl --rotate --vacuum-time=30d
 
@@ -48,6 +42,9 @@ chown root /etc/NetworkManager/NetworkManager.conf
 #  echo "skipped";
 #fi
 
-#Reboot
-echo " "
-echo "Reboot to apply change"
+echo "# log2ram"
+echo "deb [signed-by=/usr/share/keyrings/azlux-archive-keyring.gpg] http://packages.azlux.fr/debian/ bookworm main" | sudo tee /etc/apt/sources.list.d/azlux.list
+wget -O /usr/share/keyrings/azlux-archive-keyring.gpg  https://azlux.fr/repo.gpg
+apt update
+apt install log2ram
+echo "REBOOT before installing anything else"

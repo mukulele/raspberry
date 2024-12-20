@@ -13,35 +13,17 @@ fi
 apt update
 apt-get -y install gpsd  gpsd-clients gpsd-tools
 mkdir -p /etc/default/gpsd
-wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/gpsd, gpsd.service, gpsd.socket, gpxlogger.service, gpsdloggerStart.sh \
--P /etc/default
-mkdir -p /tracks
-
-# gpsdlogger startup script
-# wget ...gpxlogger_start.sh
-chmod +x /setup/gpxlogger_start.sh
-apt-get -y install gpsd  gpsd-clients gpsd-tools
-
-# gpsd default config
-# wget
-# rm /etc/default/gpsd
-# cp
-
-
-# gpsd.service
-# wget
-# rm
-# install /etc/systemd/system/gpsd.service
-
-
-# gpsd.socket
-# wget cat <<'EOF' >> /etc/systemd/system/gpsd.socket
-# rm
-# cp
-
-# gpxlogger.service
-# wget
-# rm
-# cp /etc/systemd/system/gpxlogger.service
-
-sudo systemctl enable gpsd.service gpsd.socket gpxlogger.service
+wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/gpsd -P /conf
+wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/gpsd.service -P /conf
+wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/gpsd.socket -P /conf
+wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/gpxlogger.service -P /conf
+wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/gpsdloggerStart.sh -P /conf
+install -m 644 /conf/gpsd /etc/default/gpsd --backup
+install -m 644 /conf/gpsd.service /etc/systemd/system/gpsd.service --backup
+install -m 644 /conf/gpsd.socket /etc/systemd/system/gpsd.socket --backup
+install -m 644 /conf/gpxlogger.service /etc/systemd/system/gpxlogger.service --backup
+install -m 755 /conf/gpsdloggerStart.sh /usr/local/bin/gpsdloggerStart.sh
+mkdir -p /gpsdtracks
+systemctl enable gpsd.service gpsd.socket gpxlogger.service
+echo"-------------------"
+echo "test with gpsmon"

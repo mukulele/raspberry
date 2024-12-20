@@ -7,19 +7,23 @@ if [[ $UID -ne 0 ]]; then
    exit $?
 fi
 
-# activate CAN 
+# activate CAN
+# @todo
+mkdir -p /conf
+cp /boot/firmware/config.txt /conf/config.txt.backup
 cat <<EOF >> /boot/firmware/config.txt
-dtoverlay=mcp2515-can1,oscillator=16000000,interrupt=25
+dtparam=spi=on
+# Enabling mcp2515 on SPI0.0 as can0
+dtoverlay=mcp2515-can0,oscillator=16000000,interrupt=23
+# Enabling mcp2515 on SPI0.1 as can1
 dtoverlay=mcp2515-can1,oscillator=16000000,interrupt=25
 EOF
-# @TODOchmod +x
+
 # write startup script
-mkdir -p /setup
-# wget
-# rm
-# cp /setup/startCan.sh
-
-
-chmod +x /setup/start_can.sh
-#sed -i '/fi/a/setup/start_can.sh' /etc/rc.local ?
+mkdir -p /conf
+wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/startCan.sh -P /conf
+install -m 755 /conf/startCan.sh /usr/local/bin/startCan.sh
+sed -i '/fi/a/start_can.sh' /etc/rc.local
+echo "-----------------------------"
+echo "test with ifconfig | grep can"
 
