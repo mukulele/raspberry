@@ -10,8 +10,8 @@ fi
 #    systemctl $cmd ModemManager.service
 # done
 mkdir -p /$PWD/setup
-echo 'ACTION=="add", SUBSYSTEM=="net", ATTR{qmi/raw_ip}=="*", ATTR{qmi/raw_ip}="Y"' >>  /$PWD/setup/rules.d/99-rawip.rules
-echo 'ACTION=="add", SUBSYSTEM=="net", ATTR{qmi/raw_ip}=="*", ATTR{qmi/raw_ip}="Y"' >>  /etc/udev/rules.d/99-rawip.rules
+wget
+cp /etc/udev/rules.d/99-rawip.rules
 udevadm control --reload-rules
 udevadm trigger
 echo "---------------------------"

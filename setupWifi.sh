@@ -11,7 +11,7 @@ nmcli device wifi hotspot con-name hotspot ssid raspberry_ap band bg password cl
 # NetworkManager dispatcher
 # the script currently enables the connection when eth is down and vice versa
 cd /$PWD/setup/
-wget https://raw.githubusercontent.com/mukulele/master/0-wifi-wired-exclusive.sh
+wget https://raw.githubusercontent.com/mukulele/master/70-wifi-wired-exclusive.sh
 cp ./70-wifi-wired-exclusive.sh /etc/NetworkManager/dispatcher.d/70-wifi-wired-exclusive.sh
 chown root /etc/NetworkManager/dispatcher.d/70-wifi-wired-exclusive.sh
 chmod +x /etc/NetworkManager/dispatcher.d/70-wifi-wired-exclusive.sh

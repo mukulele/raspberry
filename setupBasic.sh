@@ -10,17 +10,19 @@ fi
 # first load the latest software
 apt -y update
 apt -y full-upgrade
+mkdir -p /conf
+wget -r -c -np https://raw.githubusercontent.com/mukulele/raspberry/master/conf/ -P /conf
+
 
 echo "# Midnight Commander"
 apt-get -y install mc
 
 echo "# log2ram"
-wget https://github.com/azlux/log2ram/archive/master.tar.gz -O log2ram.tar.gz
-tar xf log2ram.tar.gz
+wget -q -o https://github.com/azlux/log2ram/archive/master.tar.gz | tar -xvzf -
 cd /log2ram-master
 ./install.sh
 cd ~
-rm log2ram.tar.gz
+
 
 echo "# journalctl nach 30 Tagen löschen"
 journalctl --rotate --vacuum-time=30d
@@ -32,20 +34,7 @@ apt autoremove
 
 echo "# Network Manager"
 rm /etc/NetworkManager/NetworkManager.conf
-cat <<EOF >> /etc/NetworkManager/NetworkManager.conf
-[main]
-plugins=ifupdown,keyfile
-
-[ifupdown]
-managed=true
-
-[device]
-wifi.scan-rand-mac-address=no
-
-[logging]
-level=TRACE
-domains=ALL
-EOF
+# wget ..
 mkdir -p /setup
 cp /etc/NetworkManager/NetworkManager.conf /setup/NetworkManager.conf
 chown root /etc/NetworkManager/NetworkManager.conf

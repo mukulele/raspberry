@@ -15,15 +15,11 @@ EOF
 # @TODOchmod +x
 # write startup script
 mkdir -p /setup
-cat <<EOF >> /setup/startCan.sh
-# bitrate 250000 VE.Can NMEA2000
-# bitrate 500000 CANbus BMS
-ifconfig can0 txqueuelen 65536
-ip link set can0 up type can bitrate 250000
-ip link set can1 up type can bitrate 500000
-sudo ifconfig can0 txqueuelen 65536
-sudo ifconfig can1 txqueuelen 65536
-EOF
+# wget
+# rm
+# cp /setup/startCan.sh
+
+
 chmod +x /setup/start_can.sh
-sed -i '/fi/a/setup/start_can.sh' /etc/rc.local
+#sed -i '/fi/a/setup/start_can.sh' /etc/rc.local ?
 

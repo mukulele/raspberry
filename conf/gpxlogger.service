@@ -1,0 +1,13 @@
+[Unit]
+Description=GPS (Global Positioning System) Daemon
+Requires=gpsd.service
+
+[Service]
+ExecStart=/home/pi/setup/gpxlogger_start.sh
+Restart=always
+RuntimeMaxSec=1d
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+Also=gpsd.service
