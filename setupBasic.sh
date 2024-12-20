@@ -11,17 +11,15 @@ fi
 apt -y update
 apt -y full-upgrade
 mkdir -p /conf
-wget -r -c -np https://raw.githubusercontent.com/mukulele/raspberry/master/conf/ -P /conf
 
 
 echo "# Midnight Commander"
 apt-get -y install mc
 
 echo "# log2ram"
-wget -q -o https://github.com/azlux/log2ram/archive/master.tar.gz | tar -xvzf -
-cd /log2ram-master
+wget -q -o https://github.com/azlux/log2ram/archive/master.tar.gz | tar -xvzf - -P /conf
+cd /conf/log2ram-master
 ./install.sh
-cd ~
 
 
 echo "# journalctl nach 30 Tagen löschen"
@@ -33,10 +31,9 @@ apt-get -y install sysstat
 apt autoremove
 
 echo "# Network Manager"
-rm /etc/NetworkManager/NetworkManager.conf
-# wget ..
-mkdir -p /setup
-cp /etc/NetworkManager/NetworkManager.conf /setup/NetworkManager.conf
+wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/NetworkManager.conf  -P /conf
+cp /etc/NetworkManager/NetworkManager.conf /conf/NetworkManager.conf.backup
+cp /conf/NetworkManager.conf /etc/NetworkManager/NetworkManager.conf
 chown root /etc/NetworkManager/NetworkManager.conf
 
 #watchdog
