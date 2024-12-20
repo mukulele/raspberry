@@ -18,28 +18,33 @@ echo "---------------------------"
 # NetworkManager: connection for 1nce IOT SIM:
 # apn 'iot.1nce.net'
 # ipv4.addresses "10.238.250.1"
-nmcli connection add type gsm ifname '*' con-name 'wwan' apn 'iot.1nce.net' \
-connection.id 'wwan' \
-connection.autoconnect yes \
-connection.autoconnect-retries 10 \
-connection.metered yes \
-connection.wait-device-timeout 1000 \
-connection.wait-activation-delay 1000 \
-ipv4.method manual \
-ipv4.addresses "10.238.250.1/30" `# depending on SIMCard` \
-ipv4.dns "8.8.8.8 8.8.4.4"\
-ipv4.route-data "10.60.0.0/16"\
-ipv6.method disabled \
-gsm.mtu 1200 \
-/
-nmcli -p connection up 'wwan' --wait 10
+nmcli connection add type gsm ifname '*' con-name 'wwan' apn 'iot.1nce.net'
+nmcli connection modify wwan +ipv4.routes 10.60.0.0/16
+nmcli connection modify wwan +ipv4.method "manual"
+nmcli connection modify wwan +connection.autoconnect yes
+nmcli connection modify wwan +connection.metered yes
+nmcli connection modify wwan +ipv4.addresses 10.238.250.1/30 # static ip for SIM
+nmcli connection modify wwan +ipv4.dns "8.8.8.8 8.8.4.4"
+nmcli connection modify wwan +ipv4.routes 10.60.0.0/16 # private adress space 1nce
+nmcli connection modify wwan +ipv6.method "disabled"
+nmcli connection modify wwan +gsm.mtu 1200
+nmcli connection modify wwan +connection.autoconnect-retries 0 # forever
+nmcli connection modify wwan +connection.wait-device-timeout 1000
+nmcli connection modify wwan +connection.wait-activation-delay 1000
+nmcli connection save persistent wwan
+
+nmcli -p connection up 'wwan'
+
+# test
+nmcli d
+ifconfig wwan0
 
 # Network Manager: dispatcher
 # the script currently configures the firewall
 # routing and ip address of dev wwan is managed with nmcli above
-wget https://raw.githubusercontent.com/mukulele/master/80-wwan-online-offline.sh -P /conf
-install -m 755 /conf/80-wwan-online-offline.sh /etc/NetworkManager/dispatcher.d/80-wwan-online-offline.sh
-systemctl restart NetworkManager
+#wget https://raw.githubusercontent.com/mukulele/master/conf/80-wwan-online-offline.sh -P /conf
+#install -m 755 /conf/80-wwan-online-offline.sh /etc/NetworkManager/dispatcher.d/80-wwan-online-offline.sh
+#systemctl restart NetworkManager
 
 
 
