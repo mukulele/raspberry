@@ -5,35 +5,60 @@ if [[ $UID -ne 0 ]]; then
    exit $?
 fi
 
+apt -y update
+apt -y full-upgrade
 mkdir -p /conf
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/99-rawip.rules -P /conf
-install -m 644 /conf/99-rawip.rules /etc/udev/rules.d/99-rawip.rules --backup
+install -m 644 /conf/99-rawip.rules /etc/udev/rules.d/99-rawip.rules
 udevadm control --reload-rules
 udevadm trigger
 echo "---------------------------"
 lsusb | grep SIM
 lsusb -t | grep wwan
+dmesg -T | grep GSM # tail -5  # die letzten 5 Nachrichten
+# driver errors nonzero urb status received: -71
+nmcli general status
+nmcli dev | grep cdc-wdm0
+
 echo "---------------------------"
 
-# NetworkManager: connection for 1nce IOT SIM:
-# apn 'iot.1nce.net'
-# ipv4.addresses "10.238.250.1"
-nmcli connection add type gsm ifname '*' con-name 'wwan' apn 'iot.1nce.net'
-nmcli connection modify wwan +ipv4.routes 10.60.0.0/16
-nmcli connection modify wwan +ipv4.method "manual"
-nmcli connection modify wwan +connection.autoconnect yes
-nmcli connection modify wwan +connection.metered yes
-nmcli connection modify wwan +ipv4.addresses 10.238.250.1/30 # static ip for SIM
-nmcli connection modify wwan +ipv4.dns "8.8.8.8 8.8.4.4"
-nmcli connection modify wwan +ipv4.routes 10.60.0.0/16 # private adress space 1nce
-nmcli connection modify wwan +ipv6.method "disabled"
-nmcli connection modify wwan +gsm.mtu 1200
-nmcli connection modify wwan +connection.autoconnect-retries 0 # forever
-nmcli connection modify wwan +connection.wait-device-timeout 1000
-nmcli connection modify wwan +connection.wait-activation-delay 1000
-nmcli connection save persistent wwan
+# NetworkManager
+# https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/networking_guide/sec-configuring_ip_networking_with_nmcli#sec-Creating_and_Modifying_a_Connection_Profile_with_nmcli
+# connection for 1nce IOT SIM: 'iot.1nce.net'
+PARAMS=(
+connection.type gsm \
+connection.interface-name "cdc-wdm0" \
+connection.id "1nce" \
+apn "iot.1nce.net" \
+gsm.mtu 1200 \
+ipv4.address 10.238.250.1/30 \
+ipv4.method manual \
+ipv4.gateway 10.238.250.0 \
+ipv4.dns "8.8.8.8 8.8.4.4" \
+ipv4.routes "10.60.0.0/16" \
+ipv6.method disabled
+)
 
-nmcli -p connection up 'wwan'
+nmcli connection add "${PARAMS[@]}"
+
+nmcli connection modify 1nce +ipv4.method "manual"
+nmcli connection modify 1nce +connection.autoconnect yes
+nmcli connection modify 1nce +connection.metered yes
+nmcli connection modify 1nce +ipv4.routes "10.60.0.0/16  10.238.250.1" # private adress space 1nce 
+nmcli connection modify 1nce +connection.autoconnect-retries 0 # forever
+nmcli connection modify 1nce +connection.wait-device-timeout 1000
+nmcli connection modify 1nce +connection.wait-activation-delay 1000
+nmcli connection save persistent 1nce
+
+nmcli -p connection up 1nce ifname cdc-wdm0
+
+#test
+mmcli -L
+mmcli -m $1
+
+#start options
+#mmcli -G DEBUG #maximum DEBUG level
+#mmcli -G ERR   #min DEBUG level
 
 # test
 nmcli d

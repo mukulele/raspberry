@@ -23,12 +23,11 @@ echo "# RPI Monitor"
 apt-get -y install sysstat
 
 apt autoremove
-
+# @todo enable ifup down und keyfiles... notwendig?
 echo "# Network Manager"
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/NetworkManager.conf  -P /conf
-cp /etc/NetworkManager/NetworkManager.conf /conf/NetworkManager.conf.backup
-cp /conf/NetworkManager.conf /etc/NetworkManager/NetworkManager.conf
-chown root /etc/NetworkManager/NetworkManager.conf
+install -m 644 /conf/NetworkManager.conf /etc/NetworkManager/conf.d --backup
+
 
 #watchdog
 #echo "Enabling watchdog?"
