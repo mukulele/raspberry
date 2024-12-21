@@ -41,14 +41,13 @@ ipv6.method disabled
 
 nmcli connection add "${PARAMS[@]}"
 
-nmcli connection modify 1nce +ipv4.method "manual"
-nmcli connection modify 1nce +connection.autoconnect yes
-nmcli connection modify 1nce +connection.metered yes
-nmcli connection modify 1nce +ipv4.routes "10.60.0.0/16  10.238.250.1" # private adress space 1nce 
-nmcli connection modify 1nce +connection.autoconnect-retries 0 # forever
-nmcli connection modify 1nce +connection.wait-device-timeout 1000
-nmcli connection modify 1nce +connection.wait-activation-delay 1000
-nmcli connection save persistent 1nce
+#nmcli connection modify 1nce +connection.autoconnect yes
+#nmcli connection modify 1nce +connection.metered yes
+#nmcli connection modify 1nce +ipv4.routes "10.60.0.0/16  10.238.250.1" # private adress space 1nce 
+#nmcli connection modify 1nce +connection.autoconnect-retries 0 # forever
+#nmcli connection modify 1nce +connection.wait-device-timeout 1000
+#nmcli connection modify 1nce +connection.wait-activation-delay 1000
+#nmcli connection save persistent 1nce
 
 nmcli -p connection up 1nce ifname cdc-wdm0
 
