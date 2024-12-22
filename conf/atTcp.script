@@ -1,0 +1,86 @@
+> AT
+OK
+
+
+> AT+CFUN?
++CFUN: 1
+
+
+> AT+CFUN=1
++CPIN: READY
+OK
+SMS Ready
+Call Ready
+
+
+> AT+CPIN?
++CPIN: READY
+OK
+
+
+> AT+COPS=0,0
+OK
+
+
+> AT+CEREG?
++CREG: 0,2
+OK
+  
+
+> AT+CEREG?
++CREG: 0,5
+OK  
+
+
+> AT+CGREG?
++CREG: 0,5
+OK 
+
+
+> AT+CGREG?
++CREG: 0,5
+OK 
+
+
+> AT+CPSI?
++CPSI: GSM,Online,262-01,0x972d,5559,79 EGSM 900,-83,0,24-24
+ 
+ 
+> AT+COPS?
++COPS: 0,0,"Telekom.de 1nce.net",3
+OK
+  
+  
+> AT+CSTT="iot.1nce.net","",""
+OK
+
+
+> AT+CIICR
+OK
+
+
+> AT+CIFSR
+x.x.x.x
+
+
+> AT+CIPSTART="TCP","<tcp_server_url/ip>",<tcp_port>
+OK
+CONNECT OK
+
+
+> AT+cipsend
+> <tcp_data_to_send>
+
+> 1a
+SEND OK
+
+
+This is a TCP response message from my server!
+
+
+> AT+CIPCLOSE
+CLOSED
+
+
+> AT+CIPSHUT
+SHUT OK

@@ -1,0 +1,71 @@
+> AT
+OK
+
+
+> AT+CFUN?
++CFUN: 1
+
+
+> AT+CFUN=1
++CPIN: READY
+OK
+SMS Ready
+Call Ready
+
+
+> AT+CPIN?
++CPIN: READY
+OK
+
+
+> AT+CNMP=?
++CNMP: ((2-Automatic),(13-GSM Only),(38-LTE Only),(51-GSM And LTE Only))
+OK
+
+> AT+CNMP?
++CNMP: 2
+OK
+
+
+> AT+CMNB=?
++CMNB: ((1-Cat-M),(2-NB-IoT),(3-Cat-M And NB-IoT))
+OK
+
+> AT+CMNB?
++CMNB: 3
+OK
+
+
+> AT+CBANDCFG=?
++CBANDCFG: (CAT-M,NB-IOT),(1,2,3,4,5,8,12,13,17,18,19,20,26,28,39)
+OK
+
+> AT+CBANDCFG?
++CBANDCFG: "CAT-M",20,8
++CBANDCFG: "NB-IOT",20,8
+OK
+
+
+> AT+CNMP=2
+OK
+
+
+> AT+CMNB=3
+OK
+
+
+> AT+CBANDCFG="CAT-M",20,8
+OK
+
+> AT+CBANDCFG="NB-IOT",20,8
+OK
+
+
+> AT+CFUN=0
++CPIN: NOT READY
+OK
+
+> AT+CFUN=1
+OK
++CPIN: READY
+SMS Ready
