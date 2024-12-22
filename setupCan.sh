@@ -1,6 +1,4 @@
 #!/bin/bash
-# Enabling mcp2515 on SPI0.0 and SPI01 as can0 and can1
-
 # run this Script as root https://www.linuxjournal.com/content/automatically-re-start-script-root-0
 if [[ $UID -ne 0 ]]; then
    sudo -p 'Restarting as root, password: ' bash $0 "$@"
@@ -9,11 +7,10 @@ fi
 apt -y update
 apt -y full-upgrade
 
-# activate CAN
-# @todo
+# Enabling mcp2515 on SPI0.0 and SPI01 as can0 and can1
 mkdir -p /conf
 cp /boot/firmware/config.txt /conf/config.txt.org
-sed s/#dtparam=spi=on/dtparam=spi=on/g /boot/firmware/config.txt
+raspi-config nonint do_spi 0 # enable
 cat <<EOF >> /boot/firmware/config.txt
 # Enabling mcp2515 on SPI0.0 as can0
 dtoverlay=mcp2515-can0,oscillator=16000000,interrupt=23
