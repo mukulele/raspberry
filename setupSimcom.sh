@@ -5,11 +5,13 @@ if [[ $UID -ne 0 ]]; then
    exit $?
 fi
 
+sed -i "max_usb_current=1" /boot/firmware/config.txt
+
 apt -y update
 apt -y full-upgrade
 mkdir -p /conf
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/99-rawip.rules -P /conf
-install -m 644 /conf/99-rawip.rules /etc/udev/rules.d/99-rawip.rules
+install -m 644 /conf/99-rawip.rules /etc/udev/rules.d/99-rawip.rules #equi to echo Y > /sys/class/net/wwan0/qmi/raw_ip
 udevadm control --reload-rules
 udevadm trigger
 echo "---------------------------"
@@ -17,6 +19,9 @@ lsusb | grep SIM
 lsusb -t | grep wwan
 dmesg -T | grep GSM # tail -5  # die letzten 5 Nachrichten
 # driver errors nonzero urb status received: -71
+# https://forums.quectel.com/t/ec25-wwan-nonzero-urb-status-received-71/4495/3
+# > usb power unstable
+# usb,a
 nmcli general status
 nmcli dev | grep cdc-wdm0
 
@@ -24,6 +29,7 @@ echo "---------------------------"
 
 # NetworkManager
 # https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/networking_guide/sec-configuring_ip_networking_with_nmcli#sec-Creating_and_Modifying_a_Connection_Profile_with_nmcli
+# https://modemmanager.org/docs/modemmanager/ip-connectivity-setup-in-lte-modems
 # connection for 1nce IOT SIM: 'iot.1nce.net'
 PARAMS=(
 connection.type gsm \
@@ -32,10 +38,11 @@ connection.id "1nce" \
 apn "iot.1nce.net" \
 gsm.mtu 1200 \
 ipv4.address 10.238.250.1/30 \
+ipv4.gateway 10.238.250.2 \ #@todo
+ipv4.routes "10.60.0.0/16 10.238.250.1" \
 ipv4.method manual \
-ipv4.gateway 10.238.250.0 \
 ipv4.dns "8.8.8.8 8.8.4.4" \
-ipv4.routes "10.60.0.0/16" \
+ipv4.routes "10.60.0.0/16 10.238.250.1" \
 ipv6.method disabled
 )
 
@@ -49,7 +56,7 @@ nmcli connection add "${PARAMS[@]}"
 #nmcli connection modify 1nce +connection.wait-activation-delay 1000
 #nmcli connection save persistent 1nce
 
-nmcli -p connection up 1nce ifname cdc-wdm0
+nmcli connection up 1nce ifname cdc-wdm0
 
 #test
 mmcli -L
