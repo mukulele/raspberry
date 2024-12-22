@@ -37,5 +37,5 @@ wget -N https://raw.githubusercontent.com/mukulele/raspberry/master/setup{Basic.
 For system migration and testing
 ```
 wget -N https://raw.githubusercontent.com/mukulele/raspberry/master/setup{Basic.sh,Uart.sh,Prereq.sh}
-wget -N https://raw.githubusercontent.com/mukulele/raspberry/master/{SIM7000X-DEMO.7z,Sim7000x-master.zip}
+wget -N https://raw.githubusercontent.com/mukulele/raspberry/master/{SIM7000-DEMO.zip,Sim7000x-master.zip,DFRobot_SIM7000-master.zip}
 ```
