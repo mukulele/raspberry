@@ -28,6 +28,7 @@ echo 'and BT Module and Wifi will still working'
 fi
 
 # Install ppp for Internet connection
+# oder setupSer2net.sh ?=
 apt-get update
 apt-get install -y ppp
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/ppp-creator.sh -P /conf
