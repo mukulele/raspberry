@@ -87,7 +87,7 @@ IP ADDRESS" > /etc/chatscripts/1nce-connect
 #OK
 #CONNECT OK" > /etc/chatscripts/1nce-connect
 
-
+#@todo
 echo "creating script file : /etc/ppp/peers/gprs"
 echo "
 /dev/$2 115200

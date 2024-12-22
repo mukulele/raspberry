@@ -30,6 +30,19 @@ fi
 # Install ppp for Internet connection
 apt-get update
 apt-get install -y ppp
-# wget https://github.com/noorkhokhar99/Sim7000x/blob/master/ppp-creator.sh
-# chmod +x ./ppp-creator.sh
+wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/ppp-creator.sh -P /conf
+chmod +x /conf/ppp-creator.sh
 # ./ppp-creator.sh INTERNET ttyS0` # Rpi3 > ttyS0 , others ttyAMA0 # INTERNET is APN, check your cellular
+#4. Run `sudo pppd call gprs`
+#5. run `ifconfig ppp0` at terminal window to see following outputs and see your ip<br/>
+#  ```
+#  ppp0      Link encap:Point-to-Point Protocol
+#            inet addr:XX.XX.XXX.XXX  P-t-P:XX.XX.XX.XX  Mask:255.255.255.255
+#            UP POINTOPOINT RUNNING NOARP MULTICAST  MTU:1500  Metric:1
+#            RX packets:38 errors:0 dropped:0 overruns:0 frame:0
+#            TX packets:39 errors:0 dropped:0 overruns:0 carrier:0
+#            collisions:0 txqueuelen:3
+#            RX bytes:3065 (2.9 KiB)  TX bytes:2657 (2.5 KiB)
+#
+#  ```
+
