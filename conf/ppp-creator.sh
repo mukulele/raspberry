@@ -82,9 +82,10 @@ OK AT+CIPSTATUS
 IP INITIAL AT+CSTT='"iot.1nce.net","",""'
 OK AT+CIICR
 OK AT+CIFSR
-IP ADDRESS AT+CIPSTART="TCP","cloudsocket.hologram.io",9999
-OK
-CONNECT OK" > /etc/chatscripts/1nce-connect
+IP ADDRESS" > /etc/chatscripts/1nce-connect 
+#AT+CIPSTART="TCP","cloudsocket.hologram.io",9999
+#OK
+#CONNECT OK" > /etc/chatscripts/1nce-connect
 
 
 echo "creating script file : /etc/ppp/peers/gprs"
