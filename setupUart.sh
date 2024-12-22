@@ -26,3 +26,10 @@ core_freq=250
 EOF
 echo 'and BT Module and Wifi will still working'
 fi
+
+# Install ppp for Internet connection
+apt-get update
+apt-get install -y ppp
+# wget https://github.com/noorkhokhar99/Sim7000x/blob/master/ppp-creator.sh
+# chmod +x ./ppp-creator.sh
+# ./ppp-creator.sh INTERNET ttyS0` # Rpi3 > ttyS0 , others ttyAMA0 # INTERNET is APN, check your cellular
