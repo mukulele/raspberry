@@ -8,7 +8,6 @@ fi
 sed -i "max_usb_current=1" /boot/firmware/config.txt
 
 apt -y update
-apt -y full-upgrade
 mkdir -p /conf
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/99-rawip.rules -P /conf
 install -m 644 /conf/99-rawip.rules /etc/udev/rules.d/99-rawip.rules #equi to echo Y > /sys/class/net/wwan0/qmi/raw_ip

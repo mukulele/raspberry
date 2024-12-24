@@ -5,7 +5,6 @@ if [[ $UID -ne 0 ]]; then
    exit $?
 fi
 apt -y update
-apt -y full-upgrade
 
 # Enabling mcp2515 on SPI0.0 and SPI01 as can0 and can1
 mkdir -p /conf
