@@ -87,7 +87,7 @@ IP ADDRESS" > /etc/chatscripts/1nce-connect
 #OK
 #CONNECT OK" > /etc/chatscripts/1nce-connect
 
-#@todo
+
 echo "creating script file : /etc/ppp/peers/gprs"
 echo "
 /dev/$2 115200
@@ -126,3 +126,43 @@ ipcp-max-failure 30
 usepeerdns" > /etc/ppp/peers/gprs
 
 echo "\n\nUse \"sudo pppd call gprs\" command and Surf"
+
+#@todo
+echo "creating script file : /etc/ppp/peers/catm"
+echo "
+/dev/$2 115200
+# The chat script, customize your APN in this file
+connect 'chat -s -v -f /etc/chatscripts/1nce-connect -T $1'
+# The close script
+disconnect 'chat -s -v -f /etc/chatscripts/simcom-chat-disconnect'
+# Hide password in debug messages
+hide-password
+# The phone is not required to authenticate
+noauth
+# Debug info from pppd
+debug
+# If you want to use the HSDPA link as your gateway
+nodefaultroute
+# pppd must not propose any IP address to the peer
+noipdefault
+# No ppp compression
+novj
+novjccomp
+noccp
+ipcp-accept-local
+ipcp-accept-remote
+local
+# For sanity, keep a lock on the serial line
+lock
+modem
+dump
+nodetach
+# Hardware flow control
+nocrtscts
+remotename 3gppp
+ipparam 3gppp
+ipcp-max-failure 30
+# Ask the peer for up to 2 DNS server addresses
+usepeerdns" > /etc/ppp/peers/catm
+
+echo "\n\nUse \"sudo pppd call catm\" command and Surf"
