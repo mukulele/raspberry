@@ -134,7 +134,7 @@ echo "
 # The chat script, customize your APN in this file
 connect 'chat -s -v -f /etc/chatscripts/1nce-connect -T $1'
 # The close script
-disconnect 'chat -s -v -f /etc/chatscripts/simcom-chat-disconnect'
+disconnect 'chat -s -v -f /etc/chatscripts/1nce-disconnect'
 # Hide password in debug messages
 hide-password
 # The phone is not required to authenticate
@@ -159,7 +159,7 @@ dump
 nodetach
 # Hardware flow control
 nocrtscts
-remotename 3gppp
+remotename 4gppp
 ipparam 3gppp
 ipcp-max-failure 30
 # Ask the peer for up to 2 DNS server addresses
