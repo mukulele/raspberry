@@ -19,7 +19,15 @@ ABORT \"NO ANSWER\"
 TIMEOUT 30
 \"\" AT
 OK ATE0
+# echo off
+OK ATI
+# Display Product Identification Information
+OK AT+CSQ
+#OK AT+CREG?
+#OK AT+CGREG?
+# Signal Quality Report
 OK AT+CFUN=1
+# full functionality (CFUN=1,1 with reset)
 OK AT+CPIN?
 OK AT+CNMP=38 
 #((2-Automatic),(13-GSM Only),(38-LTE Only),(51-GSM And LTE Only))
@@ -29,10 +37,6 @@ OK AT+COPS=0,0
 #This sets the registration process to automatic. The preferred RAT selection will still apply.
 OK AT+CEREG?
 # connection can be checked with 'AT+CEREG?' for LTE
-# OK ATI;+CSUB;
-# OK AT+CSQ
-# OK AT+CREG?
-# OK AT+CGREG?
 # Insert the APN provided by your network operator, default apn is $1
 OK AT+CGDCONT=1,\"IP\",\"\\T\",,0,0
 OK ATD*99#
