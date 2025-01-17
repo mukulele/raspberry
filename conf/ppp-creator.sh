@@ -1,7 +1,5 @@
 #!/bin/sh
 
-GREEN='\033[0;32m'
-
 echo "install ppp"
 apt-get install ppp
 
@@ -127,7 +125,43 @@ read devicename
 colored_echo "Your input is: $devicename" ${GREEN} 
 sed -i "s/#DEVICE/$devicename/" provider
 
-echo "\n\nUse \"sudo pon poff\" command to connect disconnect"
+# Reconnect service
+SIXFAB_PATH="/opt/sixfab"
+PPP_PATH="/opt/sixfab/ppp_connection_manager"
+
+REPO_PATH="https://raw.githubusercontent.com/sixfab/Sixfab_PPP_Installer"
+BRANCH=master
+SOURCE_PATH="$REPO_PATH/$BRANCH/src"
+SCRIPT_PATH="$REPO_PATH/$BRANCH/src/reconnect_scripts"
+RECONNECT_SCRIPT_NAME="ppp_reconnect.sh"
+MANAGER_SCRIPT_NAME="ppp_connection_manager.sh"
+SERVICE_NAME="ppp_connection_manager.service"
+
+# colored_echo
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+BLUE='\033[1;34m'
+GREEN='\033[0;32m'
+SET='\033[0m'
+function colored_echo
+{
+	COLOR=${2:-$YELLOW}
+	echo -e "$COLOR$1 ${SET}"
+}
+
+# Global Varibales
+POWERUP_REQ=1
+POWERUP_NOT_REQ=0
+
+STATUS_GPRS=19
+STATUS_CELL_IOT_APP=20
+STATUS_CELL_IOT=23
+STATUS_TRACKER=23
+
+POWERKEY_GPRS=26
+POWERKEY_CELL_IOT_APP=11
+POWERKEY_CELL_IOT=24
+POWERKEY_TRACKER=24
 
 while [ 1 ]
 do
@@ -144,15 +178,17 @@ do
 			  if [[ $? -ne 0 ]]; then colored_echo "Process failed" ${RED}; exit 1; fi
 			fi
 
-			colored_echo "Installing pip3 if it is required..."
-			if ! [ -x "$(command -v pip3)" ]; then
-			  sudo apt install python3-pip -y
+			colored_echo "Installing pipx if it is required..."
+			if ! [ -x "$(command -v pipx)" ]; then
+			  sudo apt install pipx -y
+                          pipx ensurepath
+			  # sudo pipx ensurepath --global # optional to allow pipx actions with --global argument
 			  if [[ $? -ne 0 ]]; then colored_echo "Process failed" ${RED}; exit 1; fi
 			fi
 
 			colored_echo "Installing or upgrading atcom if it is required..."
 
-			pip3 install -U atcom
+			pipx install -U atcom
 			if [[ $? -ne 0 ]]; then colored_echo "Process failed" ${RED}; exit 1; fi
 
 			source ~/.profile
@@ -217,23 +253,6 @@ do
 
 				sed -i "s/POWERUP_FLAG/$POWERUP_NOT_REQ/" configure_modem.sh
 				
-			elif [ $shield_hat -eq 3 ]; then 
-			  
-				wget --no-check-certificate   $SCRIPT_PATH/reconnect_cellulariot_app -O $RECONNECT_SCRIPT_NAME
-				if [[ $? -ne 0 ]]; then colored_echo "Download failed" ${RED}; exit 1; fi
-
-				sed -i "s/STATUS_PIN/$STATUS_CELL_IOT_APP/" configure_modem.sh
-				sed -i "s/POWERKEY_PIN/$POWERKEY_CELL_IOT_APP/" configure_modem.sh
-				sed -i "s/POWERUP_FLAG/$POWERUP_REQ/" configure_modem.sh
-			  
-			elif [ $shield_hat -eq 4 ]; then 
-			  
-				wget --no-check-certificate   $SCRIPT_PATH/reconnect_cellulariot -O $RECONNECT_SCRIPT_NAME
-				if [[ $? -ne 0 ]]; then colored_echo "Download failed" ${RED}; exit 1; fi
-
-				sed -i "s/STATUS_PIN/$STATUS_CELL_IOT/" configure_modem.sh
-				sed -i "s/POWERKEY_PIN/$POWERKEY_CELL_IOT/" configure_modem.sh
-				sed -i "s/POWERUP_FLAG/$POWERUP_REQ/" configure_modem.sh
 			
 			elif [ $shield_hat -eq 5 ]; then 
 			  
