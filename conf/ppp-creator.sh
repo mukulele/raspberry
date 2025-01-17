@@ -17,11 +17,13 @@ ABORT \"NO ANSWER\"
 TIMEOUT 30
 \"\" AT
 OK ATE0
+# EO = echo off E1 = on needed for chat to operate?
+# Q0 Report result codes (required for chat to operate).?
+# use hardware signal (Clear To Send/Request to Send - CTS/RTS) 
 # SIM7X00 TCPIP Appliucation Note:
 # AT&E1 the data rate should be the serial connection rate
 # Hardware switching: DTR pin could be used to trigger data mode and command mode.Command 
 # AT&D1 should be configured before application. 
-# echo off
 OK ATI
 # Display Product Identification Information
 OK AT+CFUN=1
