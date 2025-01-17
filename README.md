@@ -28,6 +28,7 @@ wget -N https://raw.githubusercontent.com/mukulele/raspberry/master/setup{Basic.
 For Docker
 ```
 wget -N https://raw.githubusercontent.com/mukulele/raspberry/master/setup{Basic.sh,Uart.sh,BasisDocker.sh,PiVCCU.sh}
+chmod +x *.sh
 ```
 For system migration and testing
 ```
