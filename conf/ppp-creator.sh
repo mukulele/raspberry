@@ -45,7 +45,7 @@ OK AT+CPSI?
 # With 'AT+CPSI?' the RAT and current status of the connection can be viewed. 
 OK AT+CSQ
 # Signal Quality Report
-# Insert the APN provided by your network operator, default apn is $1
+# Insert the APN provided by your network operator, default apn is #APN
 OK AT+CGDCONT=1,\"IP\",\"\\T\",,0,0
 # Define PDP Context 
 # AT+CGDCONT=CID 1-24 ,"IP/PPP/IPV6/IPV4V6","APN",PDP address if 0.0.0.0 dynamic, compression 0=off , head compression 0=off
@@ -65,11 +65,11 @@ SAY \"\nGoodby\n\"" > /etc/chatscripts/chat-disconnect
 
 echo "creating script file : /etc/ppp/peers/provider"
 echo "
-/dev/$2 115200
+/dev/#DEVICE 115200
 # The init script
 # init script
 # The chat script, customize your APN in this file
-connect 'chat -s -v -f /etc/chatscripts/chat-connect -T $1'
+connect 'chat -s -v -f /etc/chatscripts/chat-connect -T #APN'
 # The close script
 disconnect 'chat -s -v -f /etc/chatscripts/chat-disconnect'
 # Hide password in debug messages
@@ -117,7 +117,159 @@ ipcp-max-failure 30
 # Ask the peer for up to 2 DNS server addresses
 usepeerdns" > /etc/ppp/peers/provider
 
+colored_echo "What is your carrier APN?"
+read carrierapn 
+colored_echo "Your Input is : $carrierapn" ${GREEN}
+sed -i "s/#APN/$carrierapn/" provider
+
+colored_echo "What is your device communication PORT? (ttyS0/ttyUSB3/ttyAMA0 etc.)"
+read devicename 
+colored_echo "Your input is: $devicename" ${GREEN} 
+sed -i "s/#DEVICE/$devicename/" provider
+
 echo "\n\nUse \"sudo pon poff\" command to connect disconnect"
+
+while [ 1 ]
+do
+	colored_echo "Do you want to activate auto connect/reconnect service at R.Pi boot up? [Y/n]"
+	read auto_reconnect
+
+	colored_echo "You chose $auto_reconnect" ${GREEN} 
+
+	case $auto_reconnect in
+		[Yy]* )    
+			colored_echo "Installing python3 if it is required..."
+			if ! [ -x "$(command -v python3)" ]; then
+			  sudo apt install python3 -y
+			  if [[ $? -ne 0 ]]; then colored_echo "Process failed" ${RED}; exit 1; fi
+			fi
+
+			colored_echo "Installing pip3 if it is required..."
+			if ! [ -x "$(command -v pip3)" ]; then
+			  sudo apt install python3-pip -y
+			  if [[ $? -ne 0 ]]; then colored_echo "Process failed" ${RED}; exit 1; fi
+			fi
+
+			colored_echo "Installing or upgrading atcom if it is required..."
+
+			pip3 install -U atcom
+			if [[ $? -ne 0 ]]; then colored_echo "Process failed" ${RED}; exit 1; fi
+
+			source ~/.profile
+			if [[ $? -ne 0 ]]; then colored_echo "Process failed" ${RED}; exit 1; fi
+
+			colored_echo "Installing WiringPi (gpio tool) if required..."
+			
+			# Check the availability of the gpio.
+			gpio -v > /dev/null 2>&1
+			if [[ $? -ne 0 ]]; then colored_echo "WiringPi not found\n" ${RED} ; fi 
+			
+			# Download WiringPi from https://github.com/WiringPi/WiringPi.git 
+			git clone https://github.com/WiringPi/WiringPi.git 
+			
+			# change directory to WiringPi and build from source code
+			pushd WiringPi && ./build && popd
+
+			if [[ $? -ne 0 ]]; then colored_echo "WiringPi installation failed \nTry manual insatallation" ${RED} ; fi
+
+			# # test wiringpi and fix if there is any issue
+			# gpio readall | grep Oops > /dev/null
+			# if [[ $? -ne 1 ]]; then 
+			# 	colored_echo "Known wiringPi issue is detected! WiringPi is updating..."
+			# 	# wget https://project-downloads.drogon.net/wiringpi-latest.deb
+			# 	# sudo dpkg -i wiringpi-latest.deb
+			# fi
+
+			colored_echo "Downloading setup file..."
+			  
+			wget --no-check-certificate $SOURCE_PATH/$SERVICE_NAME
+			if [[ $? -ne 0 ]]; then colored_echo "Download failed" ${RED}; exit 1; fi
+
+			wget --no-check-certificate $SOURCE_PATH/functions.sh
+			if [[ $? -ne 0 ]]; then colored_echo "Download failed" ${RED}; exit 1; fi
+
+			wget --no-check-certificate $SOURCE_PATH/configs.sh
+			if [[ $? -ne 0 ]]; then colored_echo "Download failed" ${RED}; exit 1; fi
+
+			wget --no-check-certificate $SOURCE_PATH/configure_modem.sh
+			if [[ $? -ne 0 ]]; then colored_echo "Download failed" ${RED}; exit 1; fi
+
+			wget --no-check-certificate $SOURCE_PATH/$MANAGER_SCRIPT_NAME
+			if [[ $? -ne 0 ]]; then colored_echo "Download failed" ${RED}; exit 1; fi
+
+			# APN Configuration
+			sed -i "s/SIM_APN/$carrierapn/" configure_modem.sh
+
+			if [ $shield_hat -eq 1 ]; then
+			  
+				wget --no-check-certificate  $SCRIPT_PATH/reconnect_gprsshield -O $RECONNECT_SCRIPT_NAME
+				if [[ $? -ne 0 ]]; then colored_echo "Download failed" ${RED}; exit 1; fi
+
+				sed -i "s/STATUS_PIN/$STATUS_GPRS/" configure_modem.sh
+				sed -i "s/POWERKEY_PIN/$POWERKEY_GPRS/" configure_modem.sh
+				sed -i "s/POWERUP_FLAG/$POWERUP_REQ/" configure_modem.sh
+
+			  
+			elif [ $shield_hat -eq 2 ]; then 
+			  
+				wget --no-check-certificate   $SCRIPT_PATH/reconnect_baseshield -O $RECONNECT_SCRIPT_NAME
+				if [[ $? -ne 0 ]]; then colored_echo "Download failed" ${RED}; exit 1; fi
+
+				sed -i "s/POWERUP_FLAG/$POWERUP_NOT_REQ/" configure_modem.sh
+				
+			elif [ $shield_hat -eq 3 ]; then 
+			  
+				wget --no-check-certificate   $SCRIPT_PATH/reconnect_cellulariot_app -O $RECONNECT_SCRIPT_NAME
+				if [[ $? -ne 0 ]]; then colored_echo "Download failed" ${RED}; exit 1; fi
+
+				sed -i "s/STATUS_PIN/$STATUS_CELL_IOT_APP/" configure_modem.sh
+				sed -i "s/POWERKEY_PIN/$POWERKEY_CELL_IOT_APP/" configure_modem.sh
+				sed -i "s/POWERUP_FLAG/$POWERUP_REQ/" configure_modem.sh
+			  
+			elif [ $shield_hat -eq 4 ]; then 
+			  
+				wget --no-check-certificate   $SCRIPT_PATH/reconnect_cellulariot -O $RECONNECT_SCRIPT_NAME
+				if [[ $? -ne 0 ]]; then colored_echo "Download failed" ${RED}; exit 1; fi
+
+				sed -i "s/STATUS_PIN/$STATUS_CELL_IOT/" configure_modem.sh
+				sed -i "s/POWERKEY_PIN/$POWERKEY_CELL_IOT/" configure_modem.sh
+				sed -i "s/POWERUP_FLAG/$POWERUP_REQ/" configure_modem.sh
+			
+			elif [ $shield_hat -eq 5 ]; then 
+			  
+				wget --no-check-certificate   $SCRIPT_PATH/reconnect_tracker -O $RECONNECT_SCRIPT_NAME
+				if [[ $? -ne 0 ]]; then colored_echo "Download failed" ${RED}; exit 1; fi
+
+				sed -i "s/STATUS_PIN/$STATUS_TRACKER/" configure_modem.sh
+				sed -i "s/POWERKEY_PIN/$POWERKEY_TRACKER/" configure_modem.sh
+				sed -i "s/POWERUP_FLAG/$POWERUP_REQ/" configure_modem.sh
+
+			elif [ $shield_hat -eq 6 ]; then 
+			  
+				wget --no-check-certificate   $SCRIPT_PATH/reconnect_basehat -O $RECONNECT_SCRIPT_NAME
+				if [[ $? -ne 0 ]]; then colored_echo "Download failed" ${RED}; exit 1; fi
+
+				sed -i "s/POWERUP_FLAG/$POWERUP_NOT_REQ/" configure_modem.sh
+
+			fi
+			  
+			  mv functions.sh $PPP_PATH
+			  mv configs.sh $PPP_PATH
+			  mv configure_modem.sh $PPP_PATH
+			  mv $RECONNECT_SCRIPT_NAME $PPP_PATH
+			  mv $MANAGER_SCRIPT_NAME $PPP_PATH
+			  mv $SERVICE_NAME /etc/systemd/system/
+			  
+			  systemctl daemon-reload
+			  systemctl enable $SERVICE_NAME
+			  
+			  break;;
+			  
+		[Nn]* )    echo -e "${YELLOW}To connect to internet run ${BLUE}\"sudo pon\"${YELLOW} and to disconnect run ${BLUE}\"sudo poff\" ${SET}"
+			  break;;
+		*)   colored_echo "Wrong Selection, Select among Y or n" ${RED};;
+	esac
+done
 
 read -p "Press ENTER key to reboot" ENTER
 
