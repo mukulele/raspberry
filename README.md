@@ -8,12 +8,7 @@ sudo bash <scriptname>
 Short description the Basic Script in sort of usage:
 
 * Basic   will setup all Basic things like last basic util software, networkmanger, journalctl
-* Uart    is not used
-* Samba   is not used
-* Davfs   is not used
 * Docker  is not configured
-* PiVCCU  is not used
-* Ser2net is not used
 * Can     will setup the CANbus hardware
 * Wifi    hotspot for local access when internet connectivity is down
 * Uart    Sim7000 and PPP
