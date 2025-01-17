@@ -1,5 +1,7 @@
 #!/bin/sh
 
+GREEN='\033[0;32m'
+
 echo "install ppp"
 apt-get install ppp
 
@@ -17,7 +19,20 @@ ABORT \"NO ANSWER\"
 TIMEOUT 30
 \"\" AT
 OK ATE0
-OK ATI;+CSUB;+CSQ;+CPIN?;+COPS?;+CGREG?;&D2
+OK AT+CFUN=1
+OK AT+CPIN?
+OK AT+CNMP=38 
+#((2-Automatic),(13-GSM Only),(38-LTE Only),(51-GSM And LTE Only))
+OK AT+CMNB=1
+#((1-Cat-M),(2-NB-IoT),(3-Cat-M And NB-IoT))
+OK AT+COPS=0,0
+#This sets the registration process to automatic. The preferred RAT selection will still apply.
+OK AT+CEREG?
+# connection can be checked with 'AT+CEREG?' for LTE
+# OK ATI;+CSUB;
+# OK AT+CSQ
+# OK AT+CREG?
+# OK AT+CGREG?
 # Insert the APN provided by your network operator, default apn is $1
 OK AT+CGDCONT=1,\"IP\",\"\\T\",,0,0
 OK ATD*99#
@@ -32,39 +47,6 @@ SAY \"\nSending break to the modem\n\"
 ""  +++
 ""  +++
 SAY \"\nGoodby\n\"" > /etc/chatscripts/chat-disconnect
-
-echo "creating script file : /etc/chatscripts/ratCat-M"
-echo "
-ABORT \"BUSY\"
-ABORT \"NO CARRIER\"
-ABORT \"NO DIALTONE\"
-ABORT \"ERROR\"
-ABORT \"NO ANSWER\"
-TIMEOUT 30
-\"\" AT
-OK AT+CFUN=1
-OK AT+CPIN?
-OK AT+CNMP=38 
-#((2-Automatic),(13-GSM Only),(38-LTE Only),(51-GSM And LTE Only))
-OK AT+CMNB=1
-#((1-Cat-M),(2-NB-IoT),(3-Cat-M And NB-IoT))
-OK" > /etc/chatscripts/ratCat-M
-
-echo "creating script file : /etc/chatscripts/Reg-1nce"
-echo "
-ABORT \"BUSY\"
-ABORT \"NO CARRIER\"
-ABORT \"NO DIALTONE\"
-ABORT \"ERROR\"
-ABORT \"NO ANSWER\"
-TIMEOUT 30
-\"\" AT
-OK AT+CFUN=1
-OK AT+COPS=0,0
-#This sets the registration process to automatic. The preferred RAT selection will still apply.
-OK AT+CEREG?
-# connection can be checked with 'AT+CEREG?' for LTE
-OK" > /etc/chatscripts/Reg-1nce
 
 echo "creating script file : /etc/ppp/peers/provider"
 echo "
@@ -121,3 +103,8 @@ ipcp-max-failure 30
 usepeerdns" > /etc/ppp/peers/provider
 
 echo "\n\nUse \"sudo pon poff\" command to connect disconnect"
+
+read -p "Press ENTER key to reboot" ENTER
+
+colored_echo "Rebooting..." ${GREEN}
+reboot
