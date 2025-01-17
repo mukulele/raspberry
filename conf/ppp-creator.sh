@@ -17,13 +17,20 @@ ABORT \"NO ANSWER\"
 TIMEOUT 30
 \"\" AT
 OK ATE0
-# EO = echo off E1 = on needed for chat to operate?
-# Q0 Report result codes (required for chat to operate).?
+# ATEO = echo off ATE1 = on needed for chat to operate?
+# ATQ0 Report result codes (required for chat to operate).?
+# OK AT+IFC=2,2
+# Set TE-TA Local Data Flow Control hardware flowcontrol = 2
+# To enable hardware flow control, ensure that the RTS/CTS lines are present on user’s application platform
 # use hardware signal (Clear To Send/Request to Send - CTS/RTS) 
 # SIM7X00 TCPIP Appliucation Note:
+# OK AT+IPR=115200
+# Set TE-TA Fixed Local Rate max 4000000 baud/sec, 0 = auto baud up to 115200
+# OK AT&E1
 # AT&E1 the data rate should be the serial connection rate
 # Hardware switching: DTR pin could be used to trigger data mode and command mode.Command 
 # AT&D1 should be configured before application. 
+# End TCPIP Application Note
 OK ATI
 # Display Product Identification Information
 OK AT+CFUN=1
