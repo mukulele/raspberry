@@ -66,7 +66,7 @@ OK AT+CEREG?
 # connection can be checked with 'AT+CEREG?' for LTE
 OK" > /etc/chatscripts/Reg-1nce
 
-echo "creating script file : /etc/ppp/peers/gprs"
+echo "creating script file : /etc/ppp/peers/provider"
 echo "
 /dev/$2 115200
 # The chat script, customize your APN in this file
@@ -77,6 +77,8 @@ disconnect 'chat -s -v -f /etc/chatscripts/chat-disconnect'
 hide-password
 # The phone is not required to authenticate
 noauth
+# Do not exit after a connection is terminated; instead try to reopen the connection.
+persist
 # Debug info from pppd
 debug
 # If you want to use the HSDPA link as your gateway
@@ -101,6 +103,6 @@ remotename 3gppp
 ipparam 3gppp
 ipcp-max-failure 30
 # Ask the peer for up to 2 DNS server addresses
-usepeerdns" > /etc/ppp/peers/gprs
+usepeerdns" > /etc/ppp/peers/provider
 
-echo "\n\nUse \"sudo pppd call gprs\" command and Surf"
+echo "\n\nUse \"sudo pon poff\" command to connect disconnect"
