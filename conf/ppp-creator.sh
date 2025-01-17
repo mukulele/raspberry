@@ -88,24 +88,33 @@ debug
 # If you want to use the HSDPA link as your gateway @tocheck
 defaultroute
 # pppd must not propose any IP address to the peer
+# With this option, the peer will have to supply the local IP address during IPCP negotiation
 noipdefault
 # No ppp compression
 novj
 novjccomp
+# This option should only be required if the peer is buggy and gets confused by requests from pppd for CCP negotiation.
 noccp
 # With this option, pppd will accept the peer's idea of our local IP address, even if the local IP address was specified in an option.
 ipcp-accept-local
-# With this option, pppd will accept the peer's idea of its (remote) IP address, even if the remote IP address was specified in an option.ipcp-accept-remote
+# With this option, pppd will ignore the state of the CD (Carrier Detect) signal from the modem and 
+# will not change the state of the DTR (Data Terminal Ready) signal. This is the opposite of the modem option.
 local
 # For sanity, keep a lock on the serial line
 lock
+# With this option, pppd will wait for the CD (Carrier Detect) signal from the modem to be asserted when opening the serial device
+# (unless a connect script is specified), and it will drop the DTR (Data Terminal Ready) signal briefly when the connection
+# is terminated and before executing the connect script. 
 modem
 # pppd will print out all the option values which have been set
 dump
 nodetach
 # Hardware flow control
 nocrtscts
+# Set the assumed name of the remote system for authentication purposes to name
 remotename 3gppp
+# Provides an extra parameter to the ip-up, ip-pre-up and ip-down scripts. If this option is given, 
+# the string supplied is given as the 6th parameter to those scripts.
 ipparam 3gppp
 ipcp-max-failure 30
 # Ask the peer for up to 2 DNS server addresses
