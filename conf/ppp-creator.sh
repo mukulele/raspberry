@@ -166,6 +166,8 @@ POWERKEY_TRACKER=24
 while [ 1 ]
 do
 	colored_echo "Do you want to activate auto connect/reconnect service at R.Pi boot up? [Y/n]"
+        echo "This option allows you to connect to Internet via your shield automatically when your Raspberry Pi Starts."
+	echo "If you have selected n then you will need to run sudo pon to connect to internet and sudo poff to stop it."
 	read auto_reconnect
 
 	colored_echo "You chose $auto_reconnect" ${GREEN} 
