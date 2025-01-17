@@ -17,7 +17,7 @@ raspi-config nonint do_serial_hw 0 # enable serial port
 echo "after reboot: serial UART/AMA0 is working for additional modules"
 raspi-config nonint do_serial_cons 1 # disable serial console
 # disable hciuart
-
+sudo systemctl disable hciuart
 # switch miniUart to BT Interface for Pi Model 3, 4, Zero W and Zero WH
 model=($(tr -d '\0' < /sys/firmware/devicetree/base/model))
 if (( ${model[2]} >= 3 )) || ( [[ ${model[2]} == "Zero" ]] && [[ ${model[3]:0:1} == "W" ]] ); then
@@ -30,8 +30,6 @@ fi
 
 # Install ppp for Internet connection
 # oder setupSer2net.sh ?=
-apt-get update
-apt-get install -y ppp
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/ppp-creator.sh -P /conf
 chmod +x /conf/ppp-creator.sh
 # ./ppp-creator.sh INTERNET ttyS0` # Rpi3 > ttyS0 , others ttyAMA0 # INTERNET is APN, check your cellular
