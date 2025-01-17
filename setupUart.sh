@@ -27,6 +27,11 @@ core_freq=250
 EOF
 echo 'and BT Module and Wifi will still working'
 fi
+
+mkdir -p /opt
+wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/ppp-creator.sh -P /opt
+chmod +x /opt/ppp-creator.sh
+
 read -p "Press ENTER key to reboot" ENTER
 echo "Rebooting..." ${GREEN}
 reboot
