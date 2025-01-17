@@ -16,7 +16,7 @@ Short description the Basic Script in sort of usage:
 * Ser2net is not used
 * Can     will setup the CANbus hardware
 * Wifi    hotspot for local access when internet connectivity is down
-* Simcom  IOT Sim7000 for 1nce
+* Uart    Sim7000 and PPP
 * Gpsd    noname usb device with gpxlogger and NMEA stream on port 2947
 
 Some extended Script for a ready System  
@@ -27,7 +27,7 @@ Some extended Script for a ready System
 
 For Setup
 ```
-wget -N https://raw.githubusercontent.com/mukulele/raspberry/master/setup{Basic.sh,Can.sh,Gpsd.sh,Simcom.sh,Wifi.sh}
+wget -N https://raw.githubusercontent.com/mukulele/raspberry/master/setup{Basic.sh,Can.sh,Gpsd.sh,Uart.sh,Wifi.sh}
 ```
 
 For Docker
