@@ -93,12 +93,14 @@ noipdefault
 novj
 novjccomp
 noccp
+# With this option, pppd will accept the peer's idea of our local IP address, even if the local IP address was specified in an option.
 ipcp-accept-local
-ipcp-accept-remote
+# With this option, pppd will accept the peer's idea of its (remote) IP address, even if the remote IP address was specified in an option.ipcp-accept-remote
 local
 # For sanity, keep a lock on the serial line
 lock
 modem
+# pppd will print out all the option values which have been set
 dump
 nodetach
 # Hardware flow control
