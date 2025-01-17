@@ -1,9 +1,11 @@
 #!/bin/sh
 
+# Install ppp for Internet connection
 echo "install ppp"
 apt-get install ppp
 
 echo "creating directories"
+mkdir -p /opt
 mkdir -p /etc/chatscripts
 mkdir -p /etc/ppp/peers
 
