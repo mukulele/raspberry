@@ -19,26 +19,37 @@ ABORT \"NO ANSWER\"
 TIMEOUT 30
 \"\" AT
 OK ATE0
+# SIM7X00 TCPIP Appliucation Note:
+# AT&E1 the data rate should be the serial connection rate
+# Hardware switching: DTR pin could be used to trigger data mode and command mode.Command 
+# AT&D1 should be configured before application. 
 # echo off
 OK ATI
 # Display Product Identification Information
-OK AT+CSQ
-#OK AT+CREG?
-#OK AT+CGREG?
-# Signal Quality Report
 OK AT+CFUN=1
 # full functionality (CFUN=1,1 with reset)
 OK AT+CPIN?
-OK AT+CNMP=38 
+OK AT+CNMP=2 
 #((2-Automatic),(13-GSM Only),(38-LTE Only),(51-GSM And LTE Only))
 OK AT+CMNB=1
 #((1-Cat-M),(2-NB-IoT),(3-Cat-M And NB-IoT))
 OK AT+COPS=0,0
 #This sets the registration process to automatic. The preferred RAT selection will still apply.
+OK AT+CREG?
+# Network Registration Status
 OK AT+CEREG?
 # connection can be checked with 'AT+CEREG?' for LTE
+OK AT+CGREG?
+# connection can be checked with 'AT+CEREG?' for GSM
+OK AT+CPSI?
+# With 'AT+CPSI?' the RAT and current status of the connection can be viewed. 
+OK AT+CSQ
+# Signal Quality Report
 # Insert the APN provided by your network operator, default apn is $1
 OK AT+CGDCONT=1,\"IP\",\"\\T\",,0,0
+# Define PDP Context 
+# AT+CGDCONT=CID 1-24 ,"IP/PPP/IPV6/IPV4V6","APN",PDP address if 0.0.0.0 dynamic, compression 0=off , head compression 0=off
+# Alternativ OK AT+CSTT=\"iot.1nce.net\",\"\",\"\" 
 OK ATD*99#
 CONNECT" > /etc/chatscripts/chat-connect
 
