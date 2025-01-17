@@ -10,8 +10,6 @@ fi
 # first load the latest software
 apt -y update
 apt -y full-upgrade
-mkdir -p /conf
-
 
 echo "# Midnight Commander"
 apt-get -y install mc
