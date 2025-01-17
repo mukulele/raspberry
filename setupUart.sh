@@ -27,10 +27,9 @@ core_freq=250
 EOF
 echo 'and BT Module and Wifi will still working'
 fi
+read -p "Press ENTER key to reboot" ENTER
+echo "Rebooting..." ${GREEN}
+reboot
 
-# Install ppp for Internet connection
-# oder setupSer2net.sh ?=
-wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/ppp-creator.sh -P /conf
-chmod +x /conf/ppp-creator.sh
 
 
