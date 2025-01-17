@@ -69,6 +69,8 @@ OK" > /etc/chatscripts/Reg-1nce
 echo "creating script file : /etc/ppp/peers/provider"
 echo "
 /dev/$2 115200
+# The init script
+# init script
 # The chat script, customize your APN in this file
 connect 'chat -s -v -f /etc/chatscripts/chat-connect -T $1'
 # The close script
@@ -79,9 +81,11 @@ hide-password
 noauth
 # Do not exit after a connection is terminated; instead try to reopen the connection.
 persist
+# Set the MTU [Maximum Transmit Unit]
+mtu 1200
 # Debug info from pppd
 debug
-# If you want to use the HSDPA link as your gateway
+# If you want to use the HSDPA link as your gateway @tocheck
 defaultroute
 # pppd must not propose any IP address to the peer
 noipdefault
