@@ -23,6 +23,7 @@ Some extended Script for a ready System
 For Setup
 ```
 wget -N https://raw.githubusercontent.com/mukulele/raspberry/master/setup{Basic.sh,Can.sh,Gpsd.sh,Uart.sh,Wifi.sh}
+chmod +x *.sh
 ```
 
 For Docker
