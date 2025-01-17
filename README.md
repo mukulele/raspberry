@@ -23,7 +23,7 @@ Some extended Script for a ready System
 * configBackup...   not used
 * setupNodejs       not used
 * signalk           @todo
-# Download a bunch of Scripts 
+# Download 
 
 For Setup
 ```
