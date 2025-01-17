@@ -29,7 +29,7 @@ echo 'and BT Module and Wifi will still working'
 fi
 
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/ppp-creator.sh
-chmod +x /ppp-creator.sh
+chmod +x ./ppp-creator.sh
 
 read -p "Press ENTER key to reboot" ENTER
 echo "Rebooting..." ${GREEN}

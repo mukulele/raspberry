@@ -1,5 +1,17 @@
 #!/bin/sh
 
+# colored_echo
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+BLUE='\033[1;34m'
+GREEN='\033[0;32m'
+SET='\033[0m'
+function colored_echo
+{
+	COLOR=${2:-$YELLOW}
+	echo -e "$COLOR$1 ${SET}"
+}
+
 # Install ppp for Internet connection
 echo "install ppp"
 apt-get install ppp
@@ -146,18 +158,6 @@ SCRIPT_PATH="$REPO_PATH/$BRANCH/src/reconnect_scripts"
 RECONNECT_SCRIPT_NAME="ppp_reconnect.sh"
 MANAGER_SCRIPT_NAME="ppp_connection_manager.sh"
 SERVICE_NAME="ppp_connection_manager.service"
-
-# colored_echo
-YELLOW='\033[1;33m'
-RED='\033[0;31m'
-BLUE='\033[1;34m'
-GREEN='\033[0;32m'
-SET='\033[0m'
-function colored_echo
-{
-	COLOR=${2:-$YELLOW}
-	echo -e "$COLOR$1 ${SET}"
-}
 
 # Global Varibales
 POWERUP_REQ=1
