@@ -1,17 +1,5 @@
 #!/bin/sh
 
-# colored_echo
-YELLOW='\033[1;33m'
-RED='\033[0;31m'
-BLUE='\033[1;34m'
-GREEN='\033[0;32m'
-SET='\033[0m'
-function colored_echo
-{
-	COLOR=${2:-$YELLOW}
-	echo -e "$COLOR$1 ${SET}"
-}
-
 # Install ppp for Internet connection
 echo "install ppp"
 apt-get install ppp
@@ -136,6 +124,19 @@ ipparam 3gppp
 ipcp-max-failure 30
 # Ask the peer for up to 2 DNS server addresses
 usepeerdns" > /etc/ppp/peers/provider
+
+# colored_echo
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+BLUE='\033[1;34m'
+GREEN='\033[0;32m'
+SET='\033[0m'
+
+() colored_echo
+{
+	COLOR=${2:-$YELLOW}
+	echo -e "$COLOR$1 ${SET}"
+}
 
 colored_echo "What is your carrier APN?"
 read carrierapn 
