@@ -105,7 +105,7 @@ mtu 1200
 debug
 # If you want to use the HSDPA link as your gateway @tocheck
 defaultroute
-#defaultroute-metric 700
+defaultroute-metric 700
 # pppd must not propose any IP address to the peer
 # With this option, the peer will have to supply the local IP address during IPCP negotiation
 noipdefault
