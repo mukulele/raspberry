@@ -78,11 +78,11 @@ echo "creating script file : /etc/chatscripts/chat-disconnect"
 echo "
 ABORT \"ERROR\"
 ABORT \"NO DIALTONE\"
-SAY \"\nSending break to the modem\n\"
+SAY \"Sending break to the modem\"
 ""  +++
 ""  +++
 ""  +++
-SAY \"\nGoodby\n\"" > /etc/chatscripts/chat-disconnect
+SAY \"Goodby\" > /etc/chatscripts/chat-disconnect
 
 echo "creating script file : /etc/ppp/peers/provider"
 echo "
