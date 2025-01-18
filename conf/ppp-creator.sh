@@ -105,6 +105,7 @@ mtu 1200
 debug
 # If you want to use the HSDPA link as your gateway @tocheck
 defaultroute
+#defaultroute-metric 700
 # pppd must not propose any IP address to the peer
 # With this option, the peer will have to supply the local IP address during IPCP negotiation
 noipdefault
@@ -128,8 +129,9 @@ modem
 # pppd will print out all the option values which have been set
 dump
 nodetach
-# Hardware flow control
-nocrtscts
+# Hardware flow control set AT+IFC=2,2 in connect script
+crtscts
+#nocrtscts
 # Set the assumed name of the remote system for authentication purposes to name
 remotename 3gppp
 # Provides an extra parameter to the ip-up, ip-pre-up and ip-down scripts. If this option is given, 
