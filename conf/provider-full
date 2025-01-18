@@ -1,0 +1,49 @@
+/dev/ttyAMA0 115200
+# The init script
+# init script
+# The chat script, customize your APN in this file
+connect 'chat -s -v -f /etc/chatscripts/chat-connect -T iot.1nce.net'
+# The close script
+disconnect 'chat -s -v -f /etc/chatscripts/chat-disconnect'
+# Hide password in debug messages
+hide-password
+# The phone is not required to authenticate
+noauth
+# Do not exit after a connection is terminated; instead try to reopen the connection.
+persist
+# Set the MTU [Maximum Transmit Unit]
+mtu 1200
+# Debug info from pppd
+debug
+# If you want to use the HSDPA link as your gateway @tocheck
+nodefaultroute
+# pppd must not propose any IP address to the peer
+# With this option, the peer will have to supply the local IP address during IPCP negotiation
+noipdefault
+noipv6
+# No ppp compression
+novj
+novjccomp
+# This option should only be required if the peer is buggy and gets confused by requests from pppd for CCP negotiation.
+noccp
+# With this option, pppd will accept the peer's idea of our local IP address, even if the local IP address was specifie>ipcp-accept-local
+# With this option, pppd will ignore the state of the CD (Carrier Detect) signal from the modem and
+# will not change the state of the DTR (Data Terminal Ready) signal. This is the opposite of the modem option.
+local
+# For sanity, keep a lock on the serial line
+lock
+# With this option, pppd will wait for the CD (Carrier Detect) signal from the modem to be asserted when opening the se># (unless a connect script is specified), and it will drop the DTR (Data Terminal Ready) signal briefly when the connec># is terminated and before executing the connect script.
+modem
+# pppd will print out all the option values which have been set
+dump
+nodetach
+# Hardware flow control
+#nocrtscts
+# Set the assumed name of the remote system for authentication purposes to name
+remotename 3gppp
+# Provides an extra parameter to the ip-up, ip-pre-up and ip-down scripts. If this option is given,
+# the string supplied is given as the 6th parameter to those scripts.
+ipparam 3gppp
+ipcp-max-failure 30
+# Ask the peer for up to 2 DNS server addresses
+usepeerdns
