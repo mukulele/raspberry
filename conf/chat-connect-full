@@ -1,0 +1,50 @@
+ABORT "BUSY"
+ABORT "NO CARRIER"
+ABORT "NO DIALTONE"
+ABORT "ERROR"
+ABORT "NO ANSWER"
+ABORT "+CGATT: 0"
+TIMEOUT 30
+"" AT
+OK ATE0
+# ATEO = echo off ATE1 = on needed for chat to operate?
+# ATQ0 Report result codes (required for chat to operate).?
+OK AT+IFC=2,2
+# Set TE-TA Local Data Flow Control hardware flowcontrol = 2
+# To enable hardware flow control, ensure that the RTS/CTS lines are present on user’s application platform
+# use hardware signal (Clear To Send/Request to Send - CTS/RTS)
+# SIM7X00 TCPIP Appliucation Note:
+# OK AT+IPR=115200
+# Set TE-TA Fixed Local Rate max 4000000 baud/sec, 0 = auto baud up to 115200
+# OK AT&E1
+# AT&E1 the data rate should be the serial connection rate
+# Hardware switching: DTR pin could be used to trigger data mode and command mode.Command
+# AT&D1 should be configured before application.
+# End TCPIP Application Note
+OK ATI
+# Display Product Identification Information
+OK AT+CFUN=1
+# full functionality (CFUN=1,1 with reset)
+OK AT+CPIN?
+OK AT+CNMP=2
+#((2-Automatic),(13-GSM Only),(38-LTE Only),(51-GSM And LTE Only))
+OK AT+CMNB=1
+#((1-Cat-M),(2-NB-IoT),(3-Cat-M And NB-IoT))
+OK AT+COPS=0,0
+#This sets the registration process to automatic. The preferred RAT selection will still apply.
+OK AT+CREG?
+# Network Registration Status
+OK AT+CEREG?
+# connection can be checked with 'AT+CEREG?' for LTE
+OK AT+CGREG?
+# connection can be checked with 'AT+CEREG?' for GSM
+OK AT+CPSI?
+# With 'AT+CPSI?' the RAT and current status of the connection can be viewed.
+OK AT+CSQ
+# Signal Quality Report
+# Insert the APN provided by your network operator, default apn is #APN
+OK AT+CGDCONT=1,"IP","\T",,0,0
+# Define PDP Context
+# AT+CGDCONT=CID 1-24 ,IP/PPP/IPV6/IPV4V6,APN,PDP address if 0.0.0.0 dynamic, compression 0=off , head compression 0=off# Alternativ OK AT+CSTT="iot.1nce.net","",""
+OK ATD*99#
+CONNECT
