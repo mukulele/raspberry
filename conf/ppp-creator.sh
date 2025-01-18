@@ -11,7 +11,7 @@ BLUE='\033[1;34m'
 GREEN='\033[0;32m'
 SET='\033[0m'
 
-() colored_echo
+colored_echo ()
 {
 	COLOR=${2:-$YELLOW}
 	echo -e "$COLOR$1 ${SET}"
