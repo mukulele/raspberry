@@ -141,12 +141,12 @@ SET='\033[0m'
 colored_echo "What is your carrier APN?"
 read carrierapn 
 colored_echo "Your Input is : $carrierapn" ${GREEN}
-sed -i "s/#APN/$carrierapn/" provider
+sed -i "s/#APN/$carrierapn/" /etc/ppp/peers/provider
 
 colored_echo "What is your device communication PORT? (ttyS0/ttyUSB3/ttyAMA0 etc.)"
 read devicename 
 colored_echo "Your input is: $devicename" ${GREEN} 
-sed -i "s/#DEVICE/$devicename/" provider
+sed -i "s/#DEVICE/$devicename/" /etc/ppp/peers/provider
 
 # Reconnect service
 SIXFAB_PATH="/opt/sixfab"
