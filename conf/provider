@@ -1,0 +1,10 @@
+/dev/ttyAMA0
+115200
+connect "/usr/sbin/chat -v -f /etc/ppp/peers/provider"
+noauth
+crtscts
+defaultroute
+usepeerdns
+local
+debug
+updetach
