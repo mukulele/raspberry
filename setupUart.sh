@@ -37,7 +37,9 @@ mkdir -p /etc/chatscripts
 mkdir -p /etc/ppp/peers
 
 echo "downloading ppp config"
-
+wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/provider  -P /etc/ppp/peers
+wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/chat-connect  -P /etc/chatscripts
+wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/chat-disconnect  -P /etc/chatscripts
 
 read -p "Press ENTER key to reboot CTRL c to exit" ENTER
 echo "Rebooting..."
