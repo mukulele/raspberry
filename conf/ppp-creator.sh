@@ -108,6 +108,7 @@ defaultroute
 # pppd must not propose any IP address to the peer
 # With this option, the peer will have to supply the local IP address during IPCP negotiation
 noipdefault
+noipv6
 # No ppp compression
 novj
 novjccomp
