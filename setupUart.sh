@@ -17,7 +17,7 @@ raspi-config nonint do_serial_hw 0 # enable serial port
 echo "after reboot: serial UART/AMA0 is working for additional modules"
 raspi-config nonint do_serial_cons 1 # disable serial console
 # disable hciuart
-sudo systemctl disable hciuart
+systemctl disable hciuart
 # switch miniUart to BT Interface for Pi Model 3, 4, Zero W and Zero WH
 model=($(tr -d '\0' < /sys/firmware/devicetree/base/model))
 if (( ${model[2]} >= 3 )) || ( [[ ${model[2]} == "Zero" ]] && [[ ${model[3]:0:1} == "W" ]] ); then
