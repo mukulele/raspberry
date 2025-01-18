@@ -23,6 +23,7 @@ apt-get -y install sysstat
 apt autoremove
 # @todo enable ifup down und keyfiles... notwendig?
 echo "# Network Manager"
+mkdir -p /conf
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/NetworkManager.conf  -P /conf
 install -m 644 /conf/NetworkManager.conf /etc/NetworkManager/conf.d --backup
 
