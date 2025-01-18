@@ -3,6 +3,7 @@
 connect "/usr/sbin/chat -v -f /etc/ppp/peers/provider"
 noauth
 crtscts
+noipv6
 defaultroute
 usepeerdns
 local
