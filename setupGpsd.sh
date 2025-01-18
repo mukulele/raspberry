@@ -13,6 +13,7 @@ fi
 apt update
 apt-get -y install gpsd  gpsd-clients gpsd-tools
 mkdir -p /etc/default/gpsd
+mkdir -p /conf
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/gpsd -P /conf
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/gpsd.service -P /conf
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/gpsd.socket -P /conf
