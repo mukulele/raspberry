@@ -29,6 +29,7 @@ echo 'and BT Module and Wifi will still working'
 fi
 
 echo "disable ModemManager"
+systemctl stop ModemManager
 systemctl disable ModemManager
 
 # Install ppp for Internet connection
