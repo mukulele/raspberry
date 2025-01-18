@@ -28,12 +28,20 @@ EOF
 echo 'and BT Module and Wifi will still working'
 fi
 
-wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/ppp-creator.sh
-chmod +x ./ppp-creator.sh
+# Install ppp for Internet connection
+echo "install ppp"
+apt-get install ppp
 
-read -p "Press ENTER key to reboot" ENTER
-echo "Rebooting..." ${GREEN}
-reboot
+echo "creating directories"
+mkdir -p /etc/chatscripts
+mkdir -p /etc/ppp/peers
+
+echo "downloading ppp config"
+
+
+read -p "Press ENTER key to reboot CTRL c to exit" ENTER
+echo "Rebooting..."
+reboot now
 
 
 
