@@ -28,6 +28,9 @@ EOF
 echo 'and BT Module and Wifi will still working'
 fi
 
+echo "disable ModemManager"
+systemctl disable ModemManager
+
 # Install ppp for Internet connection
 echo "install ppp"
 apt-get install ppp
