@@ -2,11 +2,9 @@
 # The init script
 # init script
 # The chat script, customize your APN in this file
-connect 'chat -s -v -f /etc/chatscripts/chat-connect -T iot.1nce.net'
+connect 'chat -s -v -f /etc/chatscripts/chat-connect'
 # The close script
 disconnect 'chat -s -v -f /etc/chatscripts/chat-disconnect'
-# Hide password in debug messages
-hide-password
 # The phone is not required to authenticate
 noauth
 # Do not exit after a connection is terminated; instead try to reopen the connection.
