@@ -26,5 +26,5 @@ install -m 644 /conf/gpxlogger.service /etc/systemd/system/gpxlogger.service --b
 install -m 755 /conf/gpsdloggerStart.sh /usr/local/bin/gpsdloggerStart.sh
 mkdir -p /gpsdtracks
 systemctl enable gpsd.service gpsd.socket gpxlogger.service
-echo"-------------------"
+echo "-------------------"
 echo "test with gpsmon"
