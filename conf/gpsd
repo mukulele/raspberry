@@ -10,7 +10,7 @@ GPSD_OPTIONS="-G -n -r"
 # -N run inforegroud usefull for debugging
 # -b Broken-device-safety mode, otherwise known as read-only mode
 # Devices gpsd should collect to at boot time.
-DEVICES="/dev/ttyAMC0"
+DEVICES="/dev/ttyACM0"
 #DEVICES="/dev/serial0"
 # Use USB hotplugging to add new USB devices automatically to the daemon
 USBAUTO="true"
