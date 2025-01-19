@@ -3,7 +3,7 @@ Description=GPS (Global Positioning System) Daemon
 Requires=gpsd.service
 
 [Service]
-ExecStart=/home/pi/setup/gpxlogger_start.sh
+ExecStart=/conf/gpxlogger_start.sh
 Restart=always
 RuntimeMaxSec=1d
 RestartSec=10
