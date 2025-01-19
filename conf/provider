@@ -6,6 +6,9 @@ crtscts
 noipv6
 defaultroute
 usepeerdns
-local
 debug
 updetach
+#Run:
+#sudo ip route add 10.0.0.0/8 dev ppp0 metric 700
+#sudo ip route del default dev ppp0
+
