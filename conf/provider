@@ -8,7 +8,7 @@ defaultroute
 usepeerdns
 debug
 updetach
-#Run:
-#sudo ip route add 10.60.0.0/16 dev ppp0 metric 700
-#sudo ip route del default dev ppp0
+#etc/ppp/Run:
+#ip route add 10.60.0.0/16 dev ppp0 metric 700
+#ip route del default dev ppp0
 
