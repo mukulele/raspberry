@@ -1,14 +1,12 @@
 /dev/ttyAMA0
 115200
-connect "/usr/sbin/chat -v -f /etc/ppp/peers/provider"
+connect "/usr/sbin/chat -v -f /etc/chatscripts/chat-connect"
 noauth
 crtscts
-noipv6
 defaultroute
+mtu 1200
+noipv6
 usepeerdns
+#local
 debug
 updetach
-#etc/ppp/Run:
-#ip route add 10.60.0.0/16 dev ppp0 metric 700
-#ip route del default dev ppp0
-
