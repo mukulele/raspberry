@@ -28,7 +28,7 @@ chmod +x *.sh
 
 For Docker
 ```
-wget -N https://raw.githubusercontent.com/mukulele/raspberry/master/setup{Basic.sh,Uart.sh,BasisDocker.sh,PiVCCU.sh}
+wget -N https://raw.githubusercontent.com/mukulele/raspberry/master/setup{Basic.sh,BasisDocker.sh}
 chmod +x *.sh
 ```
 For system migration and testing
