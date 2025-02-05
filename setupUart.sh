@@ -36,11 +36,14 @@ systemctl disable ModemManager
 echo "install ppp"
 apt-get install ppp
 
-#@to to routing in /etc/ppp/ip.up
+#@todo
+#routing in /etc/ppp/ip.up
 #ip route del default ppp0
 #ip route add 10.0.0.0/8 dev ppp0
 #ip route del default dev ppp0
 #ip route del 10.64.64.64
+#check resolv.conf in /etc/ppp
+
 
 echo "creating directories"
 mkdir -p /etc/chatscripts
