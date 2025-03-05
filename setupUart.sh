@@ -55,7 +55,12 @@ wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/provider-f
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/chat-connect  -P /etc/chatscripts
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/chat-connect-full  -P /etc/chatscripts
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/chat-disconnect  -P /etc/chatscripts
-wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/start_ppp.sh  -P /conf
+wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/ppp-keep-alive.sh  -P /conf
+
+crontab <<EOF
+@reboot pon
+*/15 * * * * /conf/ppp-keep-alive.sh
+EOF
 
 read -p "Press ENTER key to reboot CTRL c to exit" ENTER
 echo "Rebooting..."
