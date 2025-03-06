@@ -1,4 +1,4 @@
-#!/bin/bash
+ric#!/bin/bash
 # The line core_freq=250 is needed otherwise BT is not working - see documentation for details.
 # https://www.raspberrypi.org/documentation/configuration/uart.md
 # https://www.raspberrypi.org/documentation/configuration/config-txt/overclocking.md
@@ -36,12 +36,13 @@ systemctl disable ModemManager
 echo "install ppp"
 apt-get install ppp
 
-#@todo
-#routing in /etc/ppp/ip.up
+#@todo add routing in /etc/ppp/ip.up to EOF
 #ip route del default ppp0
-#ip route add 10.0.0.0/8 dev ppp0
-#ip route del default dev ppp0
+#ip route add 10.0.0.0/8 dev ppp0 metric 700
+## alternativ: ip route add 10.60.0.0/16 dev ppp0 metric 700
 #ip route del 10.64.64.64
+## oder? ip route del default dev ppp0
+
 #check resolv.conf in /etc/ppp
 
 
