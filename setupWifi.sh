@@ -9,7 +9,7 @@ sudo raspi-config nonint do_wifi_country DE
 
 # NetworkManager connection
 # no internet connection only local accesss
-nmcli device wifi hotspot con-name hotspot ssid raspberry_ap band bg password clipperiv
+nmcli device wifi hotspot con-name hotspot autoconnect yes ssid raspberry_ap band bg password clipperiv
 
 # NetworkManager dispatcher
 # the script currently enables the connection when eth is down and vice versa
