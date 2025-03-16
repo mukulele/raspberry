@@ -42,7 +42,8 @@ apt-get install ppp
 ## alternativ: ip route add 10.60.0.0/16 dev ppp0 metric 700
 #ip route del 10.64.64.64
 ## oder? ip route del default dev ppp0
-
+## Block unwanted traffic
+iptables -A OUTPUT -d 239.2.1.1 -j DROP
 #check resolv.conf in /etc/ppp
 
 
