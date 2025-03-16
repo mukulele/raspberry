@@ -4,6 +4,9 @@ if [[ $UID -ne 0 ]]; then
    sudo -p 'Restarting as root, password: ' bash $0 "$@"
    exit $?
 fi
+
+sudo raspi-config nonint do_wifi_country DE
+
 # NetworkManager connection
 # no internet connection only local accesss
 nmcli device wifi hotspot con-name hotspot ssid raspberry_ap band bg password clipperiv
