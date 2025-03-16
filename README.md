@@ -17,8 +17,7 @@ Short description the Basic Script in sort of usage:
 Some extended Script for a ready System  
 * configBackup...   not used
 * setupNodejs       not used
-* signalk           @todo
-# Download 
+# Download (make repo public before)
 
 For Setup
 ```
