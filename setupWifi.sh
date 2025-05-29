@@ -14,6 +14,6 @@ nmcli device wifi hotspot con-name hotspot autoconnect yes ssid raspberry_ap ban
 # NetworkManager dispatcher
 # the script currently enables the connection when eth is down and vice versa
 wget https://raw.githubusercontent.com/mukulele/master/conf/70-wifi-wired-exclusive.sh -P /conf
-install -m 644 /conf/70-wifi-wired-exclusive.sh /etc/NetworkManager/dispatcher.d/70-wifi-wired-exclusive.sh
+install -m 755 /conf/70-wifi-wired-exclusive.sh /etc/NetworkManager/dispatcher.d/70-wifi-wired-exclusive.sh
 systemctl restart NetworkManager
 
