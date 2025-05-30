@@ -2,9 +2,11 @@ TIMEOUT 15
 ECHO ON
 '' AT
 # Reset then set full functionality
-OK AT+CFUN=1,1
+OK AT+CFUN=1
 OK AT+CGDCONT=1,"IP","iot.1nce.net"
-# LTE CAT-M only:
+# Preferred Mode Selection 38 LTE only, 2 automatic
+OK AT+CNMB=38
+# Preferred Selection between CAT-M and NB-IoT 1 CAT-M only
 OK AT+CMNB=1
 # Signalquality 
 OK AT+CSQ
