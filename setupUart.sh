@@ -40,6 +40,12 @@ apt-get install ppp
 #ip route del default ppp0
 #ip route add 10.0.0.0/8 dev ppp0 metric 700
 ## alternativ: ip route add 10.60.0.0/16 dev ppp0 metric 700
+
+# alternativ
+#ifconfig eth0 down
+#ifconfig wlan0 down
+#route add -net 0.0.0.0 ppp0
+
 #ip route del 10.64.64.64
 ## oder? ip route del default dev ppp0
 ## Block unwanted traffic
