@@ -11,5 +11,5 @@ then
   echo "${OUT}" >> /var/log/ppp-keep-alive >> /var/log/ppp-keep-alive
 else
   printf '%(%Y-%m-%d %H:%M:%S)T FAIL\n' -1 >> /var/log/ppp-keep-alive
-  pon
+  pon debug
 fi
