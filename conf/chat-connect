@@ -1,4 +1,4 @@
-TIMEOUT 15
+TIMEOUT 90
 ECHO ON
 '' AT
 # Reset then set full functionality 1,1
