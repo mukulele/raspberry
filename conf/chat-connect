@@ -1,10 +1,14 @@
 TIMEOUT 15
 ECHO ON
 '' AT
+# Reset then set full functionality
+OK AT+CFUN=1,1
 OK AT+CGDCONT=1,"IP","iot.1nce.net"
-OK AT+CFUN=1
+# LTE CAT-M only:
 OK AT+CMNB=1
+# Signalquality 
 OK AT+CSQ
+# Network Registration
 OK AT+CEREG?
 OK AT+COPS?
 OK AT+CGDCONT?
