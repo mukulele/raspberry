@@ -1,7 +1,7 @@
 TIMEOUT 15
 ECHO ON
 '' AT
-# Reset then set full functionality
+# Reset then set full functionality 1,1
 OK AT+CFUN=1
 OK AT+CGDCONT=1,"IP","iot.1nce.net"
 # Preferred Mode Selection 38 LTE only, 2 automatic
