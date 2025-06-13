@@ -1,8 +1,4 @@
 #!/bin/bash
-if [[ $UID -ne 0 ]]; then
-   sudo -p 'Restarting as root, password: ' bash $0 "$@"
-   exit $?
-fi
 
 if ping -I ppp0 -c 2 google.com &> /dev/null
 then
