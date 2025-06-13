@@ -48,8 +48,8 @@ apt-get install ppp
 
 #ip route del 10.64.64.64
 ## oder? ip route del default dev ppp0
-## Block unwanted traffic
-iptables -A OUTPUT -d 239.2.1.1 -j DROP
+## Block unwanted traffic see 80-wwan..
+# iptables -A OUTPUT -d 239.2.1.1 -j DROP
 #check resolv.conf in /etc/ppp
 
 
