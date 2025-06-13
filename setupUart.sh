@@ -64,6 +64,7 @@ wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/chat-conne
 #wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/chat-connect-full  -P /etc/chatscripts
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/chat-disconnect  -P /etc/chatscripts
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/ppp-keep-alive.sh  -P /conf
+chmod +x /conf/ppp-keep-alive.sh
 
 crontab <<EOF
 @reboot pon
