@@ -12,7 +12,7 @@ Short description the Basic Script in sort of usage:
 * Can     will setup the CANbus hardware
 * Wifi    hotspot for local access when internet connectivity is down
 * Uart    Sim7000 and PPP
-* Gpsd    noname usb device with gpxlogger and NMEA stream on port 2947
+* Gpsd    noname usb device, gpxlogger, NMEA stream on port 2947, chrony
 
 Some extended Script for a ready System  
 * configBackup...   not used
