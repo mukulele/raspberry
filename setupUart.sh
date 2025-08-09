@@ -66,7 +66,7 @@ wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/chat-disco
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/ppp-keep-alive.sh  -P /conf
 chmod +x /conf/ppp-keep-alive.sh
 
-crontab <<EOF
+crontab -u root -e<<EOF
 @reboot pon
 */15 * * * * /conf/ppp-keep-alive.sh
 EOF
