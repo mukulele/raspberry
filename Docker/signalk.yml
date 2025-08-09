@@ -11,7 +11,7 @@ services:
 #   ----------------------
 #    environment:    # (1/5) SK ENV parameters
 #      - PORT=3000    # (2/5)
-#      - SSLPORT=3443    # (3/5)
+       - SSLPORT=3443    # (3/5)
 #      - NMEA0183PORT=10110    # (4/5)
 #      - TCPSTREAMPORT=8375    # (5/5)
 #   ----------------------
