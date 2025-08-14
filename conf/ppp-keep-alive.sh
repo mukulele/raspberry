@@ -28,7 +28,7 @@ get_bytes() {
 }
 
 get_uptime() {
-    ip link show "$IFACE" 2>/dev/null | grep -q "state UP" && echo "Link is UP" || echo "Link is DOWN"
+    ip link show "$IFACE" 2>/dev/null | grep -q "UP" && echo "Link is UP" || echo "Link is DOWN"
 }
 
 diagnose_failure() {
@@ -36,7 +36,7 @@ diagnose_failure() {
         echo "PPP interface missing"
         return
     fi
-    if ! ip link show "$IFACE" | grep -q "state UP"; then
+    if ! ip link show "$IFACE" | grep -q "UP"; then
         echo "Interface DOWN"
         return
     fi
