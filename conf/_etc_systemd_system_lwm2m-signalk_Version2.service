@@ -1,0 +1,34 @@
+[Unit]
+Description=LwM2M client bridging Signal K to LwM2M (Bootstrap NoSec)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+
+# LwM2M bootstrap (NoSec)
+Environment=LWM2M_ENDPOINT_NAME=rpi-client
+Environment=LWM2M_BOOTSTRAP_URI=coap://<your-1nce-bootstrap-host>:5683
+Environment=LWM2M_SECURITY_MODE=NOSEC
+Environment=LWM2M_LIFETIME=300
+# Optional: Environment=LWM2M_BINDING=U
+# Optional: Environment=LWM2M_QUEUE_MODE=false
+
+# Signal K (paths to be finalized later)
+Environment=SIGNALK_WS_URL=ws://localhost:3000/signalk/v1/stream
+# Environment=SIGNALK_TOKEN=<if-required>
+Environment=UPDATE_PERIOD_MS=1000
+Environment=LOG_LEVEL=info
+
+# Point this to your built binary or jar (to be generated)
+# Example for a fat jar:
+# ExecStart=/usr/bin/java -jar /opt/lwm2m-signalk/lwm2m-signalk.jar
+ExecStart=/usr/local/bin/lwm2m-signalk-client
+
+WorkingDirectory=/opt/lwm2m-signalk
+User=pi
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
