@@ -1,0 +1,36 @@
+#/etc/systemd/system
+[Unit]
+Description=PPP connection for %I
+Documentation=man:pppd(8)
+StartLimitIntervalSec=0
+
+Before=network.target
+Wants=network.target
+After=network-pre.target
+
+[Service]
+# https://github.com/ppp-project/ppp/commit/d34159f417620eb7c481bf53f29fe04c86ccd223
+# otherwsise you can use 'forking' and replace 'up_sdnotify' with 'updetach'
+Type=notify
+# %I provider > chatscript > 1nce
+ExecStart=/usr/sbin/pppd up_sdnotify nolog call %I
+ExecStop=/bin/kill $MAINPID
+ExecReload=/bin/kill -HUP $MAINPID
+StandardOutput=null
+# https://github.com/systemd/systemd/issues/481#issuecomment-544341423
+Restart=always
+RestartSec=5
+
+# All pppd instances on a system must share a runtime
+# directory in order for PPP multilink to work correctly. So
+# we give all instances the same /run/pppd directory to store
+# things in.
+#
+# For the same reason, we can't set PrivateUsers=yes, because
+# all instances need to run as the same user to access the
+# multilink database.
+RuntimeDirectory=pppd
+RuntimeDirectoryPreserve=yes
+
+[Install]
+WantedBy=multi-user.target
