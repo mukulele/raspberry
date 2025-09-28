@@ -1,0 +1,12 @@
+# /etc/ppp/peers
+/dev/ttyAMA0
+115200
+connect "/usr/sbin/chat -v -f /etc/chatscripts/chat-connect"
+noauth
+crtscts
+defaultroute
+mtu 1200
+noipv6
+usepeerdns
+local
+noupdetach
