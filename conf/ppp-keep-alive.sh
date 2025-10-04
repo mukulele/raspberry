@@ -74,7 +74,7 @@ else
 
     if (( FAIL_COUNT >= MAX_FAILS )); then
         log_msg "Restarting PPP (failures reached $MAX_FAILS)"
-        pon
+        systemctl restart pppd@gprs.service
         FAIL_COUNT=0
     fi
 fi
