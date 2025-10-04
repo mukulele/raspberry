@@ -1,0 +1,31 @@
+[Unit]
+Description=PPP connection for %I
+Documentation=man:pppd(8)
+#StartLimitIntervalSec=0
+
+#debug
+#After=network.target
+#Wants=network.target
+
+Before=network.target
+Wants=network.target
+After=network-pre.target
+
+[Service]
+Type=simple
+#debug
+#ExecStart=/usr/sbin/pppd call %I debug nodetach
+ExecStart=/usr/sbin/pppd call %I nodetach
+ExecStop=/bin/kill -TERM $MAINPID
+ExecReload=/bin/kill -HUP $MAINPID
+#debug
+#Restart=on-failure
+Restart=always
+RestartSec=5
+#debug
+#KillMode=control-group
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
