@@ -28,6 +28,7 @@ EOF
 echo 'and BT Module and Wifi will still working'
 fi
 
+# if using usb modem
 echo "disable ModemManager"
 systemctl stop ModemManager
 systemctl disable ModemManager
@@ -36,43 +37,21 @@ systemctl disable ModemManager
 echo "install ppp"
 apt-get install ppp
 
-#@todo add routing in /etc/ppp/ip.up to EOF
-#ip route del default ppp0
-#ip route add 10.0.0.0/8 dev ppp0 metric 700
-## alternativ: ip route add 10.60.0.0/16 dev ppp0 metric 700
-
-# alternativ
-#ifconfig eth0 down
-#ifconfig wlan0 down
-#route add -net 0.0.0.0 ppp0
-
-#ip route del 10.64.64.64
-## oder? ip route del default dev ppp0
-## Block unwanted traffic see 80-wwan..
-# iptables -A OUTPUT -d 239.2.1.1 -j DROP
-#check resolv.conf in /etc/ppp
-
-
 echo "creating directories"
 mkdir -p /etc/chatscripts
 mkdir -p /etc/ppp/peers
 
 echo "downloading ppp config"
-wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/provider  -P /etc/ppp/peers
-#wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/provider-full  -P /etc/ppp/peers
+wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/gprs  -P /etc/ppp/peers
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/chat-connect  -P /etc/chatscripts
-#wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/chat-connect-full  -P /etc/chatscripts
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/chat-disconnect  -P /etc/chatscripts
-wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/ppp-keep-alive.sh  -P /conf
-chmod +x /conf/ppp-keep-alive.sh
+wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/1nce-routes  -P /etc/ppp/ip-up.d
+sudo chmod +x /etc/ppp/ip-up.d/1nce-routes
+wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/ppp@service@.service  -P /etc/systemd/system
+systemctl daemon-reload
+systemctl enable pppd@gprs.service
 
-crontab -u root -e<<EOF
-@reboot pon
-*/15 * * * * /conf/ppp-keep-alive.sh
-EOF
-#requirded py pon
-sudo adduser pi dip
-
+echo
 read -p "Press ENTER key to reboot CTRL c to exit" ENTER
 echo "Rebooting..."
 reboot now
