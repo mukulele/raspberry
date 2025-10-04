@@ -55,7 +55,6 @@ chmod 755 /conf/ppp-keep-alive.sh
 # Prüfen ob Cronjob schon existiert
 CRON_CMD="0 * * * * /conf/ppp-keep-alive.sh >> /var/log/ppp-health.log 2>&1"
 (crontab -l 2>/dev/null | grep -Fv "$CRON_CMD"; echo "$CRON_CMD") | crontab -
-sudo crontab -e
 
 echo
 read -p "Press ENTER key to reboot CTRL c to exit" ENTER
