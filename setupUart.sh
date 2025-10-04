@@ -46,10 +46,16 @@ wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/gprs  -P /
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/chat-connect  -P /etc/chatscripts
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/chat-disconnect  -P /etc/chatscripts
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/1nce-routes  -P /etc/ppp/ip-up.d
-sudo chmod +x /etc/ppp/ip-up.d/1nce-routes
+chmod 755 /etc/ppp/ip-up.d/1nce-routes
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/ppp@service@.service  -P /etc/systemd/system
 systemctl daemon-reload
 systemctl enable pppd@gprs.service
+wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/ppp-keep-alive.sh  -P /conf
+chmod 755 /conf/ppp-keep-alive.sh
+# Prüfen ob Cronjob schon existiert
+CRON_CMD="0 * * * * /conf/ppp-keep-alive.sh >> /var/log/ppp-health.log 2>&1"
+(crontab -l 2>/dev/null | grep -Fv "$CRON_CMD"; echo "$CRON_CMD") | crontab -
+sudo crontab -e
 
 echo
 read -p "Press ENTER key to reboot CTRL c to exit" ENTER
