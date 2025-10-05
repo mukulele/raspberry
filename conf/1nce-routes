@@ -5,6 +5,15 @@
 # Prüfen, ob das Interface ppp0 ist
 [ "$PPP_IFACE" = "ppp0" ] || exit 0
 
+# Your proven working routing setup
+ip route del default $PPP_IFACE 2>/dev/null || true
+ip route add 10.0.0.0/8 dev $PPP_IFACE metric 500
+ip route del 10.64.64.64 2>/dev/null || true
+
+# Multicast blocken
+iptables -A OUTPUT -d 239.2.1.1 -j DROP
+echo "Multicast 239.2.1.1 geblockt"
+
 # Liste der 1NCE-Hostnamen
 HOSTNAMES="udp.os.1nce.com coap.os.1nce.com lwm2m.os.1nce.com"
 
@@ -21,6 +30,19 @@ for host in $HOSTNAMES; do
         echo "DNS-Auflösung fehlgeschlagen für $host"
     fi
 done
-# 2️Mlulticast blocken
-iptables -A OUTPUT -o $PPP_IFACE -d 239.2.1.1 -j DROP
-echo "Multicast 239.2.1.1 über $PPP_IFACE geblockt"
+
+# Add routes for 1NCE DNS servers if they're in 10.x.x.x range
+# Check if 1NCE provided DNS servers in their network range
+if [ -f /etc/ppp/resolv.conf ]; then
+    for DNS_IP in $(grep "^nameserver" /etc/ppp/resolv.conf | awk '{print $2}'); do
+        # Check if DNS server is in 10.x.x.x range
+        if echo "$DNS_IP" | grep -q "^10\."; then
+            if ! ip route show | grep -q "$DNS_IP"; then
+                ip route add $DNS_IP dev $PPP_IFACE
+                echo "Route gesetzt für 1NCE DNS: $DNS_IP über $PPP_IFACE"
+            fi
+        fi
+    done
+fi
+
+echo "1NCE Routing Setup completed"
