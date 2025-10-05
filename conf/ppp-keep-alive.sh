@@ -10,6 +10,7 @@ STATE_FILE="/var/run/ppp-keep-alive-fails"
 IFACE="ppp0"
 MAX_FAILS=3
 TAG="ppp-keep-alive"
+HOST="lwm2m.os.1nce.com"
 
 timestamp() {
     date "+%Y-%m-%d %H:%M:%S"
@@ -48,11 +49,12 @@ diagnose_failure() {
         echo "No default route via $IFACE"
         return
     fi
-    if ! getent hosts google.com >/dev/null; then
+    IP=$(dig +short @"$DNS_SERVER" -b 10.238.250.1 $HOST | head -n1)
+    if ! [ -n "$IP" ]; then
         echo "DNS resolution failed"
         return
     fi
-    echo "Ping failed despite link, IP, route, and DNS being OK"
+    echo "dig lwm2m.os.1nce.com failed despite link, IP, route, and DNS being OK"    
 }
 
 # Load current fail count
