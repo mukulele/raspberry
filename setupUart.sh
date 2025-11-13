@@ -37,19 +37,21 @@ systemctl disable ModemManager
 echo "install ppp"
 apt-get install ppp
 
-echo "creating directories"
-mkdir -p /etc/chatscripts
-mkdir -p /etc/ppp/peers
-
-echo "downloading ppp config"
+# chat
+# copy options to /etc/ppp
+# copy gprs to /etc/ppp/peers
+# routing 1nce-routes
+# copy 1nce-routes to /etc/ppp/ip-up.d
+# start with pppd call gprs
+# or systemd enable pppd@service
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/gprs  -P /etc/ppp/peers
-wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/chat-connect  -P /etc/chatscripts
-wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/chat-disconnect  -P /etc/chatscripts
+wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/options  -P /etc/ppp
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/1nce-routes  -P /etc/ppp/ip-up.d
 chmod 755 /etc/ppp/ip-up.d/1nce-routes
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/ppp@service@.service  -P /etc/systemd/system
 systemctl daemon-reload
 systemctl enable pppd@gprs.service
+
 wget https://raw.githubusercontent.com/mukulele/raspberry/master/conf/ppp-keep-alive.sh  -P /conf
 chmod 755 /conf/ppp-keep-alive.sh
 # Prüfen ob Cronjob schon existiert
