@@ -1,0 +1,60 @@
+# /etc/ppp/options -*- sh -*- general options for pppd
+# Use the executable or shell command specified to set up the serial
+# line.  This script would typically use the "chat" program to dial the
+# modem and start the remote ppp session.
+# Run the executable or shell command specified after pppd has
+# terminated the link.  This script could, for example, issue commands
+# to the modem to cause it to hang up if hardware modem control signals
+# were not available.
+#disconnect "chat -- \d+++\d\c OK ath0 OK"
+dev/ttyAMA0
+115200
+connect "/usr/sbin/chat -v -f /etc/ppp/peers/chat-connect"
+disconnect "/usr/sbin/chat -v -f /etc/ppp/peers/chat-disconnect"
+# Assume ip address allocated dynamically by the ISP
+#noipdefault
+# Do not ask the remote to authenticate
+noauth
+# Use hardware flow control (i.e. RTS/CTS) to control the flow of data
+# on the serial port.
+crtscts
+# Makes PPPD "dial again" when the connection is lost
+#persist
+# Use this connection as the default route to the internet
+defaultroute
+mtu 1200
+noipv6
+# Try to get the name server addresses from the ISP
+usepeerdns
+# No model control lines
+local
+# lock the serial port to avoid race conditions
+#lock
+# Some carriers don't like async compression, disable in case
+#asyncmap 0
+
+# Don't detach from the terminal
+#nodetach
+
+# With this option, pppd will detach from its controlling terminal once it has
+# successfully established the ppp connection (to the point where the first
+# network control protocol, usually the IP control protocol, has come up).
+updetach
+
+# Specifies that pppd should use a UUCP-style lock on the serial device
+# to ensure exclusive access to the device.
+lock
+
+# Do not exit after a connection is terminated; instead try to reopen the
+# connection. The maxfail option still has an effect on persistent connections.
+persist
+
+# Terminate after n consecutive failed connection attempts.
+# A value of 0 means no limit. The default value is 10.
+maxfail 10
+
+# Specifies how many seconds to wait before re-initiating the link after
+# it terminates. This option only has any effect if the persist or demand
+# option is used. The holdoff period is not applied if the link was
+# terminated because it was idle.
+holdoff 30
