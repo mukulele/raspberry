@@ -38,6 +38,7 @@ fi
 # sudo systemctl enable pppd@gprs
 # sudo systemctl start pppd@gprs
 # sudo systemctl status pppd@gprs
+# install modemReset.sh to /conf
 
 
 
